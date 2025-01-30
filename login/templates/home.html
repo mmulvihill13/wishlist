@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+home page
+<a href="{% url 'login:login' %}">logout</a>
+{% endblock content %}
+
+<!-- Have to have this form or else you can't log out
+ bc the accounts/logout from django only takes post -->
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
