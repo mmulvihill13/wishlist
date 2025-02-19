@@ -2,8 +2,10 @@
  padding: 0;
  margin: 0;
  box-sizing: border-box;
- font-family: 'Mulish', sans-serif;
+ font-family: "Bebas Neue", sans-serif, 1rem;
  transition: 0.3s all ease-in-out;
+ letter-spacing: 2px;
+ 
 }
 body{
 display: flex;
@@ -15,12 +17,12 @@ background-color: #432d2d;
 
 .shadow-wrap{
 border-radius: 25px;
-border: 2px solid #F7AD58;
+border: 2px solid #432d2d;
 padding: 20px;
-background-color: white;
+background-color: #ddc1a7;
 }
 .form-wrap{
- background-color: #fff;
+ background-color: #ddc1a7;
 padding: 70px;
 }
 .form-wrap form *{
@@ -36,16 +38,16 @@ line-height: 26px;
 .form-wrap form input{
 padding: 12px 20px;
 border-radius: 5px;
-border: 1px solid #F7AD58;
+border: 1px solid #432d2d;
 background: #FFF; 
-color: #545D7A; 
+color: #e6e2dd; 
 }
 #id_username{
  margin-bottom: 20px;
 }
 .form-wrap button{
  border-radius: 5px;
-background: #F7AD58;
+background: #432d2d;
 color: #FFF;
 cursor: pointer;
 text-align: center;
@@ -72,5 +74,8 @@ text-decoration: none;
  background-color: #fff;
  color: #10182F;
  border-color: #10182F;
-
+}
+h3{
+    text-align: center;
+    padding: 25px;
 }
