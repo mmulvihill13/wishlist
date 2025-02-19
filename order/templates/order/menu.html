@@ -1,0 +1,6 @@
+<h1>Menu</h1>
+<ul>
+    {% for drink in drinks %}
+        <li>{{ drink.name }} - ${{ drink.price }}</li>
+    {% endfor %}
+</ul>

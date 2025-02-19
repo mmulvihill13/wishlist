@@ -9,4 +9,5 @@ urlpatterns = [
     path("accounts/logout/", LogoutView.as_view(), name="logout"),
     path("", include(("home.urls", "home"), namespace="home")),  # Set new home app as the default route
     path("login/", include(("login.urls", "login"), namespace="login")),  # Keep login routes
+    path('order/', include('order.urls')),
 ] + static(settings.STATIC_URL)
