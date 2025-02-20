@@ -22,13 +22,16 @@
     </div>
 
     <div class="main-content">
-        <button class="order-btn">ORDER NOW</button>
+        <button class="order-btn" >
+            <a class="order-btn" href="{% url 'order:menu' %}">ORDER NOW</a>
+        </button>
     </div>
+    
 
     <div class="nav-bar">
         <a href="#" class="nav-item"><i class="bi bi-house-heart"></i><br>Home</a>
         <a href="#" class="nav-item"><i class="bi bi-search-heart"></i><br>Search</a>
-        <a href="#" class="nav-item"><i class="bi bi-cup-hot"></i><br>Order</a>
+        <a href="{% url 'order:menu' %}" class="nav-item"><i class="bi bi-cup-hot"></i><br>Order</a>
         <a href="#" class="nav-item"><i class="bi bi-bag-heart"></i><br>Rewards</a>
         <a href="#" class="nav-item"><i class="bi bi-person-heart"></i><br>Account</a>
     </div>
