@@ -136,3 +136,6 @@ GitHub.sublime-settings
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history"db.sqlite3" 
+
+# JavaScript/Node.js
+node_modules/ 

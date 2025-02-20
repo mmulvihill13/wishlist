@@ -65,12 +65,16 @@ body {
     letter-spacing: 1px;
 }
 
-i{
+i {
     font-size: 1.5rem;
 }
-img{
+img {
     width: 120px;
     height: auto;
 }
-a { text-decoration: none; }
-a:visited { text-decoration: none; }
+a {
+     text-decoration: none; 
+}
+a:visited {
+    text-decoration: none; 
+}
