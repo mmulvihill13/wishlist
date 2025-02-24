@@ -10,4 +10,5 @@ urlpatterns = [
     path("", include(("home.urls", "home"), namespace="home")),  # Set new home app as the default route
     path("login/", include(("login.urls", "login"), namespace="login")),  # Keep login routes
     path('order/', include('order.urls')),
+    path('rewards/', include("rewards.urls")),
 ] + static(settings.STATIC_URL)
