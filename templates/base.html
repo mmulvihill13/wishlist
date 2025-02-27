@@ -25,11 +25,16 @@
         {% block content %}{% endblock %}
     </div>
 
-    <div class="nav-bar">
-        <a href="{% url 'home:home' %}" class="nav-item"><i class="bi bi-house-heart"></i><br>Home</a>
-        <a href="{% url 'order:menu' %}" class="nav-item"><i class="bi bi-cup-hot"></i><br>Order</a>
-        <a href="{% url 'rewards:reward' %}" class="nav-item"><i class="bi bi-bag-heart"></i><br>Rewards</a>
-        <a href="{% url 'settings:setting' %}" class="nav-item"><i class="bi bi-person-heart"></i><br>Account</a>
-    </div>   
+
 </body>
+
+    <footer>
+            <div class="nav-bar">
+                <a href="{% url 'home:home' %}" class="nav-item"><i class="bi bi-house-heart"></i><br>Home</a>
+                <a href="{% url 'order:menu' %}" class="nav-item"><i class="bi bi-cup-hot"></i><br>Order</a>
+                <a href="{% url 'rewards:reward' %}" class="nav-item"><i class="bi bi-bag-heart"></i><br>Rewards</a>
+                <a href="{% url 'settings:setting' %}" class="nav-item"><i class="bi bi-person-heart"></i><br>Account</a>
+            </div>
+    </footer>
+    
 </html>
