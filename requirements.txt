@@ -1,4 +1,15 @@
 asgiref==3.8.1
-Django==5.1.4
+Django==5.1.5
+dnspython==2.7.0
+gunicorn==23.0.0
+mod_wsgi==5.0.2
+packaging==24.2
+psycopg2-binary==2.9.10
+pygame==2.5.2
+pygame-menu==4.4.3
+pymongo==4.10.1
+pyperclip==1.8.2
+python-decouple==3.8
+setuptools==75.7.0
 sqlparse==0.5.3
-tzdata==2024.2
+typing_extensions==4.8.0
