@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="main-content">
-    <h1>Welcome to your settings</h1>
-</div>
-{% endblock %}
+
+    <h1>Welcome, {{ user.username }}!</h1>
+    <p>Email: {{ user.email }}</p>
+    
+    <h2>Manage Your Account</h2>
+    <ul>
+        <li><a href="#">Change Password</a></li>
+        <li><a href="#">Update Profile</a></li>
+    </ul>
+
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+    {% endblock %}
