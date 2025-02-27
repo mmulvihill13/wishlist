@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'login',
     'home',
     'order',
-    'rewards'
+    'rewards',
+    'settings'
 ]
 
 MIDDLEWARE = [

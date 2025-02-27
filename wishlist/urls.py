@@ -11,4 +11,5 @@ urlpatterns = [
     path("login/", include(("login.urls", "login"), namespace="login")),  # Keep login routes
     path('order/', include('order.urls')),
     path('rewards/', include("rewards.urls")),
+    path('settings/', include("settings.urls")),
 ] + static(settings.STATIC_URL)
