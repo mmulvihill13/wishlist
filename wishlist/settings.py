@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-%4k1zs8cbv(^u^k#kp=qdenr=6+7l-klkg=_21id95drl!&scp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['morning-grind.fly.dev']
+ALLOWED_HOSTS = ['morning-grind.fly.dev', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = [
     'https://morning-grind.fly.dev',
 ]
@@ -83,9 +83,13 @@ WSGI_APPLICATION = 'wishlist.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'uAXuJOHOamCIfaS',
+        'HOST': 'mg-db.internal',
+        'PORT': '5432',
+    }
     # "default":{
     #     'ENGINE': 'django.db.backends.postgresql',
     #     'NAME': config('DB_NAME'),
