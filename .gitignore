@@ -139,3 +139,4 @@ GitHub.sublime-settings
 
 # JavaScript/Node.js
 node_modules/ 
+.env
