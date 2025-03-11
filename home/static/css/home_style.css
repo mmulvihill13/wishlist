@@ -50,6 +50,11 @@ body {
     cursor: pointer;
 }
 
+nav{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 .nav-bar {
     display: flex;
     justify-content: space-around;
