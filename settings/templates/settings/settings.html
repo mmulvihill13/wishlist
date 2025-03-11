@@ -2,17 +2,7 @@
 
 {% block content %}
 
-    <h1>Welcome, {{ user.username }}!</h1>
+    <h1>Welcome, {{ user.first_name }} {{user.last_name}}!</h1>
+    <p>Username: {{user.username}}<p>
     <p>Email: {{ user.email }}</p>
-    
-    <h2>Manage Your Account</h2>
-    <ul>
-        <li><a href="#">Change Password</a></li>
-        <li><a href="#">Update Profile</a></li>
-    </ul>
-
-    <form action="{% url 'logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
     {% endblock %}
