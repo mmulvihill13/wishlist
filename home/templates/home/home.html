@@ -1,8 +1,22 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="main-content">
-    <button class="order-btn" >
-        <a class="order-btn" href="{% url 'order:menu' %}">ORDER NOW</a>
-    </button>
+<div class="announcement">
+    <span class="accouncement-text">-Announcements New Drink Launched-</span>
+</div>  
+<div class="main-content"> 
+    <div class="container">
+        <div class="temp-img">This would be an image</div>
+        <div>
+            <button class="order-btn" >
+                <a href="{% url 'order:menu' %}">ORDER NOW</a>
+            </button>
+        </div>
+    </div>
+    <div class="container">
+        <div>
+            
+        </div>
+    </div>
 </div>
 {% endblock %}
