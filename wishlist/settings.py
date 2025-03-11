@@ -11,7 +11,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+import dj_database_url 
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,14 +85,17 @@ WSGI_APPLICATION = 'wishlist.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'uAXuJOHOamCIfaS',
-        'HOST': 'mg-db.internal',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
+}
+
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'postgres',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'uAXuJOHOamCIfaS',
+    #     'HOST': 'mg-db.internal',
+    #     'PORT': '5432',
+    # }
     # "default":{
     #     'ENGINE': 'django.db.backends.postgresql',
     #     'NAME': config('DB_NAME'),
@@ -98,7 +104,7 @@ DATABASES = {
     #     'HOST': config('DB_HOST'),
     #     'PORT': config('DB_PORT', default='5432')
     # }
-}
+
 
 
 # Password validation
@@ -139,7 +145,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/code/static'
 
 
-import os
+
 
 #STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
