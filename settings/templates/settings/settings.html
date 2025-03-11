@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="main-content">
-    <h1>Welcome to your settings</h1>
-</div>
-{% endblock %}
+
+    <h1>Welcome, {{ user.first_name }} {{user.last_name}}!</h1>
+    <p>Username: {{user.username}}<p>
+    <p>Email: {{ user.email }}</p>
+    {% endblock %}
