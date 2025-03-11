@@ -1,0 +1,44 @@
+body {
+    font-family: "Bebas Neue", sans-serif;
+    background-color: #CBB098;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+    padding: 20px 0 10px 0;
+    color: #432D2D;
+    border-bottom: 3px solid #432D2D;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+}
+
+.grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #DDC1A7;
+    padding: 10px;
+    border-radius: 10px;
+    color: #432D2D;
+}
+
+.drink-img img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.drink-info{
+    padding-left: 15px;
+    font-size: 35px;
+    text-align: center;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
