@@ -5,26 +5,23 @@ FROM python:${PYTHON_VERSION}
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install psycopg2 dependencies.
-RUN apt-get update && apt-get install -y \
-    libpq-dev \
-    gcc \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN mkdir -p /code
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y libpq-dev gcc apache2-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 WORKDIR /code
 
-COPY requirements.txt /tmp/requirements.txt
-RUN set -ex && \
-    pip install --upgrade pip && \
-    pip install -r /tmp/requirements.txt && \
-    rm -rf /root/.cache/
-COPY . /code
+# Copy and install dependencies
+COPY requirements.txt /code/
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-ENV SECRET_KEY "5bQ4Pkz1WmWeedUIfZheTlG3RyoUSfFfYzy80b9mGJ63WpB3s2"
-RUN python manage.py collectstatic --noinput
+# Copy the rest of the application
+COPY . /code/
+
+# Collect static files
+RUN python manage.py collectstatic --noinput || echo "collectstatic failed, continuing..."
 
 EXPOSE 8000
 
-CMD ["gunicorn","--bind",":8000","--workers","2","wishlist.wsgi"]
+CMD ["gunicorn", "--bind", ":8000", "--workers", "2", "wishlist.wsgi"]

@@ -29,6 +29,7 @@ SECRET_KEY = 'django-insecure-%4k1zs8cbv(^u^k#kp=qdenr=6+7l-klkg=_21id95drl!&scp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = ['morning-grind.fly.dev', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = [
     'https://morning-grind.fly.dev',
@@ -83,6 +84,9 @@ WSGI_APPLICATION = 'wishlist.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
+# haynes database connection stuff just leave for now
+# DATABASE_URL = os.environ.get('DATABASE_URL')
 
 DATABASES = {
     'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))

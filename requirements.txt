@@ -1,7 +1,9 @@
 asgiref==3.8.1
+dj-database-url==2.3.0
 Django==5.1.5
 dnspython==2.7.0
 gunicorn==23.0.0
+mod_wsgi==5.0.2
 packaging==24.2
 psycopg2-binary==2.9.10
 pygame==2.5.2
@@ -9,6 +11,8 @@ pygame-menu==4.4.3
 pymongo==4.10.1
 pyperclip==1.8.2
 python-decouple==3.8
+python-dotenv==1.0.1
 setuptools==75.7.0
 sqlparse==0.5.3
 typing_extensions==4.8.0
+whitenoise==6.9.0
