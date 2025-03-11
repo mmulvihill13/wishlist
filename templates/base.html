@@ -21,9 +21,7 @@
     </div>
 
     <!--Application Things-->
-    <div class="container">
-        {% block content %}{% endblock %}
-    </div>
+    {% block content %}{% endblock %}
 
     <div class="nav-bar">
         <a href="{% url 'home:home' %}" class="nav-item"><i class="bi bi-house-heart"></i><br>Home</a>
