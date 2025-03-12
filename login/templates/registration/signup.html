@@ -5,7 +5,7 @@
   <h3>Signup </h3>
 <form method="POST">
  {% csrf_token %}
- {{form}}
+ {{form.as_p}}
  <button type="submit">Submit</button>
 </form>
 <a class="signup-link" href="{% url 'login:login' %}">Login</a>
