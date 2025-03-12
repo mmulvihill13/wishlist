@@ -1,22 +1,25 @@
 {% extends 'base.html' %}
-
+{%load static%}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/home_style.css' %}">
 <div class="announcement">
     <span class="accouncement-text">-Announcements New Drink Launched-</span>
 </div>  
 <div class="main-content"> 
-    <div class="container">
+    <div class="container display-flex">
         <div class="temp-img">This would be an image</div>
-        <div>
+
             <button class="order-btn" >
                 <a href="{% url 'order:menu' %}">ORDER NOW</a>
             </button>
-        </div>
+
     </div>
     <div class="container">
-        <div>
-            
+        <div class="border-top-bottom">
+            <h2 >What is going on with</h2>
+            <h1>Morning grind</h1>
         </div>
+        <div class="temp-img2">Temp Img 2</div>
     </div>
 </div>
 {% endblock %}
