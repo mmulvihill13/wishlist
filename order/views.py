@@ -2,5 +2,7 @@ from django.shortcuts import render
 from .models import Drink
 
 def menu(request):
-    drinks = Drink.objects.filter(in_stock=True)
-    return render(request, 'order/menu.html', {'drinks': drinks})
+    coldDrinks = Drink.objects.filter(in_stock=True).filter(category__name='Cold Drinks')
+    hotDrinks = Drink.objects.filter(in_stock=True).filter(category__name='Hot Drinks')
+    
+    return render(request, 'order/menu.html',  {'hotDrinks': hotDrinks , 'coldDrinks': coldDrinks})

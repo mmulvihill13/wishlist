@@ -15,15 +15,27 @@
 
 
     <div class="grid-container">
-            {% for drink in drinks %}
-                <button class="grid-item">
-                    <div class="drink-img">
-                        <img src="{% static '/images/coffeeEx.jpg' %}" alt="Coffee Example">
-                    </div>
-                    <div class="drink-info">
-                        {{ drink.name }} - ${{ drink.price }}
-                    </div>
-                </button>
-            {% endfor %}
+        <h1>cold</h1>
+        {% for drink in coldDrinks %}
+            <button class="grid-item">
+                <div class="drink-img">
+                    <img src="{% static '/images/coffeeEx.jpg' %}" alt="Coffee Example">
+                </div>
+                <div class="drink-info">
+                    {{ drink.name }} - ${{ drink.price }}
+                </div>
+            </button>
+        {% endfor %}
+        <h1>hot</h1>
+        {% for drink in hotDrinks %}
+            <button class="grid-item">
+                <div class="drink-img">
+                    <img src="{% static '/images/coffeeEx.jpg' %}" alt="Coffee Example">
+                </div>
+                <div class="drink-info">
+                    {{ drink.name }} - ${{ drink.price }}
+                </div>
+            </button>
+        {% endfor %}
     </div>
 {% endblock %}
