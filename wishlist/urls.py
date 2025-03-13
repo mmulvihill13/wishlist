@@ -12,4 +12,5 @@ urlpatterns = [
     path('order/', include('order.urls')),
     path('rewards/', include("rewards.urls")),
     path('settings/', include("settings.urls")),
+    path('cart/', include("cart.urls")),
 ] + static(settings.STATIC_URL)
