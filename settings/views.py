@@ -26,3 +26,6 @@ def update_user(request):
 
     return render(request, "settings/update_user.html", {"form": form})
 
+@login_required
+def account_page(request):
+    return render(request, "settings/account.html")
