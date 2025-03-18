@@ -91,6 +91,10 @@ h1.types{
     align-items: center;
 }
 
+.space{
+    padding: 50px;
+}
+
 @media only screen and (max-width: 767px) {
         .grid-container {
                 display: grid;
