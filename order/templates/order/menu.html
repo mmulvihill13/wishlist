@@ -4,6 +4,7 @@
 
 {% block content %}
     <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet"> 
     <div class="cart-container">
@@ -13,29 +14,38 @@
     <h1>Our Menu</h1>
     <div class="element"></div>
 
-
-    <div class="grid-container">
-        <h1>cold</h1>
+    <h1 class="types">Cold Drinks</h1>
+    <div class="grid-container"> 
         {% for drink in coldDrinks %}
-            <button class="grid-item">
+            <a href="{% url 'order:detailed_menu' drink.name%}" class="grid-item">
                 <div class="drink-img">
                     <img src="{% static '/images/coffeeEx.jpg' %}" alt="Coffee Example">
                 </div>
                 <div class="drink-info">
-                    {{ drink.name }} - ${{ drink.price }}
+                    {{ drink.name }}
+                    <br>
+                    ${{ drink.price }}
                 </div>
-            </button>
+            </a>
         {% endfor %}
-        <h1>hot</h1>
+    </div>
+
+    <h1 class="types">Hot Drinks</h1>
+        <div class="grid-container">
         {% for drink in hotDrinks %}
-            <button class="grid-item">
-                <div class="drink-img">
-                    <img src="{% static '/images/coffeeEx.jpg' %}" alt="Coffee Example">
-                </div>
-                <div class="drink-info">
-                    {{ drink.name }} - ${{ drink.price }}
-                </div>
-            </button>
+        <a href="{% url 'order:detailed_menu' drink.name %}" class="grid-item">
+            <div class="drink-img">
+                <img src="{% static '/images/coffeeEx.jpg' %}" alt="Coffee Example">
+            </div>
+            <div class="drink-info">
+                {{ drink.name }}
+                <br>
+                ${{ drink.price }}
+            </div>
+        </a>
         {% endfor %}
     </div>
 {% endblock %}
+
+<script>
+</script>

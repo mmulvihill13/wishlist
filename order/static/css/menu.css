@@ -39,29 +39,36 @@ h1 {
     color: #432D2D;
     margin: 2px 0 0 0;
 }
+h1.types{
+    text-align: left;
+    margin-left: 200px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
 
 .element{
         border-bottom: 4px solid #432D2D;
         width: 150px;
-        margin: 15px auto;
+        margin: 5px auto;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 5px;
-}
+    grid-template-columns: repeat(2,1fr);
+    gap: 10px;
+    margin-left: 200px;
+    margin-right: 200px;
 
+}
 .grid-item {
-    all: unset;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #DDC1A7;
-    padding: 10px;
-    border-radius: 10px;
-    color: #432D2D;
+            all: unset;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            background-color: #DDC1A7;
+            padding: 10px;
+            border-radius: 10px;
+            color: #432D2D;
 }
 
 .grid-item:hover{
@@ -76,10 +83,44 @@ h1 {
 }
 
 .drink-info{
-    padding-left: 15px;
     font-size: 35px;
     text-align: center;
     flex-grow: 1;
     display: flex;
+    justify-content: center;
     align-items: center;
+}
+
+@media only screen and (max-width: 767px) {
+        .grid-container {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 5px;
+                margin-top: 0px;
+                margin-left: 100px;
+                margin-right: 100px;
+        }
+        .drink-info {
+            padding-left: 15px;
+            font-size: 1.5rem;
+            text-align: center;
+            flex-grow: 1;
+            display: grid;
+            align-items: center;
+        }
+        .drink-img img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        h1.types {
+            text-align: left;
+            margin-left: 110px;
+            margin-bottom: 0px;
+            margin-top: 10px;
+        }
+        .grid-item {
+            margin: 0 0 0 0;
+        }
 }

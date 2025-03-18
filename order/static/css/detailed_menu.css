@@ -1,0 +1,123 @@
+body {
+    font-family: "Bebas Neue", sans-serif;
+    background-color: #CBB098;
+}
+
+.cart-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.cart-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 10px 20px;
+    background-color: #DDC1A7;
+    color: #432D2D;
+    text-decoration: none;
+    font-size: 22px;
+    width: 40px;
+    height: 50px;
+    text-align: center;
+}
+
+.cart-button i {
+    font-size: 30px;
+}
+
+.cart-button:hover {
+    background-color: #fff4eb;
+}
+
+h1 {
+    letter-spacing: 3px;
+    text-align: center;
+    color: #432D2D;
+    margin: 2px 0 0 0;
+}
+
+h1.types {
+    text-align: left;
+    margin-left: 200px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.element {
+    border-bottom: 4px solid #432D2D;
+    width: 150px;
+    margin: 5px auto;
+}
+
+.cart-btn {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 200px;
+    height: 50px;
+}
+.cancel-btn{
+    position: fixed;
+        bottom: 60px;
+        left: calc(50% + 220px);
+        background-color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 15px 30px;
+        font-size: 26px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        text-decoration: none;
+        color: #432D2D;
+}
+@media only screen and (max-width: 767px) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 5px;
+        margin-top: 0px;
+        margin-left: 100px;
+        margin-right: 100px;
+    }
+
+    .drink-info {
+        padding-left: 15px;
+        font-size: 1.5rem;
+        text-align: center;
+        flex-grow: 1;
+        display: grid;
+        align-items: center;
+    }
+
+    .drink-img img {
+        width: 75px;
+        height: 75px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    h1.types {
+        text-align: left;
+        margin-left: 110px;
+        margin-bottom: 0px;
+        margin-top: 10px;
+    }
+
+    .grid-item {
+        margin: 0 0 0 0;
+    }
+}
