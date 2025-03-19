@@ -7,4 +7,5 @@ app_name = "order"
 urlpatterns = [
     path('menu/', menu, name='menu'),
     path('detailed-menu/<str:drink_name>/', views.detailed_menu, name='detailed_menu'),
+
 ]

@@ -12,7 +12,56 @@
 
 <h1>Our Menu</h1>
 <div class="element"></div>
-<h1>Details for {{ drink_name }}</h1>
-<button class="cart-btn">Add to Order</button>
+<input type="hidden" name="drink_id" value="{{ drink.id }}">
+
+<h2>{{ drink.name }}</h2>
+<p>{{ drink.description }}</p>
+<p><strong>Price:</strong> ${{ drink.price }}</p>
+
+<!-- customizations -->
+{% if drink.sizes or drink.milk_options or drink.syrup_options or drink.extra_shots %}
+    <h3>Customizations</h3>
+    <form>
+        {% csrf_token %} 
+
+        {% if drink.sizes %}
+            <label for="size">Size:</label>
+            <select name="size" id="size">
+                {% for size in drink.sizes %}
+                    <option value="{{ size }}">{{ size }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+
+        {% if drink.milk_options %}
+            <label for="milk">Milk Options:</label>
+            <select name="milk" id="milk">
+                {% for milk in drink.milk_options %}
+                    <option value="{{ milk }}">{{ milk }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+
+        {% if drink.syrup_options %}
+            <label for="syrup">Syrup Options:</label>
+            <select name="syrup" id="syrup">
+                {% for syrup in drink.syrup_options %}
+                    <option value="{{ syrup }}">{{ syrup }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+
+        {% if drink.extra_shots %}
+            <label>
+                <input type="checkbox" name="extra_shots"> Add Extra Shot
+            </label>
+        {% endif %}
+
+        <button type="submit" class="cart-btn">Add to Order</button>
+    </form>
+{% else %}
+    <p>No customizations available for this drink.</p>
+{% endif %}
+
 <a href="{% url 'order:menu'%}" class="cancel-btn">X</a>
 {% endblock %}
