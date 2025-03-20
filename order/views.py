@@ -10,7 +10,7 @@ def menu(request):
     
     return render(request, 'order/menu.html',  {'hotDrinks': hotDrinks , 'coldDrinks': coldDrinks})
 
-def detailed_menu(request, drink_id):
+def detailed_menu(request, drink_id, drink_name):
     drink = get_object_or_404(Drink, id=drink_id)
     customizations = {
         'sizes': drink.sizes,
