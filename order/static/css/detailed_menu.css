@@ -2,6 +2,23 @@ body {
     font-family: "Bebas Neue", sans-serif;
     background-color: #CBB098;
 }
+.center{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.main-container{
+    color: #432D2D;
+    background-color: #BA9D83;
+    border-radius: 8px;
+    gap: 10px;
+    width: 80%;
+    padding: 30px;
+    max-width: 900px;
+    margin-bottom: 5%;
+    margin-top: 50px;
+}
 
 .cart-container {
     display: flex;
@@ -21,7 +38,7 @@ body {
     text-decoration: none;
     font-size: 22px;
     width: 40px;
-    height: 50px;
+    height: 25px;
     text-align: center;
 }
 
@@ -36,7 +53,7 @@ body {
 h1 {
     letter-spacing: 3px;
     text-align: center;
-    color: #432D2D;
+    color: #3b2825;
     margin: 2px 0 0 0;
 }
 
@@ -47,8 +64,31 @@ h1.types {
     margin-top: 10px;
 }
 
+h2{
+    text-align: center;
+    font-size: 200%;
+    color: #3b2825;
+    padding: 0;
+    margin: 0;
+}
+
+p{
+    font-size: 125%;
+}
+
+.desc{
+    text-align: center;
+    font-style: italic;
+    padding: 0;
+    margin: 0;
+}
+
+h3{
+    font-size: 200%;
+}
+
 .element {
-    border-bottom: 4px solid #432D2D;
+    border-bottom: 4px solid #3b2825;
     width: 150px;
     margin: 5px auto;
 }
