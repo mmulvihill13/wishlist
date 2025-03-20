@@ -3,23 +3,13 @@ body {
     padding: 0;
     box-sizing: border-box;
     font-family: "Bebas Neue", sans-serif;
+
     background-color: #D9B99B;
     display: flex;
     flex-direction: column;
+    
     min-height: 100vh;
-    justify-content: space-between;
-}
-
-.header {
-    background-color: #4A2E2A;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    align-items: center;
-    text-align: right;
-    font-size: 2rem;
-    letter-spacing: 5px;
+    justify-content: space-around;
 }
 
 .logo {
@@ -35,26 +25,35 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;  /* Center containers horizontally */
-    flex-grow: 1;
-    min-width: 0;
+    align-items: center;
 }
 
-.container {
+.container1 {
     background-color: #BA9D83;
     border-radius: 8px;
+    gap: 10px;
+    display: grid;
+    grid-template-columns: 60% 40%;
     width: 80%;
-    flex-direction: row;  /* Keep content inside as rows */
-    align-items: center;
     padding: 30px;
-    gap: 20px; /* Space between the content blocks */
+    max-width: 900px;
+    margin-bottom: 5%;
+}
+
+
+
+.container2 {
+    background-color: #BA9D83;
+    border-radius: 8px;
+
+    display: grid;
+
+    width: 80%;
+    padding: 30px;
+    max-width: 900px;
     margin-bottom: 10%;
 }
 
-.display-flex{
-    display:flex;
-    justify-content: space-between;  /* Space out the content blocks */
-}
 
 .border-top-bottom {
     text-align: center;
@@ -78,14 +77,16 @@ h1 {
 }
 
 .temp-img {
-    height: 250;
-    width: 60%;
+    grid-column: 1;
+    width: 100%;
+    height: 400px;
+    object-fit: cover; /* Ensures the image covers the area without distortion */
     background-color: darkslategray;
 }
 
 .temp-img2{
     display: flex;
-    height: 250px;
+    height: 350px;
     margin: auto;
     width: 90%;
     background-color: darkslategray;
@@ -106,15 +107,22 @@ h1 {
 }
 
 .order-btn {
+    grid-column: 2;
     background-color: white;
-    color: #4A2E2A;
+    color: #3b2825;
+    box-shadow: 2px 5px 2px #6b413a;
+
+    place-self: center; /* Centers the button in its grid cell */
+    margin: 0 auto;
+    padding: 10% 15%;
+
+    border-radius: 30px;
     border: none;
-    border-radius: 40px;
-    padding: 30px 40px;
-    font-size: 16px;
+    
+    font-size: 30px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 2px 5px 2px #6b413a;
+    
 }
 
 nav {
@@ -154,4 +162,47 @@ a {
 
 a:visited {
     text-decoration: none;
+}
+
+
+@media (max-width: 1000px) {
+    .order-btn {
+        grid-column: 2;
+        background-color: white;
+        color: #3b2825;
+        box-shadow: 2px 5px 2px #3b2825;
+
+        place-self: center; /* Centers the button in its grid cell */
+        margin: 0 auto;
+        padding: 10% 15%;
+    
+        border-radius: 15px;
+        border: none;
+        
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        
+    } 
+
+    .temp-img {
+        grid-column: 1;
+        width: 100%;
+        height: 200px;
+        object-fit: cover; /* Ensures the image covers the area without distortion */
+        background-color: darkslategray;
+    }
+
+    .temp-img2{
+        display: flex;
+        height: 250px;
+        margin: auto;
+        width: 100%;
+        background-color: darkslategray;
+    }
+
+    h1 {
+        letter-spacing: 10px;
+        font-size: 40px;
+    }
 }
