@@ -14,14 +14,24 @@ class Cart():
         self.cart = cart
     
     #Make add function
-    def add(self, drink):
-        drink_id = str(drink.id)
+    def add(self, drink, size, milk, syrup, extra_shots):
+        
+        cart_key = f"{drink.id}-{size}-{milk}-{syrup}-{'extra' if extra_shots else 'no-extra'}"
 
-        #logic
-        if drink_id in self.cart:
-            pass
+        # Check if the drink with these customizations is already in the cart
+        if cart_key in self.cart:
+            self.cart[cart_key]['quantity'] += 1
         else:
-            self.cart[drink_id] = {'price': str(drink.price)}
+            # new entry with customizations
+            self.cart[cart_key] = {
+                'name': drink.name,
+                'price': str(drink.price),  # Convert Decimal to string for JSON compatibility
+                'size': size,
+                'milk': milk,
+                'syrup': syrup,
+                'extra_shots': extra_shots,
+                'quantity': 1
+            }
         
         self.session.modified = True
 
@@ -30,9 +40,12 @@ class Cart():
         return len(self.cart)
     
     def get_drinks(self):
-        #Get ids from cart
-        drink_ids = self.cart.keys()
-        #use ids to lookup drinks in database model
+        # Get all the keys (customized drink entries)
+        cart_keys = self.cart.keys()
+
+        # Use the drink IDs from the keys to lookup the actual drinks in the database
+        drink_ids = [key.split('-')[0] for key in cart_keys]  # Extract the drink ID from the key
         drinks = Drink.objects.filter(id__in=drink_ids)
-        #Return those looked up drinks
+
+        # Return the corresponding drinks
         return drinks

@@ -9,7 +9,11 @@
     <h1>Welcome to your cart</h1>
     {% if cart_drinks %}
         {% for drink in cart_drinks %}
-            {{drink}} : {{drink.price}} <br>
+            {{drink.drink.name}} : ${{drink.price}} <br>
+            Size : {{drink.size}} <br>
+            Syrup : {{drink.syrup}} <br>
+            Milk : {{drink.milk}} <br>
+
         {% endfor %}
     {% else %}
         <h2>There is nothing in your cart!</h2>
