@@ -42,6 +42,7 @@ def cart_add(request):
     
     if request.method == 'POST':
         drink_id = request.POST.get('drink_id') #gather customizations
+        drink_qty = request.POST.get('drink_qty')
         size = request.POST.get('size')
         milk = request.POST.get('milk')
         syrup = request.POST.get('syrup')
@@ -54,7 +55,7 @@ def cart_add(request):
         cart_key = f"{drink_id}-{size}-{milk}-{syrup}-{'extra' if extra_shots else 'no-extra'}"
         
         # add item to the cart with customizations
-        cart.add(drink=drink, size=size, milk=milk, syrup=syrup, extra_shots=extra_shots)
+        cart.add(drink=drink, size=size, milk=milk, syrup=syrup, extra_shots=extra_shots, quantity =drink_qty)
         
         # get cart quantity
         cart_quantity = cart.__len__()
