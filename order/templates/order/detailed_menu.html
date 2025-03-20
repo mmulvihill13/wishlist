@@ -74,11 +74,22 @@
     //Check if the button is pressed
     $(document).on('click', '#add-cart', function(e){
         e.preventDefault();
+
+        let drinkId = $('#add-cart').val();  //store customizations
+        let size = $('#size').val();  
+        let milk = $('#milk').val();  
+        let syrup = $('#syrup').val();  
+        let extraShots = $('input[name="extra_shots"]').is(':checked');  
+
         $.ajax({
             type: 'POST',
             url: "{% url 'cart_add' %}", //** double quote error
             data: {
                 drink_id: $('#add-cart').val(),
+                size: size,
+                milk: milk,
+                syrup: syrup,
+                extra_shots: extraShots,
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
