@@ -6,13 +6,55 @@
 <link rel="stylesheet" href="{% static 'css/detailed_menu.css' %}">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-<div class="cart-container">
-    <a href="{% url 'cart' %}" class="cart-button"><i class="bi bi-cart"></i>Cart(0)</a>
-</div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+{% include 'order/menu_nav.html' %}
 
 <h1>Our Menu</h1>
 <div class="element"></div>
-<h1>Details for {{ drink_name }}</h1>
-<button class="cart-btn">Add to Order</button>
+<!--Drink information-->
+<h1>Details for {{ drink.name }}</h1>
+<h3>{{drink.price}}</h3>
+
+<!--Add to cart Button-->
+<button type="button" class="cart-btn" value={{ drink.id }} id="add-cart">Add to Cart</button>
+
+<!--This is the home button-->
 <a href="{% url 'order:menu'%}" class="cancel-btn">X</a>
+
+<script>
+    //Check if the button is pressed
+    $(document).on('click', '#add-cart', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart_add' %}", //** double quote error
+            data: {
+                drink_id: $('#add-cart').val(),
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function (json) {
+                // console.log("Cart updated:", json);
+                // let cartQuantity = $('#cart_quantity');
+                // if (cartQuantity.length) {
+                //     cartQuantity.text(json.qty);
+                // } else {
+                //     console.error("Cart quantity element not found!");
+                // }
+                // console.log("Cart updated:", json);
+                // console.log("Received qty:", json.qty);
+                // console.log("Cart updated:", json);
+                // console.log("Before update:", $('#cart_quantity').text());
+                $('#cart_quantity').empty().append(json.qty);
+            },
+            error: function(xhr, errmsg, err){
+                console.log("AJAX Error:", errmsg);
+            }
+        })
+
+
+    })
+</script>
 {% endblock %}
