@@ -4,7 +4,10 @@ from order.models import Drink
 from django.http import JsonResponse
 
 def cart_view(request): 
-    return render(request, "cart/cart.html", {})
+    #Get the cart
+    cart = Cart(request)
+    cart_drinks = cart.get_drinks
+    return render(request, "cart/cart.html", {"cart_drinks":cart_drinks})
 
 def cart_add(request):
     #Get the cart

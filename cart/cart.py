@@ -1,3 +1,4 @@
+from order.models import Drink
 class Cart():
     def __init__(self, request):
         self.session = request.session
@@ -27,3 +28,11 @@ class Cart():
     #number of itmes
     def __len__(self):
         return len(self.cart)
+    
+    def get_drinks(self):
+        #Get ids from cart
+        drink_ids = self.cart.keys()
+        #use ids to lookup drinks in database model
+        drinks = Drink.objects.filter(id__in=drink_ids)
+        #Return those looked up drinks
+        return drinks
