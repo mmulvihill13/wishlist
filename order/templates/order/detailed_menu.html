@@ -58,7 +58,7 @@
             </label>
         {% endif %}
 
-        <button type="submit" class="cart-btn">Add to Order</button>
+        <button type="submit" class="cart-btn" value= {{ drink.id }} id="add-cart">Add to Order</button>
     </form>
 {% else %}
     <p>No customizations available for this drink.</p>
