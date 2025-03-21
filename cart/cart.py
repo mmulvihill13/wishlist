@@ -14,8 +14,8 @@ class Cart():
         self.cart = cart
     
     #Make add function
-    def add(self, drink, size, milk, syrup, extra_shots):
-        
+    def add(self, drink, size, milk, syrup, extra_shots, quantity):
+
         cart_key = f"{drink.id}-{size}-{milk}-{syrup}-{'extra' if extra_shots else 'no-extra'}"
 
         # Check if the drink with these customizations is already in the cart

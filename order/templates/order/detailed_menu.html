@@ -66,10 +66,20 @@
                     <input type="checkbox" name="extra_shots"> Add Extra Shot
                 </label>
                 {% endif %}
-            </div>
-        </form>
+                <div>
+            <div>
+                <label>Number of Drinks:</label>
+                <select id="qty-cart">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+                <button type="submit" class="cart-btn" value= {{ drink.id }} id="add-cart">Add to Order</button>
+            </form>
+
         {% else %}
-        <p>No customizations available for this drink.</p>
+            <p>No customizations available for this drink.</p>
+            <button type="submit" class="cart-btn" value={{ drink.id }} id="add-cart">Add to Order</button>
         {% endif %}
     </div>
     <div class="element"></div>
@@ -85,16 +95,18 @@
         e.preventDefault();
 
         let drinkId = $('#add-cart').val();  //store customizations
-        let size = $('#size').val();
-        let milk = $('#milk').val();
-        let syrup = $('#syrup').val();
-        let extraShots = $('input[name="extra_shots"]').is(':checked');
+        let size = $('#size').val();  
+        let milk = $('#milk').val();  
+        let syrup = $('#syrup').val();  
+        let extraShots = $('input[name="extra_shots"]').is(':checked'); 
+        
 
         $.ajax({
             type: 'POST',
             url: "{% url 'cart_add' %}", //** double quote error
             data: {
                 drink_id: $('#add-cart').val(),
+                drink_qty: $('#qty-cart option:selected').text(),
                 size: size,
                 milk: milk,
                 syrup: syrup,
