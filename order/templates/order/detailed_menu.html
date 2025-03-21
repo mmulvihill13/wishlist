@@ -10,76 +10,85 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"
     integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-{% include 'order/menu_nav.html' %}
-    <h1>Our Menu</h1>
+<div class="page-padding">
+    {% include 'order/menu_nav.html' %}
     <div class="element"></div>
-    <div class="center">
-    <div class="main-container">   
-        <input type="hidden" name="drink_id" value="{{ drink.id }}">
 
-        <h2>{{ drink.name }}</h2>
+    <div class="center">
+        <input type="hidden" name="drink_id" value="{{ drink.id }}">
+        <p class="drink">{{ drink.name }}</p>
+        <div class="temp-photo"></div>
         <p class="desc">{{ drink.description }}</p>
-        <h3 style="display: inline-block">Price:</h3>
-        <p style="display: inline-block">${{ drink.price }}</p>
+        <div class="element-container">
+            <p class="subcategory">Price:</p>
+            <div class="element2"></div>
+        </div>
+        <p class="subcategory-text">${{ drink.price }}</p>
 
         <!-- customizations -->
         {% if drink.sizes or drink.milk_options or drink.syrup_options or drink.extra_shots %}
-            <h3>Customizations</h3>
-            <form>
-                {% csrf_token %} 
-
+        <div class="element-container">
+            <p class="subcategory">Customizations</h3>
+            <div class="element2"></div>
+        </div>
+        <form>
+            <div class="grid">
+                {% csrf_token %}
                 {% if drink.sizes %}
-                    <label for="size">Size:</label>
-                    <select name="size" id="size">
-                        {% for size in drink.sizes %}
-                            <option value="{{ size }}">{{ size }}</option>
-                        {% endfor %}
-                    </select>
+                <label class="subcategory-text" for="size">Size:</label>
+                <select name="size" id="size">
+                    {% for size in drink.sizes %}
+                    <option value="{{ size }}">{{ size }}</option>
+                    {% endfor %}
+                </select>
                 {% endif %}
 
                 {% if drink.milk_options %}
-                    <label for="milk">Milk Options:</label>
-                    <select name="milk" id="milk">
-                        {% for milk in drink.milk_options %}
-                            <option value="{{ milk }}">{{ milk }}</option>
-                        {% endfor %}
-                    </select>
+                <label class="subcategory-text" for="milk">Milk Options:</label>
+                <select name="milk" id="milk">
+                    {% for milk in drink.milk_options %}
+                    <option value="{{ milk }}">{{ milk }}</option>
+                    {% endfor %}
+                </select>
                 {% endif %}
 
                 {% if drink.syrup_options %}
-                    <label for="syrup">Syrup Options:</label>
-                    <select name="syrup" id="syrup">
-                        {% for syrup in drink.syrup_options %}
-                            <option value="{{ syrup }}">{{ syrup }}</option>
-                        {% endfor %}
-                    </select>
+                <label class="subcategory-text" for="syrup">Syrup Options:</label>
+                <select name="syrup" id="syrup">
+                    {% for syrup in drink.syrup_options %}
+                    <option value="{{ syrup }}">{{ syrup }}</option>
+                    {% endfor %}
+                </select>
                 {% endif %}
 
                 {% if drink.extra_shots %}
-                    <label>
-                        <input type="checkbox" name="extra_shots"> Add Extra Shot
-                    </label>
+                <label>
+                    <input type="checkbox" name="extra_shots"> Add Extra Shot
+                </label>
                 {% endif %}
-    <div>
-    </div>
-                <button type="submit" class="cart-btn" value= {{ drink.id }} id="add-cart">Add to Order</button>
-            </form>
+            </div>
+        </form>
         {% else %}
-            <p>No customizations available for this drink.</p>
+        <p>No customizations available for this drink.</p>
         {% endif %}
+    </div>
+    <div class="element"></div>
+    <div class="bottom-container">
+        <button type="submit" class="cart-btn" value={{ drink.id }} id="add-cart">Add to Order</button>
+        <a href="{% url 'order:menu'%}" class="cancel-btn">Cancel</a>
+    </div>
 
-<a href="{% url 'order:menu'%}" class="cancel-btn">X</a>
-
+</div>
 <script>
     //Check if the button is pressed
-    $(document).on('click', '#add-cart', function(e){
+    $(document).on('click', '#add-cart', function (e) {
         e.preventDefault();
 
         let drinkId = $('#add-cart').val();  //store customizations
-        let size = $('#size').val();  
-        let milk = $('#milk').val();  
-        let syrup = $('#syrup').val();  
-        let extraShots = $('input[name="extra_shots"]').is(':checked');  
+        let size = $('#size').val();
+        let milk = $('#milk').val();
+        let syrup = $('#syrup').val();
+        let extraShots = $('input[name="extra_shots"]').is(':checked');
 
         $.ajax({
             type: 'POST',
@@ -107,7 +116,7 @@
                 // console.log("Before update:", $('#cart_quantity').text());
                 $('#cart_quantity').empty().append(json.qty);
             },
-            error: function(xhr, errmsg, err){
+            error: function (xhr, errmsg, err) {
                 console.log("AJAX Error:", errmsg);
             }
         })
