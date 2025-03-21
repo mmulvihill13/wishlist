@@ -13,6 +13,14 @@
             Size : {{drink.size}} <br>
             Syrup : {{drink.syrup}} <br>
             Milk : {{drink.milk}} <br>
+            Quantity: {{ drink.quantity }}
+            <label>Number of Drinks:</label>
+            <select id="qty-cart">
+                <option selected>{{ drink.quantity }}</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
 
         {% endfor %}
     {% else %}

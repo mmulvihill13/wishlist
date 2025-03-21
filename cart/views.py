@@ -6,6 +6,7 @@ from django.http import JsonResponse
 def cart_view(request): 
     #Get the cart
     cart = Cart(request)
+    quantities = cart.get_quants
     
     cart_items = []
 
@@ -34,7 +35,7 @@ def cart_view(request):
         })
     
     # Render the cart page with the cart items
-    return render(request, "cart/cart.html", {"cart_drinks": cart_items})
+    return render(request, "cart/cart.html", {"cart_drinks": cart_items, "quantities":quantities})
 
 
 def cart_add(request):
