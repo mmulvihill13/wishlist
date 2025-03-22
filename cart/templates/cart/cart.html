@@ -27,10 +27,11 @@
             <button type="button" data-index="{{drink.id}}" class="btn btn-secondary update-cart">
                 Update Drink Order
             </button>
-            <button type="button" data-index="{{drink.id}}" class="btn btn-secondary update-cart">
-                Remove From
+            <button type="button" data-index="{{drink.id}}" class="btn btn-danger delete-drink">
+                Remove From Cart
             </button>
         {% endfor %}
+        <br>
         <button class="order-btn">
             <a href="{% url 'order:menu' %}">Continue Shopping</a>
         </button>
@@ -48,6 +49,7 @@
 
 
 <script>
+    //Update Cart
     $(document).on('click', '.update-cart', function (e) {
         e.preventDefault();
 
@@ -77,6 +79,27 @@
             }
         })
     })
+
+    //Delete Cart
+    $(document).on('click', '.delete-drink', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'cart_delete' %}", 
+                data: {
+                    drink_id: $(this).data('index'),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function (json) {
+                    location.reload()
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log("AJAX Error:", errmsg);
+                }
+            })
+        })
 </script>
 
 {% endblock %}

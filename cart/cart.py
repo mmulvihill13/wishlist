@@ -80,3 +80,11 @@ class Cart():
 
         self.session.modified = True
 
+    #Function that delets formt he cart class
+    def delete(self, drink):
+        drink_str = str(drink)
+        keys_to_delete = [key for key in list(self.cart.keys()) if key.startswith(drink_str + "-")]
+        for key in keys_to_delete:
+            del self.cart[key]
+        self.session.modified = True
+

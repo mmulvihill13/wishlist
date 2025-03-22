@@ -67,8 +67,18 @@ def cart_add(request):
         # Return the updated cart quantity in the response
         return JsonResponse({'qty': cart_quantity})
 
+#Function that deletes the drink from the cart 
 def cart_delete(request):
-    pass
+    cart = Cart(request)
+    if request.POST.get('action') == 'post':
+        #get stuff
+        drink_id = int(request.POST.get('drink_id'))
+
+        #call delete functino in cart 
+        cart.delete(drink = drink_id)
+
+        response = JsonResponse({'drink':drink_id})
+        return response
 
 #Function that updates the cart wehn the user slects a different quantity in the cart
 def cart_update(request):
