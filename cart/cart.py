@@ -14,7 +14,7 @@ class Cart():
         self.cart = cart
     
     #Make add function
-    def add(self, drink, size, milk, syrup, extra_shots, quantity):
+    def add(self, drink, size, milk, syrup, extra_shots, quantity, drink_id):
 
         quantity = int(quantity)
 
@@ -32,7 +32,8 @@ class Cart():
                 'milk': milk,
                 'syrup': syrup,
                 'extra_shots': extra_shots,
-                'quantity': quantity
+                'quantity': quantity,
+                'id': drink_id,
             }
         
         self.session.modified = True
@@ -51,6 +52,31 @@ class Cart():
 
         # Return the corresponding drinks
         return drinks
+    
+    #Get the quantities of the drinks
     def get_quants(self):
         quantities = self.cart
         return quantities
+    
+    #Get the updated cart
+    def update(self, drink, quantity):
+        # drink_id = str(drink)
+        # drink_qty = int(quantity)
+        
+        # #Get the cart
+        # ourcart = self.cart
+        # #Update Dictorionary/cart
+        # ourcart[drink_id] = drink_qty
+
+        # self.session.modified = True
+
+        # thing = self.cart
+        # return thing
+        quantity = int(quantity)
+
+        for cart_key in self.cart.keys():
+            if cart_key.startswith(str(drink)):
+                self.cart[cart_key]['quantity'] = quantity
+
+        self.session.modified = True
+
