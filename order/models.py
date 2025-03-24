@@ -13,8 +13,15 @@ class Drink(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     in_stock = models.BooleanField(default=True)
 
+    # customization options for drinks
+    sizes = models.JSONField(default=list, blank=True)  
+    milk_options = models.JSONField(default=list, blank=True)  
+    syrup_options = models.JSONField(default=list, blank=True)  
+    extra_shots = models.BooleanField(default=False)  
+
     def __str__(self):
         return self.name
+
 
 class Order(models.Model):
     customer_name = models.CharField(max_length=200)
@@ -28,6 +35,10 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='items')
     product = models.ForeignKey(Drink, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    customizations = models.JSONField(default=dict, blank=True)  
 
     def get_total(self):
         return self.product.price * self.quantity
+
+    def __str__(self):
+        return f"{self.product.name} ({self.customizations}) - {self.quantity}"

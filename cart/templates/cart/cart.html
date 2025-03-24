@@ -7,11 +7,20 @@
 
 <div class="main-content">
     <h1>Welcome to your cart</h1>
-    <br>
-    <h2>You currently have no items in your cart!</h2>
+    {% if cart_drinks %}
+        {% for drink in cart_drinks %}
+            {{drink.drink.name}} : ${{drink.price}} <br>
+            Size : {{drink.size}} <br>
+            Syrup : {{drink.syrup}} <br>
+            Milk : {{drink.milk}} <br>
 
-    <button class="order-btn">
-        <a href="{% url 'order:menu' %}">ORDER NOW</a>
-    </button>
+        {% endfor %}
+    {% else %}
+        <h2>There is nothing in your cart!</h2>
+        <button class="order-btn">
+            <a href="{% url 'order:menu' %}">ORDER NOW</a>
+        </button>
+    {% endif %}
+
 </div>
 {% endblock %}
