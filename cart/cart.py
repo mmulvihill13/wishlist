@@ -14,13 +14,15 @@ class Cart():
         self.cart = cart
     
     #Make add function
-    def add(self, drink, size, milk, syrup, extra_shots):
-        
+    def add(self, drink, size, milk, syrup, extra_shots, quantity, drink_id):
+
+        quantity = int(quantity)
+
         cart_key = f"{drink.id}-{size}-{milk}-{syrup}-{'extra' if extra_shots else 'no-extra'}"
 
         # Check if the drink with these customizations is already in the cart
         if cart_key in self.cart:
-            self.cart[cart_key]['quantity'] += 1
+            self.cart[cart_key]['quantity'] += quantity
         else:
             # new entry with customizations
             self.cart[cart_key] = {
@@ -30,14 +32,15 @@ class Cart():
                 'milk': milk,
                 'syrup': syrup,
                 'extra_shots': extra_shots,
-                'quantity': 1
+                'quantity': quantity,
+                'id': drink_id,
             }
         
         self.session.modified = True
 
     #number of itmes
     def __len__(self):
-        return len(self.cart)
+        return sum(item['quantity'] for item in self.cart.values())
     
     def get_drinks(self):
         # Get all the keys (customized drink entries)
@@ -49,3 +52,39 @@ class Cart():
 
         # Return the corresponding drinks
         return drinks
+    
+    #Get the quantities of the drinks
+    def get_quants(self):
+        quantities = self.cart
+        return quantities
+    
+    #Get the updated cart
+    def update(self, drink, quantity):
+        # drink_id = str(drink)
+        # drink_qty = int(quantity)
+        
+        # #Get the cart
+        # ourcart = self.cart
+        # #Update Dictorionary/cart
+        # ourcart[drink_id] = drink_qty
+
+        # self.session.modified = True
+
+        # thing = self.cart
+        # return thing
+        quantity = int(quantity)
+
+        for cart_key in self.cart.keys():
+            if cart_key.startswith(str(drink)):
+                self.cart[cart_key]['quantity'] = quantity
+
+        self.session.modified = True
+
+    #Function that delets formt he cart class
+    def delete(self, drink):
+        drink_str = str(drink)
+        keys_to_delete = [key for key in list(self.cart.keys()) if key.startswith(drink_str + "-")]
+        for key in keys_to_delete:
+            del self.cart[key]
+        self.session.modified = True
+

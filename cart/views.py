@@ -3,9 +3,11 @@ from .cart import Cart
 from order.models import Drink
 from django.http import JsonResponse
 
+#Function that gets all the drinks to display in the cart for the cart.html (the cart summary page)
 def cart_view(request): 
     #Get the cart
     cart = Cart(request)
+    quantities = cart.get_quants
     
     cart_items = []
 
@@ -20,8 +22,8 @@ def cart_view(request):
         syrup = item['syrup']
         extra_shots = item['extra_shots']
         quantity = item['quantity']
-        price = float(item['price']) * quantity  # Total price for this item
-
+        price = float(item['price']) 
+        total_price = float(item['price']) * quantity  # Total price for this item
         # Prepare the item details
         cart_items.append({
             'drink': drink,
@@ -30,18 +32,21 @@ def cart_view(request):
             'syrup': syrup,
             'extra_shots': extra_shots,
             'quantity': quantity,
-            'price': price
+            'price': price,
+            'id': drink_id,
+            'total_price': total_price,
         })
     
     # Render the cart page with the cart items
-    return render(request, "cart/cart.html", {"cart_drinks": cart_items})
+    return render(request, "cart/cart.html", {"cart_drinks": cart_items, "quantities":quantities})
 
-
+#Function that adds a drink the cart 
 def cart_add(request):
     cart = Cart(request)
     
     if request.method == 'POST':
         drink_id = request.POST.get('drink_id') #gather customizations
+        drink_qty = request.POST.get('drink_qty')
         size = request.POST.get('size')
         milk = request.POST.get('milk')
         syrup = request.POST.get('syrup')
@@ -54,7 +59,7 @@ def cart_add(request):
         cart_key = f"{drink_id}-{size}-{milk}-{syrup}-{'extra' if extra_shots else 'no-extra'}"
         
         # add item to the cart with customizations
-        cart.add(drink=drink, size=size, milk=milk, syrup=syrup, extra_shots=extra_shots)
+        cart.add(drink=drink, size=size, milk=milk, syrup=syrup, extra_shots=extra_shots, quantity =drink_qty, drink_id=drink_id)
         
         # get cart quantity
         cart_quantity = cart.__len__()
@@ -62,7 +67,31 @@ def cart_add(request):
         # Return the updated cart quantity in the response
         return JsonResponse({'qty': cart_quantity})
 
+#Function that deletes the drink from the cart 
 def cart_delete(request):
-    pass
+    cart = Cart(request)
+    if request.POST.get('action') == 'post':
+        #get stuff
+        drink_id = int(request.POST.get('drink_id'))
+
+        #call delete functino in cart 
+        cart.delete(drink = drink_id)
+
+        response = JsonResponse({'drink':drink_id})
+        return response
+
+#Function that updates the cart wehn the user slects a different quantity in the cart
 def cart_update(request):
-    pass
+    cart = Cart(request)
+    if request.method == 'POST' and request.POST.get('action') == 'post':
+        drink_id = request.POST.get('drink_id')
+        drink_qty = request.POST.get('drink_qty')
+
+        if not drink_id or not drink_qty:
+            return JsonResponse({'error': 'Invalid data'}, status=400)
+
+        #update the cart
+        cart.update(drink=drink_id, quantity=int(drink_qty))
+
+        #return the response
+        return JsonResponse({'qty': drink_qty})

@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,29 +13,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <title>Morning Grind</title>
-    
-</head>
-<body>
-    <div class="header">
-        <div class="logo">
-            <img src="{% static '/images/logo-removebg-preview.png' %}" alt="Logo">
-        </div>
-        <div class="title">Morning <br>Grind</div>
-    </div>
 
-    <!--Application Things-->
-    {% block content %}{% endblock %}
+</head>
+
+<body>
+    <div class="content">
+        <div class="header">
+            <div class="logo">
+                <img src="{% static '/images/logo-removebg-preview.png' %}" alt="Logo">
+            </div>
+            <div class="title">Morning <br>Grind</div>
+        </div>
+
+        <!--Application Things-->
+        {% block content %}{% endblock %}
 
 
 </body>
 
-    <footer>
-            <div class="nav-bar">
-                <a href="{% url 'home:home' %}" class="nav-item"><i class="bi bi-house-heart"></i><br>Home</a>
-                <a href="{% url 'order:menu' %}" class="nav-item"><i class="bi bi-cup-hot"></i><br>Order</a>
-                <a href="{% url 'rewards:reward' %}" class="nav-item"><i class="bi bi-bag-heart"></i><br>Rewards</a>
-                <a href="{% url 'settings:setting' %}" class="nav-item"><i class="bi bi-person-heart"></i><br>Account</a>
-            </div>
-    </footer>
-    
+<footer>
+    <div class="nav-bar">
+        <a href="{% url 'home:home' %}" class="nav-item"><i class="bi bi-house-heart"></i><br>Home</a>
+        <a href="{% url 'order:menu' %}" class="nav-item"><i class="bi bi-cup-hot"></i><br>Order</a>
+        <a href="{% url 'rewards:reward' %}" class="nav-item"><i class="bi bi-bag-heart"></i><br>Rewards</a>
+        <a href="{% url 'settings:setting' %}" class="nav-item"><i class="bi bi-person-heart"></i><br>Account</a>
+    </div>
+</footer>
+</div>
+
 </html>

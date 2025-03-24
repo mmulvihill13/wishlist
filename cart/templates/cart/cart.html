@@ -4,6 +4,7 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <div class="main-content">
     <h1>Welcome to your cart</h1>
@@ -13,14 +14,92 @@
             Size : {{drink.size}} <br>
             Syrup : {{drink.syrup}} <br>
             Milk : {{drink.milk}} <br>
-
+            Quantity: {{ drink.quantity }} <br>
+            ID: {{ drink.id }} <br>
+            <label>Number of Drinks:</label>
+            <select id="select{{ drink.id }}">
+                <option selected>{{ drink.quantity }}</option>
+                <option value="1" >1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
+            Total Drink cost = ${{ drink.total_price }}
+            <button type="button" data-index="{{drink.id}}" class="btn btn-secondary update-cart">
+                Update Drink Order
+            </button>
+            <button type="button" data-index="{{drink.id}}" class="btn btn-danger delete-drink">
+                Remove From Cart
+            </button>
         {% endfor %}
+        <br>
+        <button class="order-btn">
+            <a href="{% url 'order:menu' %}">Continue Shopping</a>
+        </button>
+        <button class="order-btn">
+            <a href="{% url 'order:menu' %}">Continue To Checkout</a>
+        </button>
     {% else %}
         <h2>There is nothing in your cart!</h2>
         <button class="order-btn">
-            <a href="{% url 'order:menu' %}">ORDER NOW</a>
+            <a href="{% url 'order:menu' %}">Start Your Order Now!</a>
         </button>
     {% endif %}
 
 </div>
+
+
+<script>
+    //Update Cart
+    $(document).on('click', '.update-cart', function (e) {
+        e.preventDefault();
+
+        //grab the drink id, size, milk etc...
+        var drinkid = $(this).data('index');
+        var size = $('#size' + drinkid).val(); 
+        var milk = $('#milk' + drinkid).val(); 
+        var syrup = $('#syrup' + drinkid).val(); 
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart_update' %}", //** double quote error 
+            data: {
+                drink_id: $(this).data('index'),
+                drink_qty: $('#select' + drinkid + ' option:selected').text(),
+                size: size,
+                milk: milk,
+                syrup: syrup,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function (json) {
+                location.reload()
+            },
+            error: function (xhr, errmsg, err) {
+                console.log("AJAX Error:", errmsg);
+            }
+        })
+    })
+
+    //Delete Cart
+    $(document).on('click', '.delete-drink', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'cart_delete' %}", 
+                data: {
+                    drink_id: $(this).data('index'),
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function (json) {
+                    location.reload()
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log("AJAX Error:", errmsg);
+                }
+            })
+        })
+</script>
+
 {% endblock %}
