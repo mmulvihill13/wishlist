@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/checkout_style.css' %}">
+<div class="announcement">
+    <span class="accouncement-text">Checkout SOon!</span>
+</div>
+<div class="main-content">
+        <button class="order-btn">
+            <a href="{% url 'order:menu' %}">ORDER NOW</a>
+        </button>
+        <button class="order-btn">
+            <a href="{% url 'order:menu' %}">Continue Shopping</a>
+        </button>
+</div>
+{% endblock %}

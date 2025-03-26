@@ -36,7 +36,7 @@
             <a href="{% url 'order:menu' %}">Continue Shopping</a>
         </button>
         <button class="order-btn">
-            <a href="{% url 'order:menu' %}">Continue To Checkout</a>
+            <a href="{% url 'checkout:checkout' %}">Continue To Checkout</a>
         </button>
     {% else %}
         <h2>There is nothing in your cart!</h2>
@@ -44,6 +44,7 @@
             <a href="{% url 'order:menu' %}">Start Your Order Now!</a>
         </button>
     {% endif %}
+
 
 </div>
 
