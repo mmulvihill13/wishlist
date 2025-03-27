@@ -15,80 +15,81 @@
     <div class="element"></div>
 
     <div class="center">
-        <input type="hidden" name="drink_id" value="{{ drink.id }}">
-        <p class="drink">{{ drink.name }}</p>
-        <div class="temp-photo"></div>
-        <p class="desc">{{ drink.description }}</p>
-        <div class="element-container">
-            <p class="subcategory">Price:</p>
-            <div class="element2"></div>
+        <div class="only-for-mobile">
+            <input type="hidden" name="drink_id" value="{{ drink.id }}">
+            <p class="drink">{{ drink.name }}</p>
+            <div class="temp-photo"></div>
+            <p class="desc">{{ drink.description }}</p>
         </div>
-        <p class="subcategory-text">${{ drink.price }}</p>
+        <div class="only-for-mobile">
+            <div class="element-container">
+                <p class="subcategory">Price:</p>
+                <div class="element2"></div>
+            </div>
+            <p class="subcategory-text">${{ drink.price }}</p>
 
-        <!-- customizations -->
-        {% if drink.sizes or drink.milk_options or drink.syrup_options or drink.extra_shots %}
-        <div class="element-container">
-            <p class="subcategory">Customizations</h3>
-            <div class="element2"></div>
+            <!-- customizations -->
+            {% if drink.sizes or drink.milk_options or drink.syrup_options or drink.extra_shots %}
+            <div class="element-container">
+                <p class="subcategory">Customizations</h3>
+                <div class="element2"></div>
+            </div>
+            <form>
+                <div class="grid">
+                    {% csrf_token %}
+                    {% if drink.sizes %}
+                    <label class="subcategory-text" for="size">Size:</label>
+                    <select name="size" id="size">
+                        {% for size in drink.sizes %}
+                        <option value="{{ size }}">{{ size }}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+
+                    {% if drink.milk_options %}
+                    <label class="subcategory-text" for="milk">Milk Options:</label>
+                    <select name="milk" id="milk">
+                        {% for milk in drink.milk_options %}
+                        <option value="{{ milk }}">{{ milk }}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+
+                    {% if drink.syrup_options %}
+                    <label class="subcategory-text" for="syrup">Syrup Options:</label>
+                    <select name="syrup" id="syrup">
+                        {% for syrup in drink.syrup_options %}
+                        <option value="{{ syrup }}">{{ syrup }}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+
+                    {% if drink.extra_shots %}
+                    <label>
+                        <input type="checkbox" name="extra_shots"> Add Extra Shot
+                    </label>
+                    {% endif %}
+                        <label class="subcategory-text">Number of Drinks:</label>
+                        <select id="qty-cart">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>                    
+                </form>
+
+            {% else %}
+                <p>No customizations available for this drink.</p>
+            {% endif %}
         </div>
-        <form>
-            <div class="grid">
-                {% csrf_token %}
-                {% if drink.sizes %}
-                <label class="subcategory-text" for="size">Size:</label>
-                <select name="size" id="size">
-                    {% for size in drink.sizes %}
-                    <option value="{{ size }}">{{ size }}</option>
-                    {% endfor %}
-                </select>
-                {% endif %}
-
-                {% if drink.milk_options %}
-                <label class="subcategory-text" for="milk">Milk Options:</label>
-                <select name="milk" id="milk">
-                    {% for milk in drink.milk_options %}
-                    <option value="{{ milk }}">{{ milk }}</option>
-                    {% endfor %}
-                </select>
-                {% endif %}
-
-                {% if drink.syrup_options %}
-                <label class="subcategory-text" for="syrup">Syrup Options:</label>
-                <select name="syrup" id="syrup">
-                    {% for syrup in drink.syrup_options %}
-                    <option value="{{ syrup }}">{{ syrup }}</option>
-                    {% endfor %}
-                </select>
-                {% endif %}
-
-                {% if drink.extra_shots %}
-                <label>
-                    <input type="checkbox" name="extra_shots"> Add Extra Shot
-                </label>
-                {% endif %}
-                <div>
-            <div>
-                <label>Number of Drinks:</label>
-                <select id="qty-cart">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                </select>
-
-            </form>
-
-        {% else %}
-            <p>No customizations available for this drink.</p>
-
-        {% endif %}
     </div>
-    <div class="element"></div>
-    <div class="bottom-container">
-        <button type="submit" class="cart-btn" value={{ drink.id }} id="add-cart">Add to Order</button>
-        <a href="{% url 'order:menu'%}" class="cancel-btn">Cancel</a>
-    </div>
-
+    
 </div>
+<div class="element"></div>
+<div class="bottom-container">
+    <button type="submit" class="cart-btn" value={{ drink.id }} id="add-cart">Add to Order</button>
+    <a href="{% url 'order:menu'%}" class="cancel-btn">Cancel</a>
+</div>
+
 <script>
     //Check if the button is pressed
     $(document).on('click', '#add-cart', function (e) {
