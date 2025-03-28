@@ -59,23 +59,11 @@ class Cart():
         return quantities
     
     #Get the updated cart
-    def update(self, drink, quantity):
-        # drink_id = str(drink)
-        # drink_qty = int(quantity)
-        
-        # #Get the cart
-        # ourcart = self.cart
-        # #Update Dictorionary/cart
-        # ourcart[drink_id] = drink_qty
-
-        # self.session.modified = True
-
-        # thing = self.cart
-        # return thing
+    def update(self, drink, quantity, size, milk, syrup, extra_shots):
         quantity = int(quantity)
-
+        cartkey = f"{drink.id}-{size}-{milk}-{syrup}-{extra_shots}"
         for cart_key in self.cart.keys():
-            if cart_key.startswith(str(drink)):
+            if cart_key ==cartkey:
                 self.cart[cart_key]['quantity'] = quantity
 
         self.session.modified = True
@@ -83,11 +71,7 @@ class Cart():
     #Function that delets formt he cart class
     def delete(self, drink, size, milk, syrup, extra_shots, quantity, drink_id):
         extra_text = 'extra' if extra_shots else 'no-extra'
-        print(extra_shots)
-        print(extra_text)
         cart_key = f"{drink.id}-{size}-{milk}-{syrup}-{extra_shots}"
-        print(cart_key)
-        print(self.cart.keys())
         keys_to_delete = [key for key in list(self.cart.keys()) if key.startswith(cart_key)]
         for key in keys_to_delete:
             del self.cart[key]

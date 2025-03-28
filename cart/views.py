@@ -94,12 +94,19 @@ def cart_update(request):
     if request.method == 'POST' and request.POST.get('action') == 'post':
         drink_id = request.POST.get('drink_id')
         drink_qty = request.POST.get('drink_qty')
+        size = request.POST.get('size')
+        milk = request.POST.get('milk')
+        syrup = request.POST.get('syrup')
+        extra_shots = request.POST.get('extra_shots')  
 
         if not drink_id or not drink_qty:
             return JsonResponse({'error': 'Invalid data'}, status=400)
 
+        # find the drink in the database
+        drink = get_object_or_404(Drink, id=drink_id)
+
         #update the cart
-        cart.update(drink=drink_id, quantity=int(drink_qty))
+        cart.update(drink=drink, quantity=int(drink_qty),  size=size, milk=milk, syrup=syrup, extra_shots=extra_shots)
 
         #return the response
         return JsonResponse({'qty': drink_qty})

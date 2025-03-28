@@ -20,8 +20,8 @@
             {% endif %}
             
             <label>Number of Drinks:</label>
-            <select id="select{{ drink.id }}">
-                <option selected>{{ drink.quantity }}</option>
+            <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
+                <option value="{{ drink.quantity }}" selected>{{ drink.quantity }}</option>
                 <option value="1" >1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -29,7 +29,8 @@
                 <option value="5">5</option>
             </select>
             Total Drink cost = ${{ drink.total_price }}
-            <button type="button" data-index="{{drink.id}}" class="btn btn-secondary update-cart">
+            <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
+             data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart">
                 Update Drink Order
             </button>
             <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
@@ -61,20 +62,26 @@
         e.preventDefault();
 
         //grab the drink id, size, milk etc...
-        var drinkid = $(this).data('index');
-        var size = $('#size' + drinkid).val(); 
-        var milk = $('#milk' + drinkid).val(); 
-        var syrup = $('#syrup' + drinkid).val(); 
+            let drinkid = $(this).data('index');
+            let size = $(this).data('size');
+            let milk = $(this).data('milk');
+            let syrup =  $(this).data('syrup');
+            let extraShots = $(this).data('extrashots') === "extra" ? 'extra': 'no-extra';
+
+        
+        //get the updated quant for the righ ele
+        let quantity = $('#select' + drinkid + '-' + size + '-' + milk + '-' + syrup + '-' + extraShots).val();
 
         $.ajax({
             type: 'POST',
             url: "{% url 'cart_update' %}", //** double quote error 
             data: {
                 drink_id: $(this).data('index'),
-                drink_qty: $('#select' + drinkid + ' option:selected').text(),
+                drink_qty: quantity,
                 size: size,
                 milk: milk,
                 syrup: syrup,
+                extra_shots: extraShots,
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
@@ -97,11 +104,7 @@
             let milk = $(this).data('milk');
             let syrup =  $(this).data('syrup');
             let extraShots = $(this).data('extrashots') === "extra" ? 'extra': 'no-extra';
-            //let extraShots = $('input[name="extra_shots"]').is(':checked'); 
-            // console.log(drinkid)
-            // console.log(size)
-            // console.log(milk)
-            console.log(extraShots)
+
             $.ajax({
                 type: 'POST',
                 url: "{% url 'cart_delete' %}", 
