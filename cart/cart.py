@@ -17,9 +17,9 @@ class Cart():
     def add(self, drink, size, milk, syrup, extra_shots, quantity, drink_id):
 
         quantity = int(quantity)
+        extra_text = 'extra' if extra_shots else 'no-extra'
 
-        cart_key = f"{drink.id}-{size}-{milk}-{syrup}-{'extra' if extra_shots else 'no-extra'}"
-
+        cart_key = f"{drink.id}-{size}-{milk}-{syrup}-{extra_text}"
         # Check if the drink with these customizations is already in the cart
         if cart_key in self.cart:
             self.cart[cart_key]['quantity'] += quantity
@@ -31,7 +31,7 @@ class Cart():
                 'size': size,
                 'milk': milk,
                 'syrup': syrup,
-                'extra_shots': extra_shots,
+                'extra_shots': extra_text,
                 'quantity': quantity,
                 'id': drink_id,
             }
@@ -81,9 +81,14 @@ class Cart():
         self.session.modified = True
 
     #Function that delets formt he cart class
-    def delete(self, drink):
-        drink_str = str(drink)
-        keys_to_delete = [key for key in list(self.cart.keys()) if key.startswith(drink_str + "-")]
+    def delete(self, drink, size, milk, syrup, extra_shots, quantity, drink_id):
+        extra_text = 'extra' if extra_shots else 'no-extra'
+        print(extra_shots)
+        print(extra_text)
+        cart_key = f"{drink.id}-{size}-{milk}-{syrup}-{extra_shots}"
+        print(cart_key)
+        print(self.cart.keys())
+        keys_to_delete = [key for key in list(self.cart.keys()) if key.startswith(cart_key)]
         for key in keys_to_delete:
             del self.cart[key]
         self.session.modified = True

@@ -72,10 +72,18 @@ def cart_delete(request):
     cart = Cart(request)
     if request.POST.get('action') == 'post':
         #get stuff
-        drink_id = int(request.POST.get('drink_id'))
+        drink_id = request.POST.get('drink_id') #gather customizations
+        drink_qty = request.POST.get('drink_qty')
+        size = request.POST.get('size')
+        milk = request.POST.get('milk')
+        syrup = request.POST.get('syrup')
+        extra_shots = request.POST.get('extra_shots')  
+        
+        # find the drink in the database
+        drink = get_object_or_404(Drink, id=drink_id)
 
         #call delete functino in cart 
-        cart.delete(drink = drink_id)
+        cart.delete(drink=drink, size=size, milk=milk, syrup=syrup, extra_shots=extra_shots, quantity =drink_qty, drink_id=drink_id)
 
         response = JsonResponse({'drink':drink_id})
         return response
