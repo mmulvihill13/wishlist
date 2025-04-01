@@ -12,12 +12,20 @@ text-align: center;
 }
 
 .card{
-    padding: 4%;
     border-radius: 8px;
     background-color: #BA9D83;
     box-shadow: 0 4px 6px #432D2D;
+    line-height: 1.8rem;
+    padding: 10%;
+    gap: 10%;
 }
 
 .drink-name{
-    
+    text-align: center;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.subcategory{
+    font-size: 1.4rem;
 }
