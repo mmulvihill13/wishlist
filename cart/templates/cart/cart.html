@@ -5,16 +5,17 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/cart.css' %}">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<div class="page-padding">
+<h1>Welcome to your cart</h1>
 <div class="main-content">
-    <h1>Welcome to your cart</h1>
     {% if cart_drinks %}
         {% for drink in cart_drinks %}
-            {{drink.drink.name}} : ${{drink.price}} <br>
-            Size : {{drink.size}} <br>
-            Syrup : {{drink.syrup}} <br>
-            Milk : {{drink.milk}} <br>
-            Quantity: {{ drink.quantity }} <br>
+        <div class="card">
+            <h2 class="drink-name">{{drink.drink.name}} : ${{drink.price}} </h2>
+            <p class="subcategory">Size : {{drink.size}}</p>
+            <p class="subcategory">Syrup : {{drink.syrup}}</p>
+            <p class="subcategory">Milk : {{drink.milk}}</p>
+            <p class="subcategory">Quantity: {{ drink.quantity }}</p>
             {% if drink.extra_shots == "extra" %}
                 Extra Shots: 1
             {% endif %}
@@ -37,7 +38,9 @@
              data-extrashots="{{ drink.extra_shots }}"class="btn btn-danger delete-drink">
                 Remove From Cart
             </button>
+        </div>
         {% endfor %}
+    </div>
         <br>
         <button class="order-btn">
             <a href="{% url 'order:menu' %}">Continue Shopping</a>
@@ -51,7 +54,6 @@
             <a href="{% url 'order:menu' %}">Start Your Order Now!</a>
         </button>
     {% endif %}
-
 
 </div>
 

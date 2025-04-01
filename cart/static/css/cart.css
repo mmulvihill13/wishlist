@@ -1,10 +1,23 @@
-h1,h2{
+h1{
+text-align: center;
     color: #432D2D;
 }
-
+.page-padding{
+    margin: 2%;
+}
 .main-content{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 5%;
+}
+
+.card{
+    padding: 4%;
+    border-radius: 8px;
+    background-color: #BA9D83;
+    box-shadow: 0 4px 6px #432D2D;
+}
+
+.drink-name{
+    
 }
