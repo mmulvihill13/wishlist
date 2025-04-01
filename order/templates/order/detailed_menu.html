@@ -26,7 +26,7 @@
                 <p class="subcategory">Price:</p>
                 <div class="element2"></div>
             </div>
-            <p class="subcategory-text">${{ drink.price }}</p>
+            <p class="subcategory-text">$ <span id="price">{{ drink.price }}</span></p>
 
             <!-- customizations -->
             {% if drink.sizes or drink.milk_options or drink.syrup_options or drink.extra_shots %}
@@ -47,8 +47,8 @@
                     {% endif %}
 
                     {% if drink.milk_options %}
-                    <label class="subcategory-text" for="milk">Milk Options:</label>
-                    <select name="milk" id="milk">
+                    <label class="subcategory-text" for="milk" >Milk Options:</label>
+                    <select name="milk" id="milk" onchange="priceChange(this)">
                         {% for milk in drink.milk_options %}
                         <option value="{{ milk }}">{{ milk }}</option>
                         {% endfor %}
@@ -91,7 +91,53 @@
 </div>
 
 <script>
-    //Check if the button is pressed
+   
+   //update the prioces based on the milk selected
+   document.addEventListener("DOMContentLoaded", function () {
+    let basePrice = parseFloat("{{ drink.price }}"); 
+
+    function updatePrice() {
+        let newPrice = basePrice; 
+
+        // sizes
+        let size = document.getElementById("size");
+        if (size) {
+            let sizeValue = size.value;
+            if (sizeValue.includes("Large")) newPrice += 1.50;  
+            else if (sizeValue.includes("Medium")) newPrice += 0.75;
+        }
+
+        // milk options 
+        let milk = document.getElementById("milk");
+        if (milk) {
+            let milkValue = milk.value;
+            if (milkValue.includes("Oat Milk")){
+                newPrice += 0.50; 
+            } 
+            else if (milkValue.includes("Almond Milk")) {
+                newPrice += 0.50;
+            }
+        }
+
+        //extra shots
+        let extraShots = document.querySelector('input[name="extra_shots"]');
+        if (extraShots && extraShots.checked) {
+            newPrice += 1.00; 
+        }
+
+        // update displayed price
+        document.getElementById("price").textContent = newPrice.toFixed(2);
+    }
+
+    // event listeners
+    document.getElementById("size")?.addEventListener("change", updatePrice);
+    document.getElementById("milk")?.addEventListener("change", updatePrice);
+    document.querySelector('input[name="extra_shots"]')?.addEventListener("change", updatePrice);
+});
+
+
+
+
     $(document).on('click', '#add-cart', function (e) {
         e.preventDefault();
 
@@ -100,6 +146,7 @@
         let milk = $('#milk').val();  
         let syrup = $('#syrup').val();  
         let extraShots = $('input[name="extra_shots"]').is(':checked'); 
+        let price = $('#price').val();  
         
 
         $.ajax({
@@ -112,6 +159,7 @@
                 milk: milk,
                 syrup: syrup,
                 extra_shots: extraShots,
+                price: price,
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
