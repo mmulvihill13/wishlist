@@ -13,4 +13,5 @@ urlpatterns = [
     path('rewards/', include("rewards.urls")),
     path('settings/', include("settings.urls")),
     path('cart/', include("cart.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
 ] + static(settings.STATIC_URL)

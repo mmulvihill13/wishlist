@@ -137,3 +137,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "login:login"
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.office365.com'
+EMAIL_PORT = 465  # Change from 587 to 465 for SSL
+EMAIL_USE_SSL = True  # Use SSL instead of TLS
+EMAIL_USE_TLS = False
+EMAIL_HOST_USER = 'morninggrindswe@outlook.com'
+EMAIL_HOST_PASSWORD = 'Password1@3$5'  # Use an App Password if 2FA is enabled
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
