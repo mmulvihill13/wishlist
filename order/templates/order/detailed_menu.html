@@ -146,8 +146,7 @@
         let milk = $('#milk').val();  
         let syrup = $('#syrup').val();  
         let extraShots = $('input[name="extra_shots"]').is(':checked'); 
-        let price = $('#price').val();  
-        
+        let price = $('#price').text();  
 
         $.ajax({
             type: 'POST',

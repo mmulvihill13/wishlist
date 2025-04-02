@@ -14,7 +14,7 @@ class Cart():
         self.cart = cart
     
     #Make add function
-    def add(self, drink, size, milk, syrup, extra_shots, quantity, drink_id):
+    def add(self, drink, size, milk, syrup, extra_shots, quantity, drink_id, price):
 
         quantity = int(quantity)
         extra_text = 'extra' if extra_shots else 'no-extra'
@@ -27,7 +27,7 @@ class Cart():
             # new entry with customizations
             self.cart[cart_key] = {
                 'name': drink.name,
-                'price': str(drink.price),  # Convert Decimal to string for JSON compatibility
+                'price': price,  # Convert Decimal to string for JSON compatibility
                 'size': size,
                 'milk': milk,
                 'syrup': syrup,
