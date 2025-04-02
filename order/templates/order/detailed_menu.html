@@ -48,7 +48,7 @@
 
                     {% if drink.milk_options %}
                     <label class="subcategory-text" for="milk" >Milk Options:</label>
-                    <select name="milk" id="milk" onchange="priceChange(this)">
+                    <select name="milk" id="milk">
                         {% for milk in drink.milk_options %}
                         <option value="{{ milk }}">{{ milk }}</option>
                         {% endfor %}
