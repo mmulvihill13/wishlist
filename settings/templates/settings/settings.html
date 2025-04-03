@@ -5,10 +5,19 @@
     <h1>Welcome, {{ user.first_name }} {{user.last_name}}!</h1>
     <p>Username: {{user.username}}<p>
     <p>Email: {{ user.email }}</p>
+    <p>Phone Number: {{ user.phone_number }}</p>
+    
 
     <a href="{% url 'settings:update_user' %}">
         <button>Edit Profile</button>
     </a>
-    
+    {% if user.is_authenticated %}
+    <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+    </form>   
+    {% else %}
+    <a href="{% url 'login' %}">Login</a>
+    {% endif %}
 
     {% endblock %}
