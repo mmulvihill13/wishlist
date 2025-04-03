@@ -1,0 +1,162 @@
+body {
+    font-family: "Bebas Neue", sans-serif;
+    background-color: #CBB098;
+}
+.center{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #BA9D83;
+    border-radius: 8px;
+}
+
+.form{
+    margin: 0 100px 0 100px;
+    justify-content: center;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: center;
+    column-gap: 100px;
+    row-gap: 10px;
+}
+
+.bottom-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1%;
+}
+
+.temp-photo{
+    border: solid 4px #3b2825;
+    background-color: darkslategray;
+    height: 200px;
+    width: 300px;
+}
+
+.page-padding{
+    padding: 0px 5% 0px 5%;
+}
+
+
+.cart-button i {
+    font-size: 30px;
+}
+
+.cart-button:hover {
+    background-color: #fff4eb;
+}
+
+.drink {
+    letter-spacing: 4px;
+    text-align: center;
+    font-size: 300%;
+    margin: 2% 0 0 0;
+}
+
+select{
+    background-color: #D9D9D9;
+    border: solid 4px #3b2825;
+    height: 40px;
+    width: 80px;
+    border-radius: 8px;
+}
+
+.desc{
+    font-family: "Manrope";
+    font-size: 140%;
+    text-align: center;
+    padding: 2% 0 2% 0;
+    margin: 0;
+}
+
+.subcategory{
+    font-size: 250%;
+    letter-spacing: 2px;
+    margin: 0;
+    line-height: 1;
+}
+
+.cart-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 1%;
+}
+
+.cart-button {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    
+    color: #3b2825;
+    background-color: #D9D9D9;
+    border: solid 4px #432D2D;
+    padding: 2px 5px;
+    border-radius: 15px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.subcategory-text{
+    color: #432D2D;
+    font-size: 200%;
+    margin: 0;
+}
+
+.element-container{
+    margin: 5% 0 5% 0;
+}
+.element {
+    border-bottom: 10px solid #3b2825;
+    width: 100%;
+    margin: 5% auto;
+}
+
+.element2 {
+    border-bottom: 6px solid #3b2825;
+    width: 100%;
+    margin: 0;
+}
+
+.cart-btn {
+    font-family: "Bebas Neue";
+    background-color: #D9D9D9;
+    border: solid 4px #3b2825;
+    border-radius: 20px;
+    padding:  10px 15px;
+    font-size: 150%;
+    cursor: pointer;
+}
+.cancel-btn{
+        background-color: #D9D9D9;
+        border: solid 4px #3b2825;
+        border-radius: 20px;
+        font-size: 150%;
+        padding: 10px 15px;
+        color: #432D2D;
+}
+
+.only-for-mobile {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers content horizontally */
+}
+
+@media only screen and (min-width: 767px) {
+
+    .center{
+        flex-direction: row;
+    }
+    .element{
+        margin: 2% auto;
+    }
+}

@@ -4,14 +4,129 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/cart.css' %}">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<div class="page-padding">
+<h1>Welcome to your cart</h1>
 <div class="main-content">
-    <h1>Welcome to your cart</h1>
-    <br>
-    <h2>You currently have no items in your cart!</h2>
+    {% if cart_drinks %}
+        {% for drink in cart_drinks %}
+        <div class="card">
+            <h2 class="drink-name">{{drink.drink.name}} : ${{drink.price}} </h2>
+            <p class="subcategory">Size : {{drink.size}}</p>
+            <p class="subcategory">Syrup : {{drink.syrup}}</p>
+            <p class="subcategory">Milk : {{drink.milk}}</p>
+            <p class="subcategory">Quantity: {{ drink.quantity }}</p>
+            {% if drink.extra_shots == "extra" %}
+                Extra Shots: 1
+            {% endif %}
+            
+            <label>Number of Drinks:</label>
+            <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
+                <option value="{{ drink.quantity }}" selected>{{ drink.quantity }}</option>
+                <option value="1" >1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            Total Drink cost = ${{ drink.total_price }}
+            <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
+             data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart">
+                Update Drink Order
+            </button>
+            <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
+             data-extrashots="{{ drink.extra_shots }}"class="btn btn-danger delete-drink">
+                Remove From Cart
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+        <br>
+        <button class="order-btn">
+            <a href="{% url 'order:menu' %}">Continue Shopping</a>
+        </button>
+        <button class="order-btn">
+            <a href="{% url 'checkout:checkout' %}">Continue To Checkout</a>
+        </button>
+    {% else %}
+        <h2>There is nothing in your cart!</h2>
+        <button class="order-btn">
+            <a href="{% url 'order:menu' %}">Start Your Order Now!</a>
+        </button>
+    {% endif %}
 
-    <button class="order-btn">
-        <a href="{% url 'order:menu' %}">ORDER NOW</a>
-    </button>
 </div>
+
+
+<script>
+    //Update Cart
+    $(document).on('click', '.update-cart', function (e) {
+        e.preventDefault();
+
+        //grab the drink id, size, milk etc...
+            let drinkid = $(this).data('index');
+            let size = $(this).data('size');
+            let milk = $(this).data('milk');
+            let syrup =  $(this).data('syrup');
+            let extraShots = $(this).data('extrashots') === "extra" ? 'extra': 'no-extra';
+
+        
+        //get the updated quant for the righ ele
+        let quantity = $('#select' + drinkid + '-' + size + '-' + milk + '-' + syrup + '-' + extraShots).val();
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart_update' %}", //** double quote error 
+            data: {
+                drink_id: $(this).data('index'),
+                drink_qty: quantity,
+                size: size,
+                milk: milk,
+                syrup: syrup,
+                extra_shots: extraShots,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function (json) {
+                location.reload()
+            },
+            error: function (xhr, errmsg, err) {
+                console.log("AJAX Error:", errmsg);
+            }
+        })
+    })
+
+    //Delete Cart
+    $(document).on('click', '.delete-drink', function (e) {
+            e.preventDefault();
+
+            //grab the drink id, size, milk etc...
+            let drinkid = $(this).data('index');
+            let size = $(this).data('size');
+            let milk = $(this).data('milk');
+            let syrup =  $(this).data('syrup');
+            let extraShots = $(this).data('extrashots') === "extra" ? 'extra': 'no-extra';
+
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'cart_delete' %}", 
+                data: {
+                    drink_id: $(this).data('index'),
+                    size: size,
+                    milk: milk,
+                    syrup: syrup,
+                    extra_shots: extraShots,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function (json) {
+                    location.reload()
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log("AJAX Error:", errmsg);
+                }
+            })
+        })
+</script>
+
 {% endblock %}

@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/detailed_menu.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+<div class="page-padding">
+    {% include 'order/menu_nav.html' %}
+    <div class="element"></div>
+
+    <div class="center">
+        <div class="only-for-mobile">
+            <input type="hidden" name="drink_id" value="{{ drink.id }}">
+            <p class="drink">{{ drink.name }}</p>
+            <div class="temp-photo"></div>
+            <p class="desc">{{ drink.description }}</p>
+        </div>
+        <div class="only-for-mobile">
+            <div class="element-container">
+                <p class="subcategory">Price:</p>
+                <div class="element2"></div>
+            </div>
+            <p class="subcategory-text">$ <span id="price">{{ drink.price }}</span></p>
+
+            <!-- customizations -->
+            {% if drink.sizes or drink.milk_options or drink.syrup_options or drink.extra_shots %}
+            <div class="element-container">
+                <p class="subcategory">Customizations</h3>
+                <div class="element2"></div>
+            </div>
+            <form>
+                <div class="grid">
+                    {% csrf_token %}
+                    {% if drink.sizes %}
+                    <label class="subcategory-text" for="size">Size:</label>
+                    <select name="size" id="size">
+                        {% for size in drink.sizes %}
+                        <option value="{{ size }}">{{ size }}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+
+                    {% if drink.milk_options %}
+                    <label class="subcategory-text" for="milk" >Milk Options:</label>
+                    <select name="milk" id="milk">
+                        {% for milk in drink.milk_options %}
+                        <option value="{{ milk }}">{{ milk }}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+
+                    {% if drink.syrup_options %}
+                    <label class="subcategory-text" for="syrup">Syrup Options:</label>
+                    <select name="syrup" id="syrup">
+                        {% for syrup in drink.syrup_options %}
+                        <option value="{{ syrup }}">{{ syrup }}</option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+
+                    {% if drink.extra_shots %}
+                    <label>
+                        <input type="checkbox" name="extra_shots"> Add Extra Shot
+                    </label>
+                    {% endif %}
+                        <label class="subcategory-text">Number of Drinks:</label>
+                        <select id="qty-cart">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>                    
+                </form>
+
+            {% else %}
+                <p>No customizations available for this drink.</p>
+            {% endif %}
+        </div>
+    </div>
+    
+</div>
+<div class="element"></div>
+<div class="bottom-container">
+    <button type="submit" class="cart-btn" value={{ drink.id }} id="add-cart">Add to Order</button>
+    <a href="{% url 'order:menu'%}" class="cancel-btn">Cancel</a>
+</div>
+
+<script>
+   
+   //update the prioces based on the milk selected
+   document.addEventListener("DOMContentLoaded", function () {
+    let basePrice = parseFloat("{{ drink.price }}"); 
+
+    function updatePrice() {
+        let newPrice = basePrice; 
+
+        // sizes
+        let size = document.getElementById("size");
+        if (size) {
+            let sizeValue = size.value;
+            if (sizeValue.includes("Large")) newPrice += 1.50;  
+            else if (sizeValue.includes("Medium")) newPrice += 0.75;
+        }
+
+        // milk options 
+        let milk = document.getElementById("milk");
+        if (milk) {
+            let milkValue = milk.value;
+            if (milkValue.includes("Oat Milk")){
+                newPrice += 0.50; 
+            } 
+            else if (milkValue.includes("Almond Milk")) {
+                newPrice += 0.50;
+            }
+        }
+
+        //extra shots
+        let extraShots = document.querySelector('input[name="extra_shots"]');
+        if (extraShots && extraShots.checked) {
+            newPrice += 1.00; 
+        }
+
+        // update displayed price
+        document.getElementById("price").textContent = newPrice.toFixed(2);
+    }
+
+    // event listeners
+    document.getElementById("size")?.addEventListener("change", updatePrice);
+    document.getElementById("milk")?.addEventListener("change", updatePrice);
+    document.querySelector('input[name="extra_shots"]')?.addEventListener("change", updatePrice);
+});
+
+
+
+
+    $(document).on('click', '#add-cart', function (e) {
+        e.preventDefault();
+
+        let drinkId = $('#add-cart').val();  //store customizations
+        let size = $('#size').val();  
+        let milk = $('#milk').val();  
+        let syrup = $('#syrup').val();  
+        let extraShots = $('input[name="extra_shots"]').is(':checked'); 
+        let price = $('#price').text();  
+
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'cart_add' %}", //** double quote error
+            data: {
+                drink_id: $('#add-cart').val(),
+                drink_qty: $('#qty-cart option:selected').text(),
+                size: size,
+                milk: milk,
+                syrup: syrup,
+                extra_shots: extraShots,
+                price: price,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function (json) {
+                // console.log("Cart updated:", json);
+                // let cartQuantity = $('#cart_quantity');
+                // if (cartQuantity.length) {
+                //     cartQuantity.text(json.qty);
+                // } else {
+                //     console.error("Cart quantity element not found!");
+                // }
+                // console.log("Cart updated:", json);
+                // console.log("Received qty:", json.qty);
+                // console.log("Cart updated:", json);
+                // console.log("Before update:", $('#cart_quantity').text());
+                $('#cart_quantity').empty().append(json.qty);
+            },
+            error: function (xhr, errmsg, err) {
+                console.log("AJAX Error:", errmsg);
+            }
+        })
+
+
+    })
+</script>
+{% endblock %}
