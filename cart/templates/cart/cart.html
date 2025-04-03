@@ -30,11 +30,11 @@
             <p>Number of Drinks: {{drink.quantity}}</p>
             Total Drink cost = ${{ drink.total_price }}
             <br>
-            <button onclick="openModal()">Edit Drink</button>
+            <button onclick="openModal('customModal{{ drink.drink.name }}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Edit Drink for {{ drink.drink.name }}</button>
 
-            <div id="customModal" class="modal">
+            <div id="customModal{{ drink.drink.name }}--{{drink.size}}--{{drink.id}}--{{drink.milk}}" class="modal">
                 <div class="modal-content">
-                    <span class="close" onclick="closeModal()">BYEEE</span>
+                    <span class="close" onclick="closeModal('customModal{{ drink.drink.name}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">BYEEE</span>
                     <label>Number of Drinks:</label>
                     <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
                         <option value="{{ drink.quantity }}" selected>{{ drink.quantity }}</option>
@@ -147,14 +147,14 @@
         })
 
         //Edit the drink modal
-        function openModal() {
-            document.getElementById("customModal").style.display = "block";
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
         }
-        function closeModal() {
-            document.getElementById("customModal").style.display = "none";
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
         }
         window.onclick = function(event) {
-            var modal = document.getElementById("customModal");
+            var modal = document.getElementById(modalId);
             if (event.target == modal) {
                 modal.style.display = "none";
             }
