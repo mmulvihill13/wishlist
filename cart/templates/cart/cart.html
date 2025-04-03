@@ -4,6 +4,7 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <div class="page-padding">
 <h1>Welcome to your cart</h1>
@@ -13,31 +14,48 @@
         <div class="card">
             <h2 class="drink-name">{{drink.drink.name}} : ${{drink.price}} </h2>
             <p class="subcategory">Size : {{drink.size}}</p>
+            <!-- <label>Size:</label>
+            <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
+                <option value="{{ drink.size }}" selected>{{ drink.size }}</option>
+                <option value="Small" >Small</option>
+                <option value="Medium">Medium</option>
+            </select>
+             -->
             <p class="subcategory">Syrup : {{drink.syrup}}</p>
             <p class="subcategory">Milk : {{drink.milk}}</p>
             <p class="subcategory">Quantity: {{ drink.quantity }}</p>
             {% if drink.extra_shots == "extra" %}
                 Extra Shots: 1
             {% endif %}
-            
-            <label>Number of Drinks:</label>
-            <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
-                <option value="{{ drink.quantity }}" selected>{{ drink.quantity }}</option>
-                <option value="1" >1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
+            <p>Number of Drinks: {{drink.quantity}}</p>
             Total Drink cost = ${{ drink.total_price }}
-            <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
-             data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart">
-                Update Drink Order
-            </button>
+            <br>
+            <button onclick="openModal()">Edit Drink</button>
+
+            <div id="customModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal()">&times;</span>
+                    <label>Number of Drinks:</label>
+                    <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
+                        <option value="{{ drink.quantity }}" selected>{{ drink.quantity }}</option>
+                        <option value="1" >1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
+                    data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart">
+                        Update Drink Order
+                    </button>
+                </div>
+            </div>
+
             <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
              data-extrashots="{{ drink.extra_shots }}"class="btn btn-danger delete-drink">
                 Remove From Cart
             </button>
+            
         </div>
         {% endfor %}
     </div>
@@ -55,7 +73,6 @@
             <a href="{% url 'order:menu' %}">Start Your Order Now!</a>
         </button>
     {% endif %}
-
 </div>
 
 
@@ -128,6 +145,22 @@
                 }
             })
         })
+
+        //Edit the drink modal
+        function openModal() {
+            document.getElementById("customModal").style.display = "block";
+        }
+        function closeModal() {
+            document.getElementById("customModal").style.display = "none";
+        }
+        window.onclick = function(event) {
+            var modal = document.getElementById("customModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+
 </script>
 
 {% endblock %}
