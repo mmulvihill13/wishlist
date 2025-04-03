@@ -42,6 +42,7 @@
         {% endfor %}
     </div>
         <br>
+        <p>Total Order Price: {{ cart_price }}</p>
         <button class="order-btn">
             <a href="{% url 'order:menu' %}">Continue Shopping</a>
         </button>

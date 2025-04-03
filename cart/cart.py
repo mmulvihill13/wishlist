@@ -76,4 +76,3 @@ class Cart():
         for key in keys_to_delete:
             del self.cart[key]
         self.session.modified = True
-
