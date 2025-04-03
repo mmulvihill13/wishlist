@@ -30,3 +30,8 @@ text-align: center;
     font-size: 1.4rem;
 }
 
+.modal-content{
+    background-color: #432D2D;
+    padding: 10px;
+    color: white;
+}

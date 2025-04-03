@@ -34,7 +34,7 @@
 
             <div id="customModal{{ drink.drink.name }}--{{drink.size}}--{{drink.id}}--{{drink.milk}}" class="modal">
                 <div class="modal-content">
-                    <span class="close" onclick="closeModal('customModal{{ drink.drink.name}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">BYEEE</span>
+                    
                     <label>Number of Drinks:</label>
                     <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
                         <option value="{{ drink.quantity }}" selected>{{ drink.quantity }}</option>
@@ -48,6 +48,7 @@
                     data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart">
                         Update Drink Order
                     </button>
+                    <span class="close" onclick="closeModal('customModal{{ drink.drink.name}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Finish Edits</span>
                 </div>
             </div>
 
