@@ -31,17 +31,13 @@
                 <p>{{drink.syrup}} Syrup</p>
                 <p>{{drink.milk}} Milk</p>
             </div>
-            <p>Number of Drinks: {{drink.quantity}}</p>
+            <!-- <p>Number of Drinks: {{drink.quantity}}</p>
             Total Drink cost = ${{ drink.total_price }}
-            <br>
-            <div class="icon">
-                <i onclick="openModal('customModal{{ drink.drink.name }}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')" class="fa-solid fa-pen-to-square"></i>
-                <i type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
-                data-extrashots="{{ drink.extra_shots }}" class="fa-solid fa-trash delete-drink">
-                </i>
-            </div>
+            <br> -->
 
-            <div id="customModal{{ drink.drink.name }}--{{drink.size}}--{{drink.id}}--{{drink.milk}}" class="modal">
+
+            <!-- Had to add 'slugify' in case drinks have a space -->
+            <div id="customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}" class="modal">
                 <div class="modal-content">
                     
                     <label>Number of Drinks:</label>
@@ -57,10 +53,17 @@
                     data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart">
                         Update Drink Order
                     </button>
-                    <span class="close" onclick="closeModal('customModal{{ drink.drink.name}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Finish Edits</span>
+                    <span class="close" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Finish Edits</span>
                 </div>
             </div>
- 
+
+            
+            <div class="icon">
+                <i onclick="openModal('customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')" class="fa-solid fa-pen-to-square"></i>
+                <i type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
+                data-extrashots="{{ drink.extra_shots }}" class="fa-solid fa-trash delete-drink">
+                </i>
+            </div>
         </div>
         {% endfor %}
     </div>
