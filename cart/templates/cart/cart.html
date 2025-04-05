@@ -9,6 +9,14 @@
 
 <div class="page-padding">
 <h1>Welcome to your cart</h1>
+<div class="cart-container">
+    <p>Total Order Price: {{ cart_price }}</p>
+    <a href="{% url 'cart' %}" class="styled-button">
+        <i class="bi bi-cart"></i> Cart
+        <span id="cart_quantity">{{ cart|length }}
+    </span></a>
+</div>
+<div class="element"></div>
 <div class="main-content">
     {% if cart_drinks %}
         {% for drink in cart_drinks %}
@@ -31,16 +39,15 @@
                 <p>{{drink.syrup}} Syrup</p>
                 <p>{{drink.milk}} Milk</p>
             </div>
-            <!-- <p>Number of Drinks: {{drink.quantity}}</p>
             Total Drink cost = ${{ drink.total_price }}
-            <br> -->
+            <br>
 
 
             <!-- Had to add 'slugify' in case drinks have a space -->
             <div id="customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}" class="modal">
                 <div class="modal-content">
-                    
-                    <label>Number of Drinks:</label>
+                    <h1 class="drink-name">{{drink.drink.name}}</h1>
+                    <label>Number of Drinks: <span>
                     <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
                         <option value="{{ drink.quantity }}" selected>{{ drink.quantity }}</option>
                         <option value="1" >1</option>
@@ -49,15 +56,16 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
+                </span></label>
                     <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
                     data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart">
                         Update Drink Order
                     </button>
-                    <span class="close" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Finish Edits</span>
+                    <!-- <span class="close" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Finish Edits</span> -->
                 </div>
             </div>
 
-            
+
             <div class="icon">
                 <i onclick="openModal('customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')" class="fa-solid fa-pen-to-square"></i>
                 <i type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
@@ -67,20 +75,21 @@
         </div>
         {% endfor %}
     </div>
-        <br>
-        <p>Total Order Price: {{ cart_price }}</p>
-        <button class="order-btn">
+    <div class="element"></div>
+    <div class="bottom-container">
+        <button class="styled-button">
             <a href="{% url 'order:menu' %}">Continue Shopping</a>
         </button>
-        <button class="order-btn">
-            <a href="{% url 'checkout:checkout' %}">Continue To Checkout</a>
+        <button class="styled-button">
+            <a href="{% url 'checkout:checkout' %}">Checkout</a>
         </button>
     {% else %}
         <h2>There is nothing in your cart!</h2>
-        <button class="order-btn">
+        <button class="styled-button">
             <a href="{% url 'order:menu' %}">Start Your Order Now!</a>
         </button>
     {% endif %}
+    </div>
 </div>
 
 
@@ -158,9 +167,9 @@
         function openModal(modalId) {
             document.getElementById(modalId).style.display = "block";
         }
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = "none";
-        }
+        // function closeModal(modalId) {
+        //     document.getElementById(modalId).style.display = "none";
+        // }
         window.onclick = function(event) {
             var modal = document.getElementById(modalId);
             if (event.target == modal) {

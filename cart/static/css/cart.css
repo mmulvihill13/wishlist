@@ -18,7 +18,7 @@ text-align: center;
     border-radius: 8px;
     background-color: #BA9D83;
     box-shadow: 0 4px 6px #432D2D;
-    margin-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 .drink-name{
@@ -72,26 +72,30 @@ i:hover{
 }
 
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 5%;
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
   }
   
   /* Modal Content */
   .modal-content {
-    background-color: #fefefe;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #BA9D83 ;
     margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    border-radius: 8px;
+    width: 50%;
+    height: 50%;
   }
   
   /* The Close Button */
@@ -108,3 +112,42 @@ i:hover{
     text-decoration: none;
     cursor: pointer;
   }
+
+  .element {
+    border-bottom: 10px solid #3b2825;
+    width: 100%;
+    margin: 0 auto 2% auto;
+}
+
+.cart-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1%;
+}
+.styled-button {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    
+    color: #3b2825;
+    background-color: #D9D9D9;
+    border: solid 4px #432D2D;
+    padding: 2px 5px;
+    border-radius: 15px;
+    font-size: 30px;
+    text-align: center;
+}
+
+a{
+    text-decoration: none;
+    color:inherit
+}
+
+.bottom-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
