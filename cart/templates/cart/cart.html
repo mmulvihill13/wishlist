@@ -22,7 +22,7 @@
         {% for drink in cart_drinks %}
         <div class="card">
             <h2 class="drink-name">{{drink.drink.name}}</h2>
-            <h2 class="price">${{drink.price}}</h2>
+            <h2 class="price">${{drink.total_price}}</h2>
             <p class="quantity">{{ drink.quantity }} item(s)</p>
             {% if drink.extra_shots == "extra" %}
                 Extra Shots: 1
@@ -39,8 +39,6 @@
                 <p>{{drink.syrup}} Syrup</p>
                 <p>{{drink.milk}} Milk</p>
             </div>
-            Total Drink cost = ${{ drink.total_price }}
-            <br>
 
 
             <!-- Had to add 'slugify' in case drinks have a space -->
