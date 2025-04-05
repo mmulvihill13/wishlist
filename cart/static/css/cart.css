@@ -6,28 +6,49 @@ text-align: center;
     margin: 2%;
 }
 .main-content{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
     gap: 5%;
 }
 
 .card{
+    display: grid;
+    grid-template-columns: 10% 60% 20% 10%;
     border-radius: 8px;
     background-color: #BA9D83;
     box-shadow: 0 4px 6px #432D2D;
-    line-height: 1.8rem;
-    padding: 10%;
-    gap: 10%;
+    margin-bottom: 5%;
 }
 
 .drink-name{
+    grid-column: 2;
     text-align: center;
-    font-size: 2rem;
+    font-size: 3rem;
+    font-weight: 100;
+    letter-spacing: 4px;
     margin: 0;
+}
+.price{
+    grid-column: 3;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 100;
+    letter-spacing: 4px;
+    margin: 0;
+    
 }
 
 .subcategory{
-    font-size: 1.4rem;
+    grid-column: 2;
+    line-height: .5rem;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    
+}
+
+.quantity{
+    grid-column: 4;
 }
 
 .modal-content{

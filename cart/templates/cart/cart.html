@@ -12,22 +12,25 @@
     {% if cart_drinks %}
         {% for drink in cart_drinks %}
         <div class="card">
-            <h2 class="drink-name">{{drink.drink.name}} : ${{drink.price}} </h2>
-            <p class="subcategory">Size : {{drink.size}}</p>
-            <!-- <label>Size:</label>
-            <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
-                <option value="{{ drink.size }}" selected>{{ drink.size }}</option>
-                <option value="Small" >Small</option>
-                <option value="Medium">Medium</option>
-            </select>
-             -->
-            <p class="subcategory">Syrup : {{drink.syrup}}</p>
-            <p class="subcategory">Milk : {{drink.milk}}</p>
-            <p class="subcategory">Quantity: {{ drink.quantity }}</p>
+            <h2 class="drink-name">{{drink.drink.name}}</h2>
+            <h2 class="price">${{drink.price}}</h2>
+            <p class="quantity">Quantity: {{ drink.quantity }}</p>
             {% if drink.extra_shots == "extra" %}
                 Extra Shots: 1
             {% endif %}
-            <p>Number of Drinks: {{drink.quantity}}</p>
+            <div class="subcategory">
+                <p>Size : {{drink.size}}</p>
+                <!-- <label>Size:</label>
+                <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
+                    <option value="{{ drink.size }}" selected>{{ drink.size }}</option>
+                    <option value="Small" >Small</option>
+                    <option value="Medium">Medium</option>
+                </select>
+                -->
+                <p>{{drink.syrup}} Syrup</p>
+                <p>{{drink.milk}} Milk</p>
+            </div>
+            <!-- <p>Number of Drinks: {{drink.quantity}}</p>
             Total Drink cost = ${{ drink.total_price }}
             <br>
             <button onclick="openModal('customModal{{ drink.drink.name }}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Edit Drink for {{ drink.drink.name }}</button>
@@ -56,7 +59,7 @@
              data-extrashots="{{ drink.extra_shots }}"class="btn btn-danger delete-drink">
                 Remove From Cart
             </button>
-
+ -->
         </div>
         {% endfor %}
     </div>
