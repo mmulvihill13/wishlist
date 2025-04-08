@@ -38,5 +38,19 @@ class UserUpdateFormTests(TestCase):
         self.assertEqual(updated_user.first_name, 'Bryce')
         self.assertEqual(updated_user.last_name, 'Kriner')
         self.assertEqual(updated_user.email, 'krinerbk@hotmail.com')
-        self.assertTrue(updated_user.check_password('123Django'))
+        self.assertTrue(updated_user.check_password('123Django'))\
+        
+        form_data = {
+            'first_name': 'Byce',
+            'last_name': 'Kiner',
+            'email': 'krinrbk@hotmail.com',
+            'password': '123jango',
+        }
+        form = UserUpdateForm(data=form_data, instance=self.user)
+        self.assertTrue(form.is_valid())
+        updated_user = form.save()
+        self.assertNotEqual(updated_user.first_name, 'Bryce')
+        self.assertNotEqual(updated_user.last_name, 'Kriner')
+        self.assertNotEqual(updated_user.email, 'krinerbk@hotmail.com')
+        self.assertFalse(updated_user.check_password('123Django'))
         
