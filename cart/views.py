@@ -2,12 +2,13 @@ from django.shortcuts import render, get_object_or_404
 from .cart import Cart
 from order.models import Drink
 from django.http import JsonResponse
-
+#function that gets the total cart price
 #Function that gets all the drinks to display in the cart for the cart.html (the cart summary page)
 def cart_view(request): 
     #Get the cart
     cart = Cart(request)
     quantities = cart.get_quants
+    cart_price = 0
     
     cart_items = []
 
@@ -36,9 +37,9 @@ def cart_view(request):
             'id': drink_id,
             'total_price': total_price,
         })
-    
+        cart_price +=total_price
     # Render the cart page with the cart items
-    return render(request, "cart/cart.html", {"cart_drinks": cart_items, "quantities":quantities})
+    return render(request, "cart/cart.html", {"cart_drinks": cart_items, "quantities":quantities, 'cart_price': cart_price})
 
 #Function that adds a drink the cart 
 def cart_add(request):

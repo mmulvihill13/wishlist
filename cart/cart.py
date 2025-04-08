@@ -62,10 +62,13 @@ class Cart():
     def update(self, drink, quantity, size, milk, syrup, extra_shots):
         quantity = int(quantity)
         cartkey = f"{drink.id}-{size}-{milk}-{syrup}-{extra_shots}"
+        #Loop over the cart_keys
         for cart_key in self.cart.keys():
+            #If it is equal to the ones quantity
             if cart_key ==cartkey:
                 self.cart[cart_key]['quantity'] = quantity
-
+                # self.cart[cart_key]['size'] = size
+        #Loop over the cart_keys 
         self.session.modified = True
 
     #Function that delets formt he cart class
@@ -76,4 +79,3 @@ class Cart():
         for key in keys_to_delete:
             del self.cart[key]
         self.session.modified = True
-
