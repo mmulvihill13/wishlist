@@ -2,7 +2,8 @@
  padding: 0;
  margin: 0;
  box-sizing: border-box;
- font-family: "Bebas Neue", sans-serif, 1rem;
+ font-family: "Bebas Neue", sans-serif;
+ font-weight: 50;
  transition: 0.3s all ease-in-out;
  letter-spacing: 2px;
  
@@ -15,15 +16,41 @@ height: 100vh;
 background-color: #432d2d;
 }
 
+h1{
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 100;
+    line-height: 3rem;
+}
+
+h3{
+    font-family: "Manrope";
+    text-align: center;
+    font-weight: 400;
+    letter-spacing: 1px;
+
+}
+
 .shadow-wrap{
 border-radius: 25px;
-border: 2px solid #432d2d;
+width: 50%;
 padding: 20px;
 background-color: #ddc1a7;
 }
+
+.shadow-wrap_signup{
+    border-radius: 25px;
+    width: 80%;
+    margin-top: 400px;
+    margin-bottom: 200px;
+    padding: 20px;
+    background-color: #ddc1a7;
+    }
+
 .form-wrap{
- background-color: #ddc1a7;
-padding: 70px;
+    background-color: #ddc1a7;
+    padding: 2%;
+
 }
 .form-wrap form *{
  display: block;
@@ -75,7 +102,69 @@ text-decoration: none;
  color: #10182F;
  border-color: #10182F;
 }
-h3{
-    text-align: center;
-    padding: 25px;
+
+form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
 }
+li{
+    font-family: "Manrope";
+    font-weight: 400;
+}
+
+span{
+    font-family: "Manrope";
+}
+
+.form-wrap-signup{
+    background-color: #ddc1a7;
+    padding: 2%;
+
+}
+.form-wrap-signup form *{
+ width: 100%;
+}
+
+.form-wrap-signup form label{
+margin-top: 100x;
+letter-spacing: 6px;
+font-size: 1.2rem;
+font-weight: 200;
+line-height: 2rem; 
+}
+
+.form-wrap-signup li{
+    list-style: none;
+    font-weight: 300;
+    font-size: 1rem;
+}
+
+.form-wrap-signup p{
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.form-wrap-signup form input{
+padding: 12px 20px;
+border-radius: 5px;
+border: 1px solid #432d2d;
+background: #FFF; 
+color: #e6e2dd; 
+}
+
+.form-wrap-signup button {
+    font-size: 1.6rem;
+    text-align: center;
+    border-radius: 5px;
+    margin: 10px auto;
+    width: auto;
+    padding: 10px 20px;
+    display: block;
+}
+.form-wrap-signup a {
+    padding: 0;
+}
+
