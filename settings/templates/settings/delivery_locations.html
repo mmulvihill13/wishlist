@@ -1,0 +1,46 @@
+{% extends 'base1.html' %}
+
+{% block title %}Delivery Locations{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Select Your Delivery Location</h1>
+
+    <div id="locationCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for location in locations %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ location.image_url }}" class="d-block w-100" alt="{{ location.name }}">
+                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                        <h5>{{ location.name }}</h5>
+                        <p>Estimated Delivery Time: {{ location.estimated_delivery_time }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#locationCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#locationCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="mt-4 text-center">
+        <button id="pickHereBtn" class="btn btn-primary">Pick Here</button>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.getElementById('pickHereBtn').addEventListener('click', function() {
+        const activeSlide = document.querySelector('.carousel-item.active');
+        const locationName = activeSlide.querySelector('h5').innerText;
+        alert('You selected: ' + locationName);
+    });
+</script>
+{% endblock %}
