@@ -54,12 +54,12 @@
                     </select>
                     {% endif %}
 
+                    <br>
                     {% if drink.milk %}
-                    <h2>Kennedy fix spacing here(this is here cuz otherwise u cant see the milk)</h2>
-                    <label class="subcategory-text" for="milk" >Milk Options:</label>
-                    <select name="milk" id="milk{{drink.milk}}">
-                        <option value="Oat" {% if drink.size == "Oat" %}selected{% endif %}>Oat</option>
-                        <option value="Almond" {% if drink.size == "Almond" %}selected{% endif %}>Almond</option>
+                    <label class="subcategory-text" for="milk{{ drink.id }}" >Milk Options:</label>
+                    <select name="milk" id="milk{{drink.id}}">
+                        <option value="Oat" {% if drink.milk == "Oat" %}selected{% endif %}>Oat</option>
+                        <option value="Almond" {% if drink.milk == "Almond" %}selected{% endif %}>Almond</option>
                     </select>
                     {% endif %}
 
@@ -123,28 +123,35 @@
         e.preventDefault();
 
         let modalId = $(this).closest('.modal').attr('id')
+        let drinkid = $(this).data('index');
+
+        //Grab the new sizes 
+        let newSize = $('#size' + drinkid).val();
+        let newMilk = $('#milk' + drinkid).val();
+        let newSyrup = $('#syrup').val();
 
         //grab the drink id, size, milk etc...
-            let drinkid = $(this).data('index');
-            let size = $(this).data('size');
-            let milk = $(this).data('milk');
-            let syrup =  $(this).data('syrup');
-            let extraShots = $(this).data('extrashots') === "extra" ? 'extra': 'no-extra';
-
+        let size = $(this).data('size');
+        let milk = $(this).data('milk');
+        let syrup =  $(this).data('syrup');
+        let extraShots = $(this).data('extrashots') === "extra" ? 'extra': 'no-extra';
         
         //get the updated quant for the righ ele
         let quantity = $('#select' + drinkid + '-' + size + '-' + milk + '-' + syrup + '-' + extraShots).val();
 
         $.ajax({
             type: 'POST',
-            url: "{% url 'cart_update' %}", //** double quote error 
+            url: "{% url 'cart_update' %}",
             data: {
-                drink_id: $(this).data('index'),
-                drink_qty: quantity,
-                size: size,
+                drink_id: drinkid,
+                drink_qty: quantity, 
+                size: size, //Original sizes
                 milk: milk,
                 syrup: syrup,
                 extra_shots: extraShots,
+                new_size : newSize, //New sizes
+                new_milk :newMilk,
+                new_syrup : newSyrup,
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },

@@ -96,6 +96,13 @@ def cart_update(request):
     if request.method == 'POST' and request.POST.get('action') == 'post':
         drink_id = request.POST.get('drink_id')
         drink_qty = request.POST.get('drink_qty')
+
+        #get the new sizes
+        new_size = request.POST.get('new_size')
+        new_milk = request.POST.get('new_milk')
+        new_syrup = request.POST.get('new_syrup')
+
+        #get the original sizes
         size = request.POST.get('size')
         milk = request.POST.get('milk')
         syrup = request.POST.get('syrup')
@@ -107,8 +114,21 @@ def cart_update(request):
         # find the drink in the database
         drink = get_object_or_404(Drink, id=drink_id)
 
+        #update the qty
+        cart.update(
+            drink=drink_id, 
+            quantity=int(drink_qty),
+            size=size,
+            milk=milk,
+            syrup=syrup,
+            new_size=new_size,
+            new_milk=new_milk,
+            new_syrup=new_syrup,
+            extra_shots=extra_shots
+        )
+
         #update the cart
-        cart.update(drink=drink, quantity=int(drink_qty),  size=size, milk=milk, syrup=syrup, extra_shots=extra_shots)
+        cart.update(drink=drink, quantity=int(drink_qty),  size=size, milk=milk, syrup=syrup,new_size = new_size, new_milk=new_milk, new_syrup=new_syrup,extra_shots=extra_shots)
 
         #return the response
         return JsonResponse({'qty': drink_qty})

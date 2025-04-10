@@ -59,16 +59,43 @@ class Cart():
         return quantities
     
     #Get the updated cart
-    def update(self, drink, quantity, size, milk, syrup, extra_shots):
+    def update(self, drink, quantity, size, milk, syrup, new_size, new_milk, new_syrup, extra_shots):
         quantity = int(quantity)
-        cartkey = f"{drink.id}-{size}-{milk}-{syrup}-{extra_shots}"
-        #Loop over the cart_keys
-        for cart_key in self.cart.keys():
-            #If it is equal to the ones quantity
-            if cart_key ==cartkey:
-                self.cart[cart_key]['quantity'] = quantity
-                # self.cart[cart_key]['size'] = size
-        #Loop over the cart_keys 
+        #get the old and new cart ket
+        cartkey = f"{drink}-{size}-{milk}-{syrup}-{extra_shots}"
+        newkey = f"{drink}-{new_size}-{new_milk}-{new_syrup}-{extra_shots}"
+        
+        #if the cart key is the same update the quantity
+        if cartkey == newkey:
+            if cartkey in self.cart:
+                self.cart[cartkey]['quantity'] = quantity
+        #otherwise update the other feature
+        else:
+            #if the cart key is in the cart
+            if cartkey in self.cart:
+                #get the original drink
+                original_drink = self.cart[cartkey]
+                
+                #if the new key is not in the self.cart alreadt
+                if newkey not in self.cart:
+                    self.cart[newkey] = {
+                        'name': original_drink['name'],
+                        'quantity': quantity,
+                        'price': original_drink['price'],
+                        'size': new_size,
+                        'milk': new_milk,
+                        'syrup': new_syrup,
+                        'extra_shots': extra_shots,
+                        'id': original_drink['id'] 
+                    }
+                    #delete the previous cartkey 
+                    del self.cart[cartkey]
+                else:
+                    #if it already exists, add the quantity
+                    self.cart[newkey]['quantity'] += quantity
+                    #otheriwse delete the previous cartkey
+                    del self.cart[cartkey]
+        
         self.session.modified = True
 
     #Function that delets formt he cart class
