@@ -56,7 +56,7 @@
                     </select>
                 </span></label>
                     <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
-                    data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart">
+                    data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">
                         Update Drink Order
                     </button>
                     <!-- <span class="close" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Finish Edits</span> -->
@@ -96,6 +96,8 @@
     $(document).on('click', '.update-cart', function (e) {
         e.preventDefault();
 
+        let modalId = $(this).closest('.modal').attr('id')
+
         //grab the drink id, size, milk etc...
             let drinkid = $(this).data('index');
             let size = $(this).data('size');
@@ -121,6 +123,7 @@
                 action: 'post'
             },
             success: function (json) {
+                document.getElementById(modalId).style.display = "none";
                 location.reload()
             },
             error: function (xhr, errmsg, err) {
@@ -163,18 +166,22 @@
 
         //Edit the drink modal
         function openModal(modalId) {
+            console.log(modalId)
             document.getElementById(modalId).style.display = "block";
         }
-        // function closeModal(modalId) {
-        //     document.getElementById(modalId).style.display = "none";
-        // }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+        }
         window.onclick = function(event) {
-            var modal = document.getElementById(modalId);
-            if (event.target == modal) {
-                modal.style.display = "none";
+            //get all the modals
+            var modals = document.getElementsByClassName("modal");
+            //loop over all the modals and see if any in the background display
+            for (var i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = "none";
+                }
             }
         }
-
 
 </script>
 
