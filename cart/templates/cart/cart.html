@@ -45,6 +45,32 @@
             <div id="customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}" class="modal">
                 <div class="modal-content">
                     <h1 class="drink-name">{{drink.drink.name}}</h1>
+                    {% if drink.size %}
+                    <label class="subcategory-text" for="size{{ drink.id }}">Size:</label>
+                    <select name="size" id="size{{ drink.id }}">
+                        <option value="Small" {% if drink.size == "Small" %}selected{% endif %}>Small</option>
+                        <option value="Medium" {% if drink.size == "Medium" %}selected{% endif %}>Medium</option>
+                        <option value="Large" {% if drink.size == "Large" %}selected{% endif %}>Large</option>
+                    </select>
+                    {% endif %}
+
+                    {% if drink.milk %}
+                    <h2>Kennedy fix spacing here(this is here cuz otherwise u cant see the milk)</h2>
+                    <label class="subcategory-text" for="milk" >Milk Options:</label>
+                    <select name="milk" id="milk{{drink.milk}}">
+                        <option value="Oat" {% if drink.size == "Oat" %}selected{% endif %}>Oat</option>
+                        <option value="Almond" {% if drink.size == "Almond" %}selected{% endif %}>Almond</option>
+                    </select>
+                    {% endif %}
+
+                    {% if drink.syrup %}
+                    <label class="subcategory-text" for="syrup">Syrup Options:</label>
+                    <select name="syrup" id="syrup">
+                        <option value="Caramel" {% if drink.size == "Caramel" %}selected{% endif %}>Caramel</option>
+                        <option value="Vanilla" {% if drink.size == "Vanilla" %}selected{% endif %}>Vanilla</option>
+                    </select>
+                    {% endif %}
+
                     <label>Number of Drinks: <span>
                     <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
                         <option value="{{ drink.quantity }}" selected>{{ drink.quantity }}</option>
