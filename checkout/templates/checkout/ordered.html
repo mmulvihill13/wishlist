@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="annoucement">
+    <span class="accouncement-text">Thank you!</span>
+</div>
+<div class="main-content">
+    <p>Your order has been placed successfully. (Fake payment complete!)</p>
+    <a href="{%url 'order:menu' %}" class="order-btn">Return to Menu</a>
+</div>
+{% endblock %}

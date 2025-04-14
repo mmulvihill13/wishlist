@@ -4,11 +4,11 @@ class Cart():
         self.session = request.session
 
         #Get the current session key if it exists
-        cart = self.session.get('session_key')
+        cart = self.session.get('cart')
 
         #If the user is new, no session key, so make one
-        if 'session_key' not in request.session:
-            cart = self.session['session_key'] = {}
+        if 'cart' not in request.session:
+            cart = self.session['cart'] = {}
 
         #make sure cart is available on all pages of sit
         self.cart = cart
@@ -106,3 +106,11 @@ class Cart():
         for key in keys_to_delete:
             del self.cart[key]
         self.session.modified = True
+    
+    #function to clear the entire cart for a session
+    def clear(self):
+        #if this cart in the session
+        if 'cart' in self.session:
+            #delete it and save the changes
+            del self.session['cart']
+            self.session.modified = True
