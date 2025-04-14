@@ -1,30 +1,35 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
-    <h1>Welcome, {{ user.first_name }} {{user.last_name}}!</h1>
-    <p>Username: {{user.username}}</p>
-    <p>Email: {{ user.email }}</p>
-    <p>Phone Number: {{ user.profile.phone_number }}</p>
+<link rel="stylesheet" href="{% static '/css/settings.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
-    <a href="{% url 'settings:update_user' %}">
-        <button>Edit Profile</button>
-    </a>
-
-    {% if user.is_authenticated %}
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>   
-    {% else %}
-    <a href="{% url 'login' %}">Login</a>
-    {% endif %}
+<div class="center">
+    <div class="element"></div>
+    <div class="profile">
+        <h1>Welcome, {{ user.first_name }} {{user.last_name}}!</h1>
+        <p>Username: {{user.username}}</p>
+        <p>Email: {{ user.email }}</p>
+        <p>Phone Number: {{ user.profile.phone_number }}</p>
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>   
+        {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
+    <div class="element"></div>
+    <div class="bottom-container">
+    <a class="styled-button" href="{% url 'settings:update_user' %}">Edit Profile</a>
 
     <div class="mt-4">
         <!-- Corrected URL reference with namespace 'settings' -->
-        <a href="{% url 'settings:delivery_locations' %}">
-            <button class="btn btn-primary">Go to Delivery Locations</button>
-        </a>
+        <a class="styled-button" href="{% url 'settings:delivery_locations' %}">Go to Delivery Locations</a>
     </div>
-
+    </div>
+</div>
 {% endblock %}
