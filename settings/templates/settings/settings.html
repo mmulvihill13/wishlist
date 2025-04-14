@@ -1,13 +1,17 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static '/css/settings.css' %}">
 
-    <h1>Welcome, {{ user.first_name }} {{user.last_name}}!</h1>
-    <p>Username: {{user.username}}<p>
-    <p>Email: {{ user.email }}</p>
-    <p>Phone Number: {{ user.phone_number }}</p>
-    
-
+<div class="center">
+    <div class="element"></div>
+        <div class="profile">
+            <h1>Welcome, {{ user.first_name }} {{user.last_name}}!</h1>
+            <p>Username: {{user.username}}<p>
+            <p>Email: {{ user.email }}</p>
+            <p>Phone Number: {{ user.phone_number }}</p>
+        </div>
+    <div class="element"></div>
     <a href="{% url 'settings:update_user' %}">
         <button>Edit Profile</button>
     </a>
@@ -19,5 +23,5 @@
     {% else %}
     <a href="{% url 'login' %}">Login</a>
     {% endif %}
-
+</div>
     {% endblock %}

@@ -1,0 +1,23 @@
+.center{
+    width: 80%;
+    margin: 10% auto;
+}
+
+.profile{
+    flex-direction: column;
+    color: #3b2825;
+    font-size: large;
+    letter-spacing: 2px;
+    text-align: center;
+    margin: 10% auto;
+    padding: 1% 0;
+    width: 100%;
+    line-height:  2rem;
+    background-color: #BA9D83;
+    border-radius: 8px;
+}
+
+.element {
+    border-bottom: 10px solid #3b2825;
+    width: 100%;
+}
