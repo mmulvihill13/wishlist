@@ -1,7 +1,53 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="main-content">
-    <h1>Coming Soon....</h1>
+<style>
+  .progress-container {
+    margin: 20px auto;
+    max-width: 400px;
+  }
+
+  .progress-bar {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    height: 24px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background-color: #4caf50; /* Green */
+    transition: width 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+  }
+</style>
+
+<div class="rewards-container" style="text-align: center; margin-top: 40px;">
+    <h2>🎁 Rewards Tracker</h2>
+
+    <p>You’ve placed <strong>{{ order_count }}</strong> order{{ order_count|pluralize }}.</p>
+
+    {% if free_drinks > 0 %}
+        <p>🎉 You have <strong>{{ free_drinks }}</strong> free drink{{ free_drinks|pluralize }} available!</p>
+    {% endif %}
+
+    {% if free_drinks == 0 %}
+        <p>You're <strong>{{ drinks_until_free }}</strong> drink{{ drinks_until_free|pluralize }} away from a free drink!</p>
+    {% endif %}
+
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: {{ progress_percent }}%;">
+                <p style="margin-left: 50px">{{ progress_percent }}%</p>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
