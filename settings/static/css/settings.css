@@ -21,3 +21,26 @@
     border-bottom: 10px solid #3b2825;
     width: 100%;
 }
+
+.bottom-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2%;
+}
+
+.styled-button {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    
+    color: #3b2825;
+    background-color: #D9D9D9;
+    border: solid 4px #432D2D;
+    padding: 2px 5px;
+    border-radius: 15px;
+    font-size: 30px;
+    text-align: center;
+}

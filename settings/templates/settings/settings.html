@@ -12,16 +12,18 @@
             <p>Phone Number: {{ user.phone_number }}</p>
         </div>
     <div class="element"></div>
-    <a href="{% url 'settings:update_user' %}">
-        <button>Edit Profile</button>
-    </a>
-    {% if user.is_authenticated %}
-    <form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-    </form>   
-    {% else %}
-    <a href="{% url 'login' %}">Login</a>
-    {% endif %}
+    <div class="bottom-container">
+        <a href="{% url 'settings:update_user' %}">
+            <button class="styled-button">Edit Profile</button>
+        </a>
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="styled-button" type="submit">Logout</button>
+        </form>   
+        {% else %}
+        <a class="styled-button" href="{% url 'login' %}">Login</a>
+        {% endif %}
+    </div>
 </div>
     {% endblock %}
