@@ -18,8 +18,12 @@ def authView(request):
             user.email = form.cleaned_data.get("email")
             user.first_name = form.cleaned_data.get("first_name")
             user.last_name = form.cleaned_data.get("last_name")
-            user.phone_number = form.cleaned_data.get("phone_number")
             user.save()
+            
+            phone_number = form.cleaned_data.get("phone_number")
+            user.profile.phone_number = phone_number
+            user.profile.save()
+            
             return redirect("login:login")
     else:
         form = CustomUserCreationForm()
