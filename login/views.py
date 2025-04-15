@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomUserCreationForm
 
 
@@ -14,11 +14,16 @@ def authView(request):
         form = CustomUserCreationForm(request.POST) #or None was here 
         if form.is_valid():
             print("Form is valid")
-            user = form.save(commit=False)
+            user = form.save(commit=True)
             user.email = form.cleaned_data.get("email")
             user.first_name = form.cleaned_data.get("first_name")
             user.last_name = form.cleaned_data.get("last_name")
             user.save()
+            
+            phone_number = form.cleaned_data.get("phone_number")
+            user.profile.phone_number = phone_number
+            user.profile.save()
+            
             return redirect("login:login")
     else:
         form = CustomUserCreationForm()
