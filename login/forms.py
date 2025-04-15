@@ -7,7 +7,8 @@ class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
-    phone_number = PhoneNumberField()  # HAYNES
+    phone_number = forms.CharField(max_length=17, required=False)  # HAYNES
+                                                                    # sorry haynes im changing that - ana
 
     class Meta:
         model = User
