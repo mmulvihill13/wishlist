@@ -5,6 +5,7 @@ text-align: center;
 .page-padding{
     margin: 2%;
 }
+
 .main-content{
     display: flex;
     flex-direction: column;
@@ -29,6 +30,7 @@ text-align: center;
     margin-top: 10px;
     margin-bottom: 0;
 }
+
 .price{
     grid-column: 3;
     font-size: 3.5rem;
@@ -150,4 +152,39 @@ a{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+@media only screen and (max-width: 767px) {
+    .card{
+        display: grid;
+        grid-template-columns: auto auto auto;
+        border-radius: 8px;
+        background-color: #BA9D83;
+        box-shadow: 0 4px 6px #432D2D;
+        margin-bottom: 2%;
+        padding: 2%;
+    }
+
+    .drink-name{
+        grid-column: 1;
+        font-size: 2.5rem;
+    }
+    .price{
+        grid-column: 2;
+        font-size: 2rem;   
+    }
+    
+    .subcategory{
+        grid-column: 1;
+        font-size: 1.2rem;
+    }
+    
+    .quantity{
+        grid-column: 3;
+    }
+    
+    .icon{
+        grid-column: 3;
+    }
+    
 }
