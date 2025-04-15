@@ -24,25 +24,18 @@
             <h2 class="drink-name">{{drink.drink.name}}</h2>
             <h2 class="price">${{drink.total_price}}</h2>
             <p class="quantity">{{ drink.quantity }} item(s)</p>
-            {% if drink.extra_shots == "extra" %}
-                Extra Shots: 1
-            {% endif %}
+            
             <div class="subcategory">
                 <p>Size : {{drink.size}}</p>
-                <!-- <label>Size:</label>
-                <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
-                    <option value="{{ drink.size }}" selected>{{ drink.size }}</option>
-                    <option value="Small" >Small</option>
-                    <option value="Medium">Medium</option>
-                </select>
-                -->
                 <p>{{drink.syrup}} Syrup</p>
                 <p>{{drink.milk}} Milk</p>
+                {% if drink.extra_shots == "extra" %}
+                    Extra Shots: 1
+                {% endif %}
             </div>
 
-
             <!-- Had to add 'slugify' in case drinks have a space -->
-            <div id="customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}" class="modal">
+            <div id="customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}--{{drink.extra_shots}}" class="modal">
                 <div class="modal-content">
                     <h1 class="drink-name">{{drink.drink.name}}</h1>
                     {% if drink.size %}
@@ -71,6 +64,13 @@
                     </select>
                     {% endif %}
 
+                    {% if drink.extra_shots%}
+                    <label>
+                        <input type="checkbox" name="extra_shots" id="extrashots{{ drink.id}}" {% if drink.extra_shots == "extra" %}checked{% endif %}>
+                        Add Extra Shot
+                    </label>
+                    {% endif %}
+
                     <label>Number of Drinks: <span>
                     <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
                         <option value="{{ drink.quantity }}" selected>{{ drink.quantity }}</option>
@@ -82,7 +82,7 @@
                     </select>
                 </span></label>
                     <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
-                    data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">
+                    data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}--{{drink.extra_shots}}')">
                         Update Drink Order
                     </button>
                     <!-- <span class="close" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Finish Edits</span> -->
@@ -91,7 +91,7 @@
 
 
             <div class="icon">
-                <i onclick="openModal('customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')" class="fa-solid fa-pen-to-square"></i>
+                <i onclick="openModal('customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}--{{drink.extra_shots}}')" class="fa-solid fa-pen-to-square"></i>
                 <i type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
                 data-extrashots="{{ drink.extra_shots }}" class="fa-solid fa-trash delete-drink">
                 </i>
@@ -134,7 +134,7 @@
         let size = $(this).data('size');
         let milk = $(this).data('milk');
         let syrup =  $(this).data('syrup');
-        let extraShots = $(this).data('extrashots') === "extra" ? 'extra': 'no-extra';
+        let extraShots = $('#extrashots' + drinkid).is(':checked') ? 'extra': 'no-extra';
         
         //get the updated quant for the righ ele
         let quantity = $('#select' + drinkid + '-' + size + '-' + milk + '-' + syrup + '-' + extraShots).val();

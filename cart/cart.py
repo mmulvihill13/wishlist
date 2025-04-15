@@ -59,9 +59,9 @@ class Cart():
         return quantities
     
     #Get the updated cart
-    def update(self, drink, quantity, size, milk, syrup, new_size, new_milk, new_syrup, extra_shots):
+    def update(self, drink, quantity, size, milk, syrup, extra_shots, new_size, new_milk, new_syrup):
         quantity = int(quantity)
-        #get the old and new cart ket
+        #get the old and new cart key
         cartkey = f"{drink}-{size}-{milk}-{syrup}-{extra_shots}"
         newkey = f"{drink}-{new_size}-{new_milk}-{new_syrup}-{extra_shots}"
         
