@@ -1,15 +1,21 @@
 {% extends "base1.html" %}
 {% block content %}
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 <div class="shadow-wrap">
- <div class="form-wrap">
-  <h1>MORNING GRIND</h1>
-  <h3>Their slogan</h3>
-<form method="POST">
- {% csrf_token %}
- {{form}}
- <button type="submit">Submit</button>
-</form>
-<a class="signup-link" href="{% url 'login:authView' %}">Signup</a>
+  <div class="form-wrap">
+    <h1>MORNING GRIND</h1>
+    <h3>Sometimes the Beans Roast Us</h3>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form }}
+      <button type="submit">Submit</button>
+    </form>
+    <p>
+      <a class="forgot-password-link" href="{% url 'password_reset' %}">Forgot Password?</a>
+    </p>
+    <a class="signup-link" href="{% url 'login:authView' %}">Signup</a>
+  </div>
 </div>
-</div>
-{% endblock content %}a
+{% endblock content %}

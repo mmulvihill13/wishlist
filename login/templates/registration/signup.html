@@ -1,14 +1,16 @@
 {% extends "base1.html" %}
 {% block content %}
-<div class="shadow-wrap_signup">
- <div class="form-wrap-signup">
-  <h3>Signup </h3>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<div class="shadow-wrap-signup">
+  <h3>Sign-up </h3>
+  <div class="element"></div>
 <form method="POST">
  {% csrf_token %}
  {{form.as_p}}
  <button type="submit">Submit</button>
 </form>
 <a class="signup-link" href="{% url 'login:login' %}">Login</a>
-</div>
 </div>
 {% endblock content %}
