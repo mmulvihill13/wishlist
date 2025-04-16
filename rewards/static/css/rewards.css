@@ -1,0 +1,84 @@
+body {
+  background-color: #e8caa8; /* Light beige background */
+  margin: 0;
+  padding: 0;
+}
+
+.rewards-container {
+  background-color: #c9ac8d; /* Soft brown/tan panel */
+  max-width: 800px;
+  margin: 80px auto;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rewards-container h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 1px;
+  color: #2e1613; /* Dark brown */
+  margin-bottom: 20px;
+}
+
+.rewards-container p {
+  color: #2e1613;
+  font-size: 18px;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.progress-container {
+  background-color: #f0dbc0;
+  border-radius: 20px;
+  height: 40px;
+  width: 100%;
+  margin-top: 30px;
+  overflow: hidden;
+  border: 2px solid #2e1613;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #d1b08a;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #2e1613;
+  color: #ffffff;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 10px;
+  border-radius: 20px 0 0 20px;
+  transition: width 0.3s ease-in-out;
+}
+
+.free-drink-card {
+  background-color: #c9ac8d;
+  border: 3px solid #2e1613;
+  margin: 40px auto 0;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-family: 'Manrope', sans-serif;
+}
+
+.free-drink-card h3 {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 28px;
+  color: #2e1613;
+  margin-bottom: 10px;
+}
+
+.free-drink-card p {
+  font-size: 18px;
+  color: #2e1613;
+}
+
