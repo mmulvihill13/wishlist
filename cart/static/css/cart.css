@@ -13,13 +13,18 @@ text-align: center;
     gap: 5%;
 }
 
+
+.total{
+    font-size: 2rem;
+    margin: 0;
+}
 .card{
     display: grid;
     grid-template-columns: 10% 60% 20% 10%;
     border-radius: 8px;
     background-color: #BA9D83;
-    box-shadow: 0 4px 6px #432D2D;
     margin-bottom: 2%;
+    color: #2d1e1c;
 }
 
 .drink-name{
@@ -171,7 +176,6 @@ a{
         margin: 5%;
         border-radius: 8px;
         background-color: #BA9D83;
-        box-shadow: 0 4px 6px #432D2D;
         margin-bottom: 2%;
         padding: 2%;
     }

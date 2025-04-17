@@ -12,7 +12,7 @@
 <div class="page-padding">
 <h1>Welcome to your cart</h1>
 <div class="cart-container">
-    <p>Total Order Price: {{ cart_price }}</p>
+    <p class="total">Total Order Price: ${{ cart_price|floatformat:2 }}</p>
     <a href="{% url 'cart' %}" class="styled-button">
         <i class="bi bi-cart"></i> Cart
         <span id="cart_quantity">{{ cart|length }}
