@@ -3,21 +3,23 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/home_style.css' %}">
 
-<!-- Announcements Section -->
+<!-- Announcement Banner -->
 <div class="announcement">
     <span class="announcement-text">- Announcements New Drink Launched -</span>
 </div>
 
-<!-- Main Content Section -->
-<div class="main-content"> 
+<!-- Main Content -->
+<div class="main-content">
+
+    <!-- Section: Order Now -->
     <div class="container1 display-flex">
         <div class="temp-img">This would be an image</div>
-
         <button class="order-btn">
             <a href="{% url 'order:menu' %}">ORDER NOW</a>
         </button>
     </div>
 
+    <!-- Section: What's Going On -->
     <div class="container2">
         <div class="border-top-bottom">
             <h2>What is going on with</h2>
@@ -25,29 +27,30 @@
         </div>
         <div class="temp-img2">Temp Img 2</div>
     </div>
-</div>
 
-<!-- Reviews Section -->
-<div class="reviews-section">
-    <div class="border-top-bottom">
-        <h2>Latest Reviews</h2>
+    <!-- Section: Reviews -->
+    <div class="container2">
+        <div class="border-top-bottom">
+            <h2>Latest Reviews</h2>
+        </div>
+
+        <div class="review-list" style="text-align: center;">
+            {% for review in recent_reviews %}
+                <div class="review-item" style="margin-bottom: 20px;">
+                    <p><strong>{{ review.user.username }}</strong> rated it {{ review.rating }}/5</p>
+                    <p>{{ review.content }}</p>
+                    <p class="review-date">{{ review.created_at|date:"F j, Y" }}</p>
+                </div>
+            {% empty %}
+                <p>No reviews yet. Be the first to leave one!</p>
+            {% endfor %}
+        </div>
+
+        <div class="see-all-btn" style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'home:all_reviews' %}" class="btn">See all reviews</a>
+        </div>
     </div>
 
-    <div class="review-list">
-        {% for review in recent_reviews %}
-            <div class="review-item">
-                <p><strong>{{ review.user.username }}</strong> rated it {{ review.rating }}/5</p>
-                <p>{{ review.content }}</p>
-                <p class="review-date">{{ review.created_at|date:"F j, Y" }}</p>
-            </div>
-        {% empty %}
-            <p>No reviews yet. Be the first to leave one!</p>
-        {% endfor %}
-    </div>
-
-    <div class="see-all-btn">
-        <a href="{% url 'home:all_reviews' %}" class="btn">See all reviews</a>
-    </div>
 </div>
 
 {% endblock %}
