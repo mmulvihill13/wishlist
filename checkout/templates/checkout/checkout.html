@@ -2,77 +2,66 @@
 {%load static%}
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/checkout_style.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<div class="center">
 <div class="announcement">
     <h1>Checkout </h1>
 </div>
-<div class="main-content">
-        <div class="order-summary">
-            <h2>Order Summary</h2>
-        </div>
-        {% if cart_drinks %}
+<div class="main-checkout">
+            {% if cart_drinks %}
             <!--If there are drinks in the cart display them-->
-            <div class="drinks-list">
-                {% for drink in cart_drinks %}
-                <div class="drink-item">
-                    <h3>{{drink.drink.name}}</h3>
-                    <h2>{{drink.total_price}}</h2>
+            <div class="orders">
+                <h2>Order Summary</h2>
+                <div class="drinks-list">
+                    {% for drink in cart_drinks %}
+                    <div class="drink-item">
+                        <h3>{{drink.drink.name}}</h3>
+                        <h2>{{drink.total_price}}</h2>
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
-            </div>
-            <div class="order-total">
-                <h3>Total: {{cart_price }}</h3>
-            </div>
-            
+                <div class="order-total">
+                    <h3>Total: {{cart_price }}</h3>
+                </div>
+            <div class="element"></div>
             <!--Form to "checkout"-->
             <div class="checkout">
                 <form method="post" action="{% url 'checkout:ordered' %}">
                 {% csrf_token %}
-                <h1>Delivery Information</h1>
-                <div class="form-group">
-                    <label for="name">Full Name:</label>
-                    <input type="text" id="name" name="name" required>
+                <h2>Delivery Information</h2>
+                <div class="info">
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" id="phone" name="phone" required>
+                        <label for="location">Location:</label>
+                        <input type="text" id="location" name="location" required>
                 </div>
-                <div class="form-group">
-                    <label for="name">Phone Number:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="name">Location:</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <h1>Payment Information</h1>
-                <div class="form-group">
+                <div class="element"></div>
+                <h2>Payment Information</h2>
+                <div class="info">
                     <label for="card">Card Number:</label>
                     <input type="text" id="card" name="card" required>
+                    <label for="expiration">Expiration Date:</label>
+                    <input type="text" id="expiration" name="expiration" required>
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" name="cvv" required>
                 </div>
-                <div class="form-row">
-                    <div class="form-group half">
-                        <label for="expiration">Expiration Date:</label>
-                        <input type="text" id="expiration" name="expiration" required>
-                    </div>
-                    <div class="form-group half">
-                        <label for="cvv">CVV:</label>
-                        <input type="text" id="cvv" name="cvv" required>
-                    </div>
-                </div>
-                
                 <button type="submit" class="order-btn">Place Order</button>
             </form>
             </div>
 
-
+        </div> 
             <!--Return to cart if you want -->
-            <button class="order-btn">
-                <a href="{% url 'cart' %}">Back to Cart</a>
-            </button>    
+                <a class="to-cart" href="{% url 'cart' %}">Back to Cart</a>  
         {% else %}
         <!--If there is nothing in the cart, don't display and head back to the cart -->
             <h1>There is nothing in your cart right now!</h1>
-            <button class="order-btn">
-                <a href="{% url 'order:menu' %}">View Menu</a>
-            </button>
+                <a class="to-cart" href="{% url 'order:menu' %}">View Menu</a>
         {% endif %}
 
+    </div>
 </div>
 
 {% endblock %}
