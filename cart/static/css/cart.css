@@ -157,7 +157,9 @@ a{
 @media only screen and (max-width: 767px) {
     .card{
         display: grid;
-        grid-template-columns: auto auto auto;
+        grid-template-columns: auto auto;
+        padding: 10%;
+        margin: 5%;
         border-radius: 8px;
         background-color: #BA9D83;
         box-shadow: 0 4px 6px #432D2D;
@@ -166,25 +168,81 @@ a{
     }
 
     .drink-name{
-        grid-column: 1;
-        font-size: 2.5rem;
+        font-size: 2.8rem;
+        text-align: center;
+        grid-column: 1 / span 2;
     }
     .price{
-        grid-column: 2;
-        font-size: 2rem;   
+        margin: 0;
+        font-size: 2rem;
+        text-align: center;
+        grid-row: 2;
+        grid-column: 1/ span 2;
     }
     
     .subcategory{
+        display: grid;
+        grid-template-columns: 45%  10% 45%;
+        align-items: center;
+        grid-row: 3;
+        grid-column: 1/ span 2;
+        text-align: center;
+    }
+
+    .subcategory p{
+        padding: 0;
+        margin: 0;
+        line-height: 1.8rem;
+        text-align: end;
+    }
+    
+    .subcategory span{
+        text-align: start;
+    }
+
+    .size{
+        grid-row: 1;
         grid-column: 1;
-        font-size: 1.2rem;
+    }
+
+    .drink-size{
+        grid-row: 1;
+        grid-column: 3;
+    }
+
+    .syrup{
+        grid-row: 2;
+        grid-column: 1;
+    }
+
+    .drink-syrup{
+        grid-row: 2;
+        grid-column: 3;
+    }
+
+    .milk{
+        grid-row: 3;
+        grid-column: 1;
+    }
+
+    .drink-milk{
+        grid-row: 3;
+        grid-column: 3;
     }
     
     .quantity{
-        grid-column: 3;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        grid-row: 4;
+        grid-column: 2;
     }
     
     .icon{
-        grid-column: 3;
+        justify-content: center;
+        align-items: center;
+        grid-row: 4;
+        grid-column: 1;
     }
     
 }

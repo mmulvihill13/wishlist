@@ -26,9 +26,12 @@
             <p class="quantity">{{ drink.quantity }} item(s)</p>
             
             <div class="subcategory">
-                <p>Size : {{drink.size}}</p>
-                <p>{{drink.syrup}} Syrup</p>
-                <p>{{drink.milk}} Milk</p>
+                <p class="size">Size:</p>
+                <span class="drink-size">{{drink.size}}</span>
+                <p class="syrup">Syrup:</p>
+                <span class="drink-syrup">{{drink.syrup}}</span>
+                <p class="milk">Milk:</p>
+                <span class="drink-milk">{{drink.milk}}</span>
                 {% if drink.extra_shots == "extra" %}
                     Extra Shots: 1
                 {% endif %}
