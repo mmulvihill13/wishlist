@@ -29,6 +29,18 @@
             <h2>Latest Reviews</h2>
         </div>
 
+        <div class="review-list" style="text-align: center;">
+            {% for review in recent_reviews %}
+                <div class="review-item" style="margin-bottom: 20px;">
+                    <p><strong>{{ review.user.username }}</strong> rated it {{ review.rating }}/5</p>
+                    <p>{{ review.content }}</p>
+                    <p class="review-date">{{ review.created_at|date:"F j, Y" }}</p>
+                </div>
+            {% empty %}
+                <p>No reviews yet. Be the first to leave one!</p>
+            {% endfor %}
+        </div>
+
         <div style="margin: 20px 0; text-align: center;">
             <form method="post">
                 {% csrf_token %}
@@ -42,18 +54,6 @@
                 </select><br><br>
                 <button type="submit" class="button">Submit Review</button>
             </form>
-        </div>
-
-        <div class="review-list" style="text-align: center;">
-            {% for review in recent_reviews %}
-                <div class="review-item" style="margin-bottom: 20px;">
-                    <p><strong>{{ review.user.username }}</strong> rated it {{ review.rating }}/5</p>
-                    <p>{{ review.content }}</p>
-                    <p class="review-date">{{ review.created_at|date:"F j, Y" }}</p>
-                </div>
-            {% empty %}
-                <p>No reviews yet. Be the first to leave one!</p>
-            {% endfor %}
         </div>
 
         <div class="see-all-btn" style="text-align: center; margin-top: 20px;">

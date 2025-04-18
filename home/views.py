@@ -7,19 +7,15 @@ def home(request):
     if request.method == 'POST':
         content = request.POST.get('content')
         rating = request.POST.get('rating')
-
         if content and rating:
-            new_review = Review(
+            Review.objects.create(
                 user=request.user,
                 content=content,
                 rating=rating
             )
-            new_review.save()
 
         return redirect('home:home')
-
-    recent_reviews = Review.objects.order_by('-created_at')[:5]
-
+    recent_reviews = Review.objects.order_by('-created_at')[:3]
     return render(request, 'home/home.html', {
         'recent_reviews': recent_reviews
     })
