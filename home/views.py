@@ -1,15 +1,32 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import Review
 from django.contrib.auth.decorators import login_required
-from .models import Review  # Import the Review model
 
 @login_required
 def home(request):
-    recent_reviews = Review.objects.order_by('-created_at')[:3]
-    return render(request, "home/home.html", {'recent_reviews': recent_reviews})
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        rating = request.POST.get('rating')
 
-def account_view(request):
-    return render(request, 'home/account.html')
+        if content and rating:
+            new_review = Review(
+                user=request.user,
+                content=content,
+                rating=rating
+            )
+            new_review.save()
+
+        return redirect('home:home')
+
+    recent_reviews = Review.objects.order_by('-created_at')[:5]
+
+    return render(request, 'home/home.html', {
+        'recent_reviews': recent_reviews
+    })
 
 def all_reviews(request):
-    reviews = Review.objects.all()
-    return render(request, 'home/all_reviews.html', {'reviews': reviews})
+    all_reviews = Review.objects.all().order_by('-created_at')
+    
+    return render(request, 'home/all_reviews.html', {
+        'all_reviews': all_reviews
+    })

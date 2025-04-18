@@ -29,6 +29,21 @@
             <h2>Latest Reviews</h2>
         </div>
 
+        <div style="margin: 20px 0; text-align: center;">
+            <form method="post">
+                {% csrf_token %}
+                <textarea name="content" placeholder="Write your review..." rows="4" cols="50" required></textarea><br><br>
+                <label for="rating">Rating:</label>
+                <select name="rating" required>
+                    <option value="">--</option>
+                    {% for i in "12345" %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select><br><br>
+                <button type="submit" class="button">Submit Review</button>
+            </form>
+        </div>
+
         <div class="review-list" style="text-align: center;">
             {% for review in recent_reviews %}
                 <div class="review-item" style="margin-bottom: 20px;">
