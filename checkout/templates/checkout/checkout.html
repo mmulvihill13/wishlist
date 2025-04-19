@@ -23,6 +23,10 @@
                 </div>
                 <div class="order-total">
                     <h3>Total: {{cart_price }}</h3>
+
+                    {% if discount_applied %}
+                        <p>You have a free drink! Your total has been reduced!</p>
+                    {% endif %}
                 </div>
             <div class="element"></div>
             <!--Form to "checkout"-->
