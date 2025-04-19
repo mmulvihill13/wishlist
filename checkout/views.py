@@ -42,11 +42,18 @@ def checkout(request):
         
         #add it to the total cart price
         cart_price += total_price 
+    
+    locations = [
+        {"name": "Becker", "image_url": "https://th.bing.com/th/id/R.621fed752366a5815416b0c987ab10b9?rik=bCXdKnGyi51%2fgQ&pid=ImgRaw&r=0", "estimated_delivery_time": "10 minutes"},
+        {"name": "Cafe", "image_url": "https://i.pinimg.com/736x/a2/bc/9d/a2bc9d4d9afd8dd98f65e30d349bfee4.jpg", "estimated_delivery_time": "20 minutes"},
+        {"name": "Library", "image_url": "https://www.travelandleisure.com/thmb/gpiEE4EBnn58CFGRqkZoVwzwS4I=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/florida-southern-university-lakeland-COLLEGECAMP0421-94a6a2c98f5e4a91b86cbe2a7ca134f6.jpg", "estimated_delivery_time": "30 minutes"},
+    ]
 
     #pass the data
     context = {
         'cart_drinks': cart_drinks,
-        'cart_price': cart_price
+        'cart_price': cart_price,
+        'locations': locations
     }
     return render(request, 'checkout/checkout.html', context)
 
