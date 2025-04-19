@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages 
 from cart.cart import Cart 
-
+from django.contrib.auth.models import User
 #checkout function
 def checkout(request):
     cart = Cart(request)
@@ -65,6 +65,14 @@ def ordered(request):
             #get the cart request, and clear it
             cart = Cart(request)
             cart.clear()
+            #add to increment rewards 
+            profile = request.user.profile
+            profile.order_count += 1
+            #let the user know if they got a free drink
+            if profile.order_count%10 ==0:
+                profile.free_drinks_avail += 1 
+                messages.success(request, 'You earned a free drink!')
+        profile.save()
         messages.success(request, 'You order has been placed successfully')
         return render(request, 'checkout/ordered.html')
     #get back to the checkout page other wise

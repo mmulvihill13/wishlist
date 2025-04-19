@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 def reward(request):
     profile = request.user.profile
     drinks_until_free = 10 - (profile.order_count % 10)
-    progress_percent = (1 - (drinks_until_free / 10)) * 100
+    progress_percent = round((1 - (drinks_until_free / 10)) * 100)
 
     context = {
         'order_count': profile.order_count,
