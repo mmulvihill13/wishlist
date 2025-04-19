@@ -134,13 +134,15 @@
         let newSize = $('#size' + drinkid).val();
         let newMilk = $('#milk' + drinkid).val();
         let newSyrup = $('#syrup').val();
+        let newExtraShots = $('#extrashots' + drinkid).is(':checked') ? 'extra': 'no-extra';
+    
 
         //grab the drink id, size, milk etc...
         let size = $(this).data('size');
         let milk = $(this).data('milk');
         let syrup =  $(this).data('syrup');
-        let extraShots = $('#extrashots' + drinkid).is(':checked') ? 'extra': 'no-extra';
-        
+        let extraShots = $(this).data('extrashots');
+    
         //get the updated quant for the righ ele
         let quantity = $('#select' + drinkid + '-' + size + '-' + milk + '-' + syrup + '-' + extraShots).val();
 
@@ -157,6 +159,7 @@
                 new_size : newSize, //New sizes
                 new_milk :newMilk,
                 new_syrup : newSyrup,
+                new_extra_shots: newExtraShots,
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },

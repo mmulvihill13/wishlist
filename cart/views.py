@@ -92,7 +92,7 @@ def cart_delete(request):
 
 #Function that updates the cart wehn the user slects a different quantity in the cart
 def cart_update(request):
-    print("POST:", request.POST)
+    # print("POST:", request.POST)
     cart = Cart(request)
     if request.method == 'POST' and request.POST.get('action') == 'post':
         drink_id = request.POST.get('drink_id')
@@ -102,6 +102,7 @@ def cart_update(request):
         new_size = request.POST.get('new_size')
         new_milk = request.POST.get('new_milk')
         new_syrup = request.POST.get('new_syrup')
+        new_extra_shots = request.POST.get('new_extra_shots')
 
         #get the original sizes
         size = request.POST.get('size')
@@ -125,7 +126,8 @@ def cart_update(request):
             new_size=new_size,
             new_milk=new_milk,
             new_syrup=new_syrup,
-            extra_shots=extra_shots
+            extra_shots=extra_shots,
+            new_extra_shots = new_extra_shots
         )
 
         # #update the cart
