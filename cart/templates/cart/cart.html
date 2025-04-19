@@ -58,6 +58,8 @@
                     <select name="milk" id="milk{{drink.id}}">
                         <option value="Oat" {% if drink.milk == "Oat" %}selected{% endif %}>Oat</option>
                         <option value="Almond" {% if drink.milk == "Almond" %}selected{% endif %}>Almond</option>
+                        <option value="Whole" {% if drink.milk == "Whole" %}selected{% endif %}>Whole</option>
+                        <option value="Half" {% if drink.milk == "Half" %}selected{% endif %}>Half & Half</option>
                     </select>
                     {% endif %}
 
@@ -66,6 +68,15 @@
                     <select name="syrup" id="syrup">
                         <option value="Caramel" {% if drink.size == "Caramel" %}selected{% endif %}>Caramel</option>
                         <option value="Vanilla" {% if drink.size == "Vanilla" %}selected{% endif %}>Vanilla</option>
+                        <option value="Coconut" {% if drink.size == "Coconut" %}selected{% endif %}>Coconut</option>
+                        <option value="Peppermint" {% if drink.size == "Peppermint" %}selected{% endif %}>Peppermint</option>
+                        <option value="Mocha" {% if drink.size == "Mocha" %}selected{% endif %}>Mocha</option>
+                        <option value="White Mocha" {% if drink.size == "White Mocha" %}selected{% endif %}>White Mocha</option>
+                        <option value="Syrup Sweetener" {% if drink.size == "Syrup Sweetener" %}selected{% endif %}>Syrup Sweetener</option>
+                        <option value="Rum" {% if drink.size == "Rum" %}selected{% endif %}>Rum</option>
+                        <option value="Almond" {% if drink.size == "Almond" %}selected{% endif %}>Almond</option>
+                        <option value="Maple" {% if drink.size == "Maple" %}selected{% endif %}>Maple</option>
+                        <option value="Salted Caramel" {% if drink.size == "Salted Caramel" %}selected{% endif %}>Salted Caramel</option>
                     </select>
                     {% endif %}
 
