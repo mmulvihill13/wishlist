@@ -9,5 +9,22 @@
         <div class="border-top-bottom">
             <h2>All Reviews</h2>
         </div>
+
+        <div class="review-list" style="text-align: center;">
+            {% for review in all_reviews %}
+                <div class="review-item" style="margin-bottom: 20px;">
+                    <p><strong>{{ review.user.username }}</strong> rated it {{ review.rating }}/5</p>
+                    <p>{{ review.content }}</p>
+                    <p class="review-date">{{ review.created_at|date:"F j, Y" }}</p>
+                </div>
+            {% empty %}
+                <p>No reviews found.</p>
+            {% endfor %}
+        </div>
+
+        <div class="see-all-btn" style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'home:home' %}" class="btn"> Back to Home</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
