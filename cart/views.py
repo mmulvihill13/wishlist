@@ -7,7 +7,7 @@ from django.http import JsonResponse
 def cart_view(request): 
     #Get the cart
     cart = Cart(request)
-    quantities = cart.get_quants
+    quantities = cart.get_quants()
     cart_price = 0
     
     cart_items = []
@@ -135,3 +135,20 @@ def cart_update(request):
 
         #return the response
         return JsonResponse({'qty': drink_qty})
+    
+    
+
+def get_drink_options(request, drink_id):
+    try:
+        drink = Drink.objects.get(id=drink_id)
+
+        data = {
+            'sizes': drink.sizes,
+            'milks': drink.milk_options,
+            'syrups': drink.syrup_options,
+            'extra_shots': drink.extra_shots,
+        }
+        return JsonResponse(data)
+
+    except Drink.DoesNotExist:
+        return JsonResponse({'error': 'Drink not found'}, status=404)

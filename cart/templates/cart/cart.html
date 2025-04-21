@@ -46,9 +46,7 @@
                     {% if drink.size %}
                     <label class="subcategory-text" for="size{{ drink.id }}">Size:</label>
                     <select name="size" id="size{{ drink.id }}">
-                        <option value="Small" {% if drink.size == "Small" %}selected{% endif %}>Small</option>
-                        <option value="Medium" {% if drink.size == "Medium" %}selected{% endif %}>Medium</option>
-                        <option value="Large" {% if drink.size == "Large" %}selected{% endif %}>Large</option>
+                        <option value="">Loading</option>
                     </select>
                     {% endif %}
 
@@ -56,16 +54,16 @@
                     {% if drink.milk %}
                     <label class="subcategory-text" for="milk{{ drink.id }}" >Milk Options:</label>
                     <select name="milk" id="milk{{drink.id}}">
-                        <option value="Oat" {% if drink.milk == "Oat" %}selected{% endif %}>Oat</option>
-                        <option value="Almond" {% if drink.milk == "Almond" %}selected{% endif %}>Almond</option>
+                        <option value="">Loading</option>
+
                     </select>
                     {% endif %}
 
                     {% if drink.syrup %}
                     <label class="subcategory-text" for="syrup">Syrup Options:</label>
                     <select name="syrup" id="syrup">
-                        <option value="Caramel" {% if drink.size == "Caramel" %}selected{% endif %}>Caramel</option>
-                        <option value="Vanilla" {% if drink.size == "Vanilla" %}selected{% endif %}>Vanilla</option>
+                        <option value="">Loading</option>
+                        
                     </select>
                     {% endif %}
 
@@ -203,26 +201,65 @@
                     console.log("AJAX Error:", errmsg);
                 }
             })
-        })
+    })
 
-        //Edit the drink modal
-        function openModal(modalId) {
-            console.log(modalId)
-            document.getElementById(modalId).style.display = "block";
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = "none";
-        }
-        window.onclick = function(event) {
-            //get all the modals
-            var modals = document.getElementsByClassName("modal");
-            //loop over all the modals and see if any in the background display
-            for (var i = 0; i < modals.length; i++) {
-                if (event.target == modals[i]) {
-                    modals[i].style.display = "none";
-                }
+    //Edit the drink modal
+    function openModal(modalId) {
+        console.log(modalId)
+        document.getElementById(modalId).style.display = "block";
+
+        // Extract the drink ID and other options from modalId
+        const parts = modalId.split('--');
+        const drinkId = parts[2];
+        const currentSize = parts[1];
+        const currentMilk = parts[3];
+        const currentExtraShots = parts[4];
+        const currentSyrup = $(`#syrup`).data('current'); // if needed
+
+        // Fetch drink options from the server
+        $.get(`/cart/drink-options/${drinkId}/`, function(data) {
+            // Update size options
+            const sizeSelect = $(`#size${drinkId}`);
+            sizeSelect.empty();
+            data.sizes.forEach(size => {
+                sizeSelect.append(new Option(size, size, false, size === currentSize));
+            });
+
+            // Update milk options
+            const milkSelect = $(`#milk${drinkId}`);
+            milkSelect.empty();
+            data.milks.forEach(milk => {
+                milkSelect.append(new Option(milk, milk, false, milk === currentMilk));
+            });
+
+            // Update syrup options
+            const syrupSelect = $(`#syrup`);
+            syrupSelect.empty();
+            data.syrups.forEach(syrup => {
+                syrupSelect.append(new Option(syrup, syrup, false, syrup === parts[5])); // optional: match syrup from modal ID if passed
+            });
+
+            // Update extra shots
+            const extraShotsCheckbox = $(`#extrashots${drinkId}`);
+            extraShotsCheckbox.prop('checked', currentExtraShots === "extra");
+        });
+    }
+
+
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+    window.onclick = function(event) {
+        //get all the modals
+        var modals = document.getElementsByClassName("modal");
+        //loop over all the modals and see if any in the background display
+        for (var i = 0; i < modals.length; i++) {
+            if (event.target == modals[i]) {
+                modals[i].style.display = "none";
             }
         }
+    }
 
 </script>
 
