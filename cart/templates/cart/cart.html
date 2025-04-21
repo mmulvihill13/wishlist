@@ -140,9 +140,23 @@
         let milk = $(this).data('milk');
         let syrup =  $(this).data('syrup');
         let extraShots = $(this).data('extrashots');
+
     
         //get the updated quant for the righ ele
         let quantity = $('#select' + drinkid + '-' + size + '-' + milk + '-' + syrup + '-' + extraShots).val();
+
+        console.log("Updating cart with:", {
+        drinkid,
+        size,
+        milk,
+        syrup,
+        extraShots,
+        newSize,
+        newMilk,
+        newSyrup,
+        newExtraShots,
+        quantity
+    });
 
         $.ajax({
             type: 'POST',
@@ -214,10 +228,11 @@
         const currentSize = parts[1];
         const currentMilk = parts[3];
         const currentExtraShots = parts[4];
-        const currentSyrup = $(`#syrup`).data('current'); // if needed
+        const currentSyrup = parts[5]; // if needed
 
         // Fetch drink options from the server
         $.get(`/cart/drink-options/${drinkId}/`, function(data) {
+            console.log(data);
             // Update size options
             const sizeSelect = $(`#size${drinkId}`);
             sizeSelect.empty();
