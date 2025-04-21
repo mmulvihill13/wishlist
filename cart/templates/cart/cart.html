@@ -60,8 +60,8 @@
                     {% endif %}
 
                     {% if drink.syrup %}
-                    <label class="subcategory-text" for="syrup">Syrup Options:</label>
-                    <select name="syrup" id="syrup">
+                    <label class="subcategory-text" for="syrup{drink.id}">Syrup Options:</label>
+                    <select name="syrup" id="syrup{{drink.id}}">
                         <option value="">Loading</option>
                         
                     </select>
@@ -233,7 +233,7 @@
             });
 
             // Update syrup options
-            const syrupSelect = $(`#syrup`);
+            const syrupSelect = $(`#syrup${drinkId}`);
             syrupSelect.empty();
             data.syrups.forEach(syrup => {
                 syrupSelect.append(new Option(syrup, syrup, false, syrup === parts[5])); // optional: match syrup from modal ID if passed
