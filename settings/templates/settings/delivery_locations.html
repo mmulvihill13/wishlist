@@ -1,4 +1,4 @@
-{% extends 'base1.html' %}
+{% extends 'delivery_base.html' %}
 
 {% block title %}Delivery Locations{% endblock %}
 
@@ -10,7 +10,7 @@
         <div class="carousel-inner">
             {% for location in locations %}
                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <img src="{{ location.image_url }}" class="d-block w-100" alt="{{ location.name }}">
+                    <img src="{{ location.image_url }}" class="d-block w-100" alt="{{ location.name }}" style="max-height: 550px; object-fit: cover;">
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
                         <h5>{{ location.name }}</h5>
                         <p>Estimated Delivery Time: {{ location.estimated_delivery_time }}</p>
@@ -37,7 +37,7 @@
 
 {% block extra_js %}
 <script>
-    document.getElementById('pickHereBtn').addEventListener('click', function() {
+    document.getElementById('pickHereBtn').addEventListener('click', function () {
         const activeSlide = document.querySelector('.carousel-item.active');
         const locationName = activeSlide.querySelector('h5').innerText;
         alert('You selected: ' + locationName);
