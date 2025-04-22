@@ -42,7 +42,8 @@
 
             <!-- Had to add 'slugify' in case drinks have a space -->
             <div id="customModal--{{ drink.id }}--{{ drink.size|slugify }}--{{ drink.milk|slugify }}--{{ drink.syrup|slugify }}--{{ drink.extra_shots }}" class="modal">
-                <div class="modal-content">
+                <div class="modal-container">
+                <div class="modal-content1">
                     <h1 class="drink-modal">{{drink.drink.name}}</h1>
                     {% if drink.size %}
                     <label class="sub-modal" for="size{{ drink.id }}">Size:</label>
@@ -67,10 +68,10 @@
                     {% endif %}
 
                     {% if drink.extra_shots%}
-                    <label class="extra">
+                    <div class="extra">
                         <input type="checkbox" name="extra_shots" id="extrashots{{ drink.id}}" {% if drink.extra_shots == "extra" %}checked{% endif %}>
-                        Add Extra Shot
-                    </label>
+                        <label for="extrashots{{drink.id}}">Add Extra Shot</label>
+                    </div>
                     {% endif %}
 
                     <label class="extra">Number of Drinks: <span>
@@ -89,6 +90,7 @@
                     </button>
                     <!-- <span class="close" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Finish Edits</span> -->
                 </div>
+            </div>
             </div>
 
 

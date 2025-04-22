@@ -70,11 +70,6 @@ text-align: center;
     grid-column: 4;
 }
 
-.modal-content{
-    background-color: #432D2D;
-    padding: 10px;
-    color: white;
-}
 
 .icon{
     grid-column: 4;
@@ -100,26 +95,35 @@ i:hover{
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
   }
+
+  .modal-container{
+    padding: 20px;
+    background-color: #BA9D83;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: fit-content;
+    height: fit-content;
+    padding-bottom: 80px;
+    border-radius: 8px;
+  }
   
   /* Modal Content */
-  .modal-content {
+  .modal-content1 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: center;
     background-color: #BA9D83 ;
-    margin: auto;
-    border-radius: 8px;
-    padding: 2% 10% 2% 10%;
-    width: 50%;
-    height: 60%;
     font-size: 1.4rem;
-    line-height: 1.4rem;
+    line-height: 1.6rem;
     gap: 4%;
+    
   }
 
 .drink-modal{
-    font-size: 3rem;
+    font-size: 2rem;
     text-align: center;
     grid-column: 1/ span 2;
     color: #2d1e1c;
@@ -138,6 +142,11 @@ i:hover{
 .extra{
     text-align: center;
     grid-column: 1/ span 2;
+}
+
+.extra select{
+    margin: auto 2%;
+    font-size: 1rem;
 }
 
 .update-cart{
@@ -185,12 +194,13 @@ i:hover{
     gap: 5px;
     justify-content: center;
     align-items: center;
-    
+    font-family: Manrope;
     color: #3b2825;
     background-color: #D9D9D9;
     border: solid 4px #432D2D;
     padding: 2px 5px;
-    border-radius: 15px;
+    font-weight: 600;
+    border-radius: 8px;
     font-size: 30px;
     text-align: center;
 }
@@ -206,7 +216,19 @@ a{
     align-items: center;
 }
 
-@media only screen and (max-width: 767px) {
+.card:hover{
+    background-color: #c9ab8f;
+}
+
+.update-cart:hover{
+    background-color: #5d3f3f;
+}
+
+.styled-button:hover{
+    background-color: white;
+}
+
+@media only screen and (max-width: 910px) {
     .card{
         display: grid;
         grid-template-columns: auto auto;
