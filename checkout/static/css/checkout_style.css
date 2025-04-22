@@ -129,9 +129,7 @@
 .ordered{
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 20%;
+    margin: 10%;
     border-radius: 8px;
     font-size: 2rem;
     text-align: center;
