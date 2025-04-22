@@ -40,7 +40,7 @@
             </div>
 
             <!-- Had to add 'slugify' in case drinks have a space -->
-            <div id="customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}--{{drink.extra_shots}}" class="modal">
+            <div id="customModal--{{ drink.id }}--{{ drink.size|slugify }}--{{ drink.milk|slugify }}--{{ drink.syrup|slugify }}--{{ drink.extra_shots }}" class="modal">
                 <div class="modal-content">
                     <h1 class="drink-name">{{drink.drink.name}}</h1>
                     {% if drink.size %}
@@ -94,7 +94,7 @@
 
 
             <div class="icon">
-                <i onclick="openModal('customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}--{{drink.extra_shots}}')" class="fa-solid fa-pen-to-square"></i>
+                <i onclick="openModal('customModal--{{ drink.id }}--{{ drink.size|slugify }}--{{ drink.milk|slugify }}--{{ drink.syrup|slugify }}--{{ drink.extra_shots }}')" class="fa-solid fa-pen-to-square"></i>
                 <i type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
                 data-extrashots="{{ drink.extra_shots }}" class="fa-solid fa-trash delete-drink">
                 </i>
@@ -131,7 +131,7 @@
         //Grab the new sizes 
         let newSize = $('#size' + drinkid).val();
         let newMilk = $('#milk' + drinkid).val();
-        let newSyrup = $('#syrup').val();
+        let newSyrup = $('#syrup' + drinkid).val();
         let newExtraShots = $('#extrashots' + drinkid).is(':checked') ? 'extra': 'no-extra';
     
 
@@ -143,7 +143,8 @@
 
     
         //get the updated quant for the righ ele
-        let quantity = $('#select' + drinkid + '-' + size + '-' + milk + '-' + syrup + '-' + extraShots).val();
+        let quantity = $('#' + modalId).find('select[id^="select"]').val();
+
 
         console.log("Updating cart with:", {
         drinkid,
@@ -224,11 +225,11 @@
 
         // Extract the drink ID and other options from modalId
         const parts = modalId.split('--');
-        const drinkId = parts[2];
-        const currentSize = parts[1];
+        const drinkId = parts[1];
+        const currentSize = parts[2];
         const currentMilk = parts[3];
-        const currentExtraShots = parts[4];
-        const currentSyrup = parts[5]; // if needed
+        const currentExtraShots = parts[5];
+        const currentSyrup = parts[4]; // if needed
 
         // Fetch drink options from the server
         $.get(`/cart/drink-options/${drinkId}/`, function(data) {
