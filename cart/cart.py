@@ -95,6 +95,12 @@ class Cart():
                     elif new_size == "Large":
                         new_price = float(drink_price) + 1.50
                 
+                if new_extra_shots != extra_shots:
+                    if new_extra_shots == 'extra':
+                        new_price = float(new_price) + 0.50
+                    else:
+                        new_price = float(new_price) - 0.50
+                
                 #if the new key is not in the self.cart alreadt
                 if newkey not in self.cart:
                     self.cart[newkey] = {
