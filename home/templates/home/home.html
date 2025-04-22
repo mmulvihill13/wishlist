@@ -11,9 +11,9 @@
 
     <div class="container1 display-flex">
         <div class="temp-img">This would be an image</div>
-        <button class="order-btn">
-            <a href="{% url 'order:menu' %}">ORDER NOW</a>
-        </button>
+        <div class="see-all-btn" style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'order:menu' %}" class="btn">ORDER NOW</a>
+        </div>
     </div>
 
     <div class="container2">
@@ -29,7 +29,7 @@
             <h2>Latest Reviews</h2>
         </div>
 
-        <div class="review-list" style="text-align: center;">
+        <div class="review-list" style="text-align: center; margin: auto; font-size: 25px; color: black">
             {% for review in recent_reviews %}
                 <div class="review-item" style="margin-bottom: 20px;">
                     <p><strong>{{ review.user.username }}</strong> rated it {{ review.rating }}/5</p>
@@ -41,7 +41,7 @@
             {% endfor %}
         </div>
 
-        <div style="margin: 20px 0; text-align: center;">
+        <div style="margin: 20px 0; text-align: center; margin: auto;">
             <form method="post">
                 {% csrf_token %}
                 <textarea name="content" placeholder="Write your review..." rows="4" cols="50" required></textarea><br><br>
@@ -52,7 +52,9 @@
                         <option value="{{ i }}">{{ i }}</option>
                     {% endfor %}
                 </select><br><br>
-                <button type="submit" class="button">Submit Review</button>
+                <div class="see-all-btn" style="text-align: center; margin-top: 20px;">
+                    <button type="submit" class="btn">Submit Review</button>
+                </div>
             </form>
         </div>
 

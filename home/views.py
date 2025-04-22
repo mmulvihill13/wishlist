@@ -13,16 +13,28 @@ def home(request):
                 content=content,
                 rating=rating
             )
-
         return redirect('home:home')
+
     recent_reviews = Review.objects.order_by('-created_at')[:3]
     return render(request, 'home/home.html', {
         'recent_reviews': recent_reviews
     })
 
 def all_reviews(request):
-    all_reviews = Review.objects.all().order_by('-created_at')
-    
+    sort_by = request.GET.get('sort_by')
+
+    if sort_by == 'most_recent':
+        all_reviews = Review.objects.order_by('-created_at')
+    elif sort_by == 'least_recent':
+        all_reviews = Review.objects.order_by('created_at')
+    elif sort_by == 'highest':
+        all_reviews = Review.objects.order_by('-rating')
+    elif sort_by == 'lowest':
+        all_reviews = Review.objects.order_by('rating')
+    else:
+        all_reviews = Review.objects.order_by('-created_at')  # default
+
     return render(request, 'home/all_reviews.html', {
-        'all_reviews': all_reviews
+        'all_reviews': all_reviews,
+        'selected_sort': sort_by
     })

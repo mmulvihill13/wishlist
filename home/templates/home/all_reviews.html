@@ -10,9 +10,19 @@
             <h2>All Reviews</h2>
         </div>
 
-        <div class="review-list" style="text-align: center;">
+        <form method="get" style="text-align: center; margin-bottom: 20px;">
+            <label for="sort_by">Sort by:</label>
+            <select name="sort_by" id="sort_by" onchange="this.form.submit()" style="margin-left: 10px; padding: 5px;">
+                <option value="most_recent" {% if selected_sort == 'most_recent' %}selected{% endif %}>Most Recent</option>
+                <option value="least_recent" {% if selected_sort == 'least_recent' %}selected{% endif %}>Least Recent</option>
+                <option value="highest" {% if selected_sort == 'highest' %}selected{% endif %}>Highest Rating</option>
+                <option value="lowest" {% if selected_sort == 'lowest' %}selected{% endif %}>Lowest Rating</option>
+            </select>
+        </form>
+
+        <div class="review-list" style="display: flex; flex-direction: column; align-items: center; margin: auto">
             {% for review in all_reviews %}
-                <div class="review-item" style="margin-bottom: 20px;">
+                <div class="review-item" style="margin-bottom: 20px; width: 80%; text-align: center; font-size: 25px; color: black;">
                     <p><strong>{{ review.user.username }}</strong> rated it {{ review.rating }}/5</p>
                     <p>{{ review.content }}</p>
                     <p class="review-date">{{ review.created_at|date:"F j, Y" }}</p>
@@ -22,8 +32,8 @@
             {% endfor %}
         </div>
 
-        <div class="see-all-btn" style="text-align: center; margin-top: 20px;">
-            <a href="{% url 'home:home' %}" class="btn"> Back to Home</a>
+        <div class="see-all-btn" style="text-align: center; margin-top: 30px;">
+            <a href="{% url 'home:home' %}" class="btn">Back to Home</a>
         </div>
     </div>
 </div>

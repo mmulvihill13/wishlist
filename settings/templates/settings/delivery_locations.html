@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Select Your Delivery Location</h1>
+    <h1 class="text-center mb-4">These Are Our Delivery Locations</h1>
 
     <div id="locationCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -29,18 +29,9 @@
         </button>
     </div>
 
-    <div class="mt-4 text-center">
-        <button id="pickHereBtn" class="btn btn-primary">Pick Here</button>
+    <!-- Account Button styled exactly like the See all reviews button -->
+    <div class="see-all-btn" style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'settings:setting' %}" class="btn">Go to Account</a>
     </div>
 </div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    document.getElementById('pickHereBtn').addEventListener('click', function () {
-        const activeSlide = document.querySelector('.carousel-item.active');
-        const locationName = activeSlide.querySelector('h5').innerText;
-        alert('You selected: ' + locationName);
-    });
-</script>
 {% endblock %}
