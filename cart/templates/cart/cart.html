@@ -40,15 +40,13 @@
             </div>
 
             <!-- Had to add 'slugify' in case drinks have a space -->
-            <div id="customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}--{{drink.extra_shots}}" class="modal">
+            <div id="customModal--{{ drink.id }}--{{ drink.size|slugify }}--{{ drink.milk|slugify }}--{{ drink.syrup|slugify }}--{{ drink.extra_shots }}" class="modal">
                 <div class="modal-content">
                     <h1 class="drink-name">{{drink.drink.name}}</h1>
                     {% if drink.size %}
                     <label class="subcategory-text" for="size{{ drink.id }}">Size:</label>
                     <select name="size" id="size{{ drink.id }}">
-                        <option value="Small" {% if drink.size == "Small" %}selected{% endif %}>Small</option>
-                        <option value="Medium" {% if drink.size == "Medium" %}selected{% endif %}>Medium</option>
-                        <option value="Large" {% if drink.size == "Large" %}selected{% endif %}>Large</option>
+                        <option value="">Loading</option>
                     </select>
                     {% endif %}
 
@@ -58,25 +56,14 @@
                     <select name="milk" id="milk{{drink.id}}">
                         <option value="Oat" {% if drink.milk == "Oat" %}selected{% endif %}>Oat</option>
                         <option value="Almond" {% if drink.milk == "Almond" %}selected{% endif %}>Almond</option>
-                        <option value="Whole" {% if drink.milk == "Whole" %}selected{% endif %}>Whole</option>
-                        <option value="Half" {% if drink.milk == "Half" %}selected{% endif %}>Half & Half</option>
                     </select>
                     {% endif %}
 
                     {% if drink.syrup %}
-                    <label class="subcategory-text" for="syrup">Syrup Options:</label>
-                    <select name="syrup" id="syrup">
-                        <option value="Caramel" {% if drink.size == "Caramel" %}selected{% endif %}>Caramel</option>
-                        <option value="Vanilla" {% if drink.size == "Vanilla" %}selected{% endif %}>Vanilla</option>
-                        <option value="Coconut" {% if drink.size == "Coconut" %}selected{% endif %}>Coconut</option>
-                        <option value="Peppermint" {% if drink.size == "Peppermint" %}selected{% endif %}>Peppermint</option>
-                        <option value="Mocha" {% if drink.size == "Mocha" %}selected{% endif %}>Mocha</option>
-                        <option value="White Mocha" {% if drink.size == "White Mocha" %}selected{% endif %}>White Mocha</option>
-                        <option value="Syrup Sweetener" {% if drink.size == "Syrup Sweetener" %}selected{% endif %}>Syrup Sweetener</option>
-                        <option value="Rum" {% if drink.size == "Rum" %}selected{% endif %}>Rum</option>
-                        <option value="Almond" {% if drink.size == "Almond" %}selected{% endif %}>Almond</option>
-                        <option value="Maple" {% if drink.size == "Maple" %}selected{% endif %}>Maple</option>
-                        <option value="Salted Caramel" {% if drink.size == "Salted Caramel" %}selected{% endif %}>Salted Caramel</option>
+                    <label class="subcategory-text" for="syrup{drink.id}">Syrup Options:</label>
+                    <select name="syrup" id="syrup{{drink.id}}">
+                        <option value="">Loading</option>
+                        
                     </select>
                     {% endif %}
 
@@ -107,7 +94,7 @@
 
 
             <div class="icon">
-                <i onclick="openModal('customModal{{ drink.drink.name |slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}--{{drink.extra_shots}}')" class="fa-solid fa-pen-to-square"></i>
+                <i onclick="openModal('customModal--{{ drink.id }}--{{ drink.size|slugify }}--{{ drink.milk|slugify }}--{{ drink.syrup|slugify }}--{{ drink.extra_shots }}')" class="fa-solid fa-pen-to-square"></i>
                 <i type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
                 data-extrashots="{{ drink.extra_shots }}" class="fa-solid fa-trash delete-drink">
                 </i>
@@ -144,7 +131,7 @@
         //Grab the new sizes 
         let newSize = $('#size' + drinkid).val();
         let newMilk = $('#milk' + drinkid).val();
-        let newSyrup = $('#syrup').val();
+        let newSyrup = $('#syrup' + drinkid).val();
         let newExtraShots = $('#extrashots' + drinkid).is(':checked') ? 'extra': 'no-extra';
     
 
@@ -153,9 +140,24 @@
         let milk = $(this).data('milk');
         let syrup =  $(this).data('syrup');
         let extraShots = $(this).data('extrashots');
+
     
         //get the updated quant for the righ ele
-        let quantity = $('#select' + drinkid + '-' + size + '-' + milk + '-' + syrup + '-' + extraShots).val();
+        let quantity = $('#' + modalId).find('select[id^="select"]').val();
+
+
+        console.log("Updating cart with:", {
+        drinkid,
+        size,
+        milk,
+        syrup,
+        extraShots,
+        newSize,
+        newMilk,
+        newSyrup,
+        newExtraShots,
+        quantity
+    });
 
         $.ajax({
             type: 'POST',
@@ -214,26 +216,66 @@
                     console.log("AJAX Error:", errmsg);
                 }
             })
-        })
+    })
 
-        //Edit the drink modal
-        function openModal(modalId) {
-            console.log(modalId)
-            document.getElementById(modalId).style.display = "block";
-        }
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = "none";
-        }
-        window.onclick = function(event) {
-            //get all the modals
-            var modals = document.getElementsByClassName("modal");
-            //loop over all the modals and see if any in the background display
-            for (var i = 0; i < modals.length; i++) {
-                if (event.target == modals[i]) {
-                    modals[i].style.display = "none";
-                }
+    //Edit the drink modal
+    function openModal(modalId) {
+        console.log(modalId)
+        document.getElementById(modalId).style.display = "block";
+
+        // Extract the drink ID and other options from modalId
+        const parts = modalId.split('--');
+        const drinkId = parts[1];
+        const currentSize = parts[2];
+        const currentMilk = parts[3];
+        const currentExtraShots = parts[5];
+        const currentSyrup = parts[4]; // if needed
+
+        // Fetch drink options from the server
+        $.get(`/cart/drink-options/${drinkId}/`, function(data) {
+            console.log(data);
+            // Update size options
+            const sizeSelect = $(`#size${drinkId}`);
+            sizeSelect.empty();
+            data.sizes.forEach(size => {
+                sizeSelect.append(new Option(size, size, false, size === currentSize));
+            });
+
+            // Update milk options
+            const milkSelect = $(`#milk${drinkId}`);
+            milkSelect.empty();
+            data.milks.forEach(milk => {
+                milkSelect.append(new Option(milk, milk, false, milk === currentMilk));
+            });
+
+            // Update syrup options
+            const syrupSelect = $(`#syrup${drinkId}`);
+            syrupSelect.empty();
+            data.syrups.forEach(syrup => {
+                syrupSelect.append(new Option(syrup, syrup, false, syrup === parts[5])); // optional: match syrup from modal ID if passed
+            });
+
+            // Update extra shots
+            const extraShotsCheckbox = $(`#extrashots${drinkId}`);
+            extraShotsCheckbox.prop('checked', currentExtraShots === "extra");
+        });
+    }
+
+
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+    window.onclick = function(event) {
+        //get all the modals
+        var modals = document.getElementsByClassName("modal");
+        //loop over all the modals and see if any in the background display
+        for (var i = 0; i < modals.length; i++) {
+            if (event.target == modals[i]) {
+                modals[i].style.display = "none";
             }
         }
+    }
 
 </script>
 

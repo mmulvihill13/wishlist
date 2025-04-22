@@ -23,6 +23,10 @@
                 </div>
                 <div class="order-total">
                     <h3>Total: {{cart_price }}</h3>
+
+                    {% if discount_applied %}
+                        <p>You have a free drink! Your total has been reduced!</p>
+                    {% endif %}
                 </div>
             <div class="element"></div>
             <!--Form to "checkout"-->
@@ -34,11 +38,36 @@
                         <label for="name">Full Name:</label>
                         <input type="text" id="name" name="name" required>
                         <label for="phone">Phone Number:</label>
-                        <input type="text" id="phone" name="phone" required>
+                        <input type="text" id="phone" name="phone" required>   
                         <label for="location">Location:</label>
-                        <input type="text" id="location" name="location" required>
+                        <select name="location" id="location" required>
+                            <option value="">Select a Location</option>
+                            {% for location in locations %}
+                                <option value="{{location.name}}">{{location.name}}</option>
+                            {% endfor %}
+                        </select>
                 </div>
-                <div class="element"></div>
+                    <div id="locationCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for location in locations %}
+                                <div class="carousel-item {% if forloop.first%}active{% endif %}">
+                                <h2>{{location.name}}</h2>
+                                <img src="{{location.image_url}}" alt="{{ location.name }}" class="img-fluid">
+                                </div>
+                            {% endfor %}
+                        </div>
+                
+                        <button class="carousel-control-prev" type="button" data-bs-target="#locationCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#locationCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                <div class="element">
                 <h2>Payment Information</h2>
                 <div class="info">
                     <label for="card">Card Number:</label>
@@ -64,4 +93,31 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    //Stop the carousel and go to that image when location picked
+    document.addEventListener('DOMContentLoaded', function(){
+        const select = document.getElementById('location');
+        const carouselEl = document.getElementById('locationCarousel');
+        const carousel = new bootstrap.Carousel(carouselEl, {
+            interval: 3000,
+            ride: 'carousel'
+        })
+            select.addEventListener('change', function(){
+            const selectedLocation = select.value;
+            const items = document.querySelectorAll('#locationCarousel .carousel-item')
+
+            items.forEach((item, index) =>{
+                const locationName = item.querySelector('h2')?.textContent?.trim();
+                if(locationName === selectedLocation){
+                    carousel.to(index);
+                    carousel.pause();
+                }
+            })
+        })
+    })
+    
+</script>
 {% endblock %}
