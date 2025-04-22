@@ -1,4 +1,5 @@
 from order.models import Drink
+
 class Cart():
     def __init__(self, request):
         self.session = request.session
@@ -58,6 +59,13 @@ class Cart():
         quantities = self.cart
         return quantities
     
+    def get_drink_price(self, drink_id):
+        try:
+            drink = Drink.objects.get(id=drink_id)
+            return drink.price
+        except Drink.DoesNotExist:
+            return None
+    
     #Get the updated cart
     def update(self, drink, quantity, size, milk, syrup, extra_shots, new_size, new_milk, new_syrup, new_extra_shots):
         quantity = int(quantity)
@@ -75,13 +83,24 @@ class Cart():
             if cartkey in self.cart:
                 #get the original drink
                 original_drink = self.cart[cartkey]
+                id = cartkey.split("-")[0]
+                drink_price = self.get_drink_price(id)
+                new_price =  drink_price
+                #if their is a new size, change the price 
+                if new_size != size:
+                    if new_size == 'Small':
+                        new_price = drink_price
+                    elif new_size == "Medium":
+                        new_price = float(drink_price) + 0.75
+                    elif new_size == "Large":
+                        new_price = float(drink_price) + 1.50
                 
                 #if the new key is not in the self.cart alreadt
                 if newkey not in self.cart:
                     self.cart[newkey] = {
                         'name': original_drink['name'],
                         'quantity': quantity,
-                        'price': original_drink['price'],
+                        'price': float(new_price),
                         'size': new_size,
                         'milk': new_milk,
                         'syrup': new_syrup,
