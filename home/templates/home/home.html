@@ -7,7 +7,9 @@
 </div>  
 <div class="main-content"> 
     <div class="container1 display-flex">
-        <div class="temp-img">This would be an image</div>
+
+            <img src="{% static '/images/coffee.png' %}" alt="person">
+
 
             <button class="order-btn" >
                 <a href="{% url 'order:menu' %}">ORDER NOW</a>
@@ -19,7 +21,7 @@
             <h2 >What is going on with</h2>
             <h1>Morning grind</h1>
         </div>
-        <div class="temp-img2">Temp Img 2</div>
+        <img src="{% static '/images/person.png' %}" alt="Logo">
     </div>
 </div>
 {% endblock %}
