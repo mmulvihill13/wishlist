@@ -1,9 +1,40 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .models import Review
 from django.contrib.auth.decorators import login_required
 
 @login_required
 def home(request):
-    return render(request, "home/home.html")  # Ensure this template exists in home/templates/home/
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        rating = request.POST.get('rating')
+        if content and rating:
+            Review.objects.create(
+                user=request.user,
+                content=content,
+                rating=rating
+            )
+        return redirect('home:home')
 
-def account_view(request):
-    return render(request, 'home/account.html')
+    recent_reviews = Review.objects.order_by('-created_at')[:3]
+    return render(request, 'home/home.html', {
+        'recent_reviews': recent_reviews
+    })
+
+def all_reviews(request):
+    sort_by = request.GET.get('sort_by')
+
+    if sort_by == 'most_recent':
+        all_reviews = Review.objects.order_by('-created_at')
+    elif sort_by == 'least_recent':
+        all_reviews = Review.objects.order_by('created_at')
+    elif sort_by == 'highest':
+        all_reviews = Review.objects.order_by('-rating')
+    elif sort_by == 'lowest':
+        all_reviews = Review.objects.order_by('rating')
+    else:
+        all_reviews = Review.objects.order_by('-created_at')  # default
+
+    return render(request, 'home/all_reviews.html', {
+        'all_reviews': all_reviews,
+        'selected_sort': sort_by
+    })

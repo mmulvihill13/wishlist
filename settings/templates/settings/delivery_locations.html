@@ -1,16 +1,16 @@
-{% extends 'base1.html' %}
+{% extends 'delivery_base.html' %}
 
 {% block title %}Delivery Locations{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Select Your Delivery Location</h1>
+    <h1 class="text-center mb-4">These Are Our Delivery Locations</h1>
 
     <div id="locationCarousel" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             {% for location in locations %}
                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <img src="{{ location.image_url }}" class="d-block w-100" alt="{{ location.name }}">
+                    <img src="{{ location.image_url }}" class="d-block w-100" alt="{{ location.name }}" style="max-height: 550px; object-fit: cover;">
                     <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
                         <h5>{{ location.name }}</h5>
                         <p>Estimated Delivery Time: {{ location.estimated_delivery_time }}</p>
@@ -29,18 +29,9 @@
         </button>
     </div>
 
-    <div class="mt-4 text-center">
-        <button id="pickHereBtn" class="btn btn-primary">Pick Here</button>
+    <!-- Account Button styled exactly like the See all reviews button -->
+    <div class="see-all-btn" style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'settings:setting' %}" class="btn">Go to Account</a>
     </div>
 </div>
-{% endblock %}
-
-{% block extra_js %}
-<script>
-    document.getElementById('pickHereBtn').addEventListener('click', function() {
-        const activeSlide = document.querySelector('.carousel-item.active');
-        const locationName = activeSlide.querySelector('h5').innerText;
-        alert('You selected: ' + locationName);
-    });
-</script>
 {% endblock %}
