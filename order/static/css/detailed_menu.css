@@ -32,6 +32,10 @@ body {
     padding: 1%;
 }
 
+.bottom-container a:hover, .bottom-container button:hover{
+    background-color: white;
+}
+
 .temp-photo{
     border: solid 4px #3b2825;
     background-color: darkslategray;
