@@ -43,39 +43,37 @@
             <!-- Had to add 'slugify' in case drinks have a space -->
             <div id="customModal--{{ drink.id }}--{{ drink.size|slugify }}--{{ drink.milk|slugify }}--{{ drink.syrup|slugify }}--{{ drink.extra_shots }}" class="modal">
                 <div class="modal-content">
-                    <h1 class="drink-name">{{drink.drink.name}}</h1>
+                    <h1 class="drink-modal">{{drink.drink.name}}</h1>
                     {% if drink.size %}
-                    <label class="subcategory-text" for="size{{ drink.id }}">Size:</label>
-                    <select name="size" id="size{{ drink.id }}">
+                    <label class="sub-modal" for="size{{ drink.id }}">Size:</label>
+                    <select class="sub-select-modal" name="size" id="size{{ drink.id }}">
                         <option value="">Loading</option>
                     </select>
                     {% endif %}
-
-                    <br>
                     {% if drink.milk %}
-                    <label class="subcategory-text" for="milk{{ drink.id }}" >Milk Options:</label>
-                    <select name="milk" id="milk{{drink.id}}">
+                    <label class="sub-modal" for="milk{{ drink.id }}" >Milk Options:</label>
+                    <select class="sub-select-modal" name="milk" id="milk{{drink.id}}">
                         <option value="Oat" {% if drink.milk == "Oat" %}selected{% endif %}>Oat</option>
                         <option value="Almond" {% if drink.milk == "Almond" %}selected{% endif %}>Almond</option>
                     </select>
                     {% endif %}
 
                     {% if drink.syrup %}
-                    <label class="subcategory-text" for="syrup{drink.id}">Syrup Options:</label>
-                    <select name="syrup" id="syrup{{drink.id}}">
+                    <label class="sub-modal" for="syrup{drink.id}">Syrup Options:</label>
+                    <select class="sub-select-modal" name="syrup" id="syrup{{drink.id}}">
                         <option value="">Loading</option>
                         
                     </select>
                     {% endif %}
 
                     {% if drink.extra_shots%}
-                    <label>
+                    <label class="extra">
                         <input type="checkbox" name="extra_shots" id="extrashots{{ drink.id}}" {% if drink.extra_shots == "extra" %}checked{% endif %}>
                         Add Extra Shot
                     </label>
                     {% endif %}
 
-                    <label>Number of Drinks: <span>
+                    <label class="extra">Number of Drinks: <span>
                     <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
                         <option value="{{ drink.quantity }}" selected>{{ drink.quantity }}</option>
                         <option value="1" >1</option>
@@ -84,9 +82,9 @@
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
-                </span></label>
+                    </span></label>
                     <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
-                    data-extrashots="{{ drink.extra_shots }}" class="btn btn-secondary update-cart" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}--{{drink.extra_shots}}')">
+                    data-extrashots="{{ drink.extra_shots }}" class="update-cart" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}--{{drink.extra_shots}}')">
                         Update Drink Order
                     </button>
                     <!-- <span class="close" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Finish Edits</span> -->

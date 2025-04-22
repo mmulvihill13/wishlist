@@ -103,17 +103,55 @@ i:hover{
   
   /* Modal Content */
   .modal-content {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: center;
     background-color: #BA9D83 ;
     margin: auto;
     border-radius: 8px;
+    padding: 2% 10% 2% 10%;
     width: 50%;
-    height: 50%;
+    height: 60%;
+    font-size: 1.4rem;
+    line-height: 1.4rem;
+    gap: 4%;
   }
-  
+
+.drink-modal{
+    font-size: 3rem;
+    text-align: center;
+    grid-column: 1/ span 2;
+    color: #2d1e1c;
+}
+
+.sub-modal{
+    grid-column: 1;
+}
+.sub-select-modal{
+    color: #3b2825;
+    border-radius: 4px;
+    grid-column: 2;
+    font-size: 1rem;
+    font-family: Manrope;
+}
+.extra{
+    text-align: center;
+    grid-column: 1/ span 2;
+}
+
+.update-cart{
+    text-align: center;
+    grid-column: 1/ span 2;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+    color: white;
+    line-height: 2rem;
+    border: solid #2d1e1c 2px;
+    background-color: #432D2D;
+}
+
   /* The Close Button */
   .close {
     color: #aaaaaa;
