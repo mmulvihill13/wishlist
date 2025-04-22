@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
+{%load static%}
 {% block content %}
-<div class="annoucement">
-    <span class="accouncement-text">Thank you!</span>
-</div>
-<div class="main-content">
+<link rel="stylesheet" href="{% static 'css/checkout_style.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
+<div class= "ordered">
+    <div class="annoucement">
+        <span class="accouncement-text">Thank you!</span>
+    </div>
     <p>Your order has been placed successfully. (Fake payment complete!)</p>
     <a href="{%url 'home:home' %}" class="order-btn">Return to Home</a>
 </div>

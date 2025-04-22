@@ -121,6 +121,30 @@
     justify-content: center;
 }
 
+.order-btn:hover, .to-cart:hover{
+    background-color: white;
+}
+/* Ordered Page */
+
+.ordered{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20%;
+    border-radius: 8px;
+    font-size: 2rem;
+    text-align: center;
+    background-color: #BA9D83;
+}
+
+.ordered p{
+    font-family: manrope;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+
 @media only screen and (max-width: 767px) {
     .info{
         display: flex;
