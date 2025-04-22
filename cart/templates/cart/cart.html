@@ -24,7 +24,7 @@
         {% for drink in cart_drinks %}
         <div class="card">
             <h2 class="drink-name">{{drink.drink.name}}</h2>
-            <h2 class="price">${{drink.total_price}}</h2>
+            <h2 class="price">${{drink.total_price|floatformat:2}}</h2>
             <p class="quantity">{{ drink.quantity }} item(s)</p>
             
             <div class="subcategory">
