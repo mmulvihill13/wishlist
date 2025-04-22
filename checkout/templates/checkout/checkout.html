@@ -17,12 +17,12 @@
                     {% for drink in cart_drinks %}
                     <div class="drink-item">
                         <h3>{{drink.drink.name}}</h3>
-                        <h2>{{drink.total_price}}</h2>
+                        <h2>${{drink.total_price|floatformat:2}}</h2>
                     </div>
                     {% endfor %}
                 </div>
                 <div class="order-total">
-                    <h3>Total: {{cart_price }}</h3>
+                    <h3>Total: ${{cart_price|floatformat:2 }}</h3>
 
                     {% if discount_applied %}
                         <p>You have a free drink! Your total has been reduced!</p>
