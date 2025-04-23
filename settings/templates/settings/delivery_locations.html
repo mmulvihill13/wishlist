@@ -1,0 +1,37 @@
+{% extends 'delivery_base.html' %}
+
+{% block title %}Delivery Locations{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">These Are Our Delivery Locations</h1>
+
+    <div id="locationCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for location in locations %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ location.image_url }}" class="d-block w-100" alt="{{ location.name }}" style="max-height: 550px; object-fit: cover;">
+                    <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+                        <h5>{{ location.name }}</h5>
+                        <p>Estimated Delivery Time: {{ location.estimated_delivery_time }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#locationCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#locationCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Account Button styled exactly like the See all reviews button -->
+    <div class="see-all-btn" style="text-align: center; margin-top: 20px;">
+        <a href="{% url 'settings:setting' %}" class="btn">Go to Account</a>
+    </div>
+</div>
+{% endblock %}

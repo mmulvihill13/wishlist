@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+{%load static%}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/checkout_style.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<div class="center">
+<div class="announcement">
+    <h1>Checkout </h1>
+</div>
+<div class="main-checkout">
+            {% if cart_drinks %}
+            <!--If there are drinks in the cart display them-->
+            <div class="orders">
+                <h2>Order Summary</h2>
+                <div class="drinks-list">
+                    {% for drink in cart_drinks %}
+                    <div class="drink-item">
+                        <h3>{{drink.drink.name}}</h3>
+                        <h2>${{drink.total_price|floatformat:2}}</h2>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="order-total">
+                    <h3>Total: ${{cart_price|floatformat:2 }}</h3>
+
+                    {% if discount_applied %}
+                        <p>You have a free drink! Your total has been reduced!</p>
+                    {% endif %}
+                </div>
+            <div class="element"></div>
+            <!--Form to "checkout"-->
+            <div class="checkout">
+                <form method="post" action="{% url 'checkout:ordered' %}">
+                {% csrf_token %}
+                <h2>Delivery Information</h2>
+                <div class="info">
+                        <label for="name">Full Name:</label>
+                        <input type="text" id="name" name="name" required>
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" id="phone" name="phone" required>   
+                        <label for="location">Location:</label>
+                        <select name="location" id="location" required>
+                            <option value="">Select a Location</option>
+                            {% for location in locations %}
+                                <option value="{{location.name}}">{{location.name}}</option>
+                            {% endfor %}
+                        </select>
+                </div>
+                    <div id="locationCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for location in locations %}
+                                <div class="carousel-item {% if forloop.first%}active{% endif %}">
+                                <h2>{{location.name}}</h2>
+                                <img src="{{location.image_url}}" alt="{{ location.name }}" class="img-fluid">
+                                </div>
+                            {% endfor %}
+                        </div>
+                
+                        <button class="carousel-control-prev" type="button" data-bs-target="#locationCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#locationCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                <div class="element">
+                <h2>Payment Information</h2>
+                <div class="info">
+                    <label for="card">Card Number:</label>
+                    <input type="text" id="card" name="card" required>
+                    <label for="expiration">Expiration Date:</label>
+                    <input type="text" id="expiration" name="expiration" required>
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" name="cvv" required>
+                </div>
+                <button type="submit" class="order-btn">Place Order</button>
+            </form>
+            </div>
+
+        </div> 
+            <!--Return to cart if you want -->
+                <a class="to-cart" href="{% url 'cart' %}">Back to Cart</a>  
+        {% else %}
+        <!--If there is nothing in the cart, don't display and head back to the cart -->
+            <h1>There is nothing in your cart right now!</h1>
+                <a class="to-cart" href="{% url 'order:menu' %}">View Menu</a>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    //Stop the carousel and go to that image when location picked
+    document.addEventListener('DOMContentLoaded', function(){
+        const select = document.getElementById('location');
+        const carouselEl = document.getElementById('locationCarousel');
+        const carousel = new bootstrap.Carousel(carouselEl, {
+            interval: 3000,
+            ride: 'carousel'
+        })
+            select.addEventListener('change', function(){
+            const selectedLocation = select.value;
+            const items = document.querySelectorAll('#locationCarousel .carousel-item')
+
+            items.forEach((item, index) =>{
+                const locationName = item.querySelector('h2')?.textContent?.trim();
+                if(locationName === selectedLocation){
+                    carousel.to(index);
+                    carousel.pause();
+                }
+            })
+        })
+    })
+    
+</script>
+{% endblock %}

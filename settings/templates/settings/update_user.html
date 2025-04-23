@@ -1,11 +1,23 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-  <h2>Update Profile</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save Changes</button>
-  </form>
-  <a href="{% url 'settings:setting' %}">Back to Account</a>
+
+<link rel="stylesheet" href="{% static '/css/settings.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<div class="center">
+  <div class="element"></div>
+  <div class="profile">
+    <h2>Update Profile</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+  <div class="element"></div>
+  <div class="bottom-container">
+  <a class="styled-button" href="{% url 'settings:setting' %}">Back to Account</a>
+  </div>
+</div>
 {% endblock %}

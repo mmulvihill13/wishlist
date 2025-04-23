@@ -4,47 +4,120 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<div class="page-padding">
+<h1>Welcome to your cart</h1>
+<div class="cart-container">
+    <p class="total">Total Order Price: ${{ cart_price|floatformat:2 }}</p>
+    <a href="{% url 'cart' %}" class="styled-button">
+        <i class="bi bi-cart"></i> Cart
+        <span id="cart_quantity">{{ cart|length }}
+    </span></a>
+</div>
+<div class="element"></div>
 <div class="main-content">
-    <h1>Welcome to your cart</h1>
     {% if cart_drinks %}
         {% for drink in cart_drinks %}
-            {{drink.drink.name}} : ${{drink.price}} <br>
-            Size : {{drink.size}} <br>
-            Syrup : {{drink.syrup}} <br>
-            Milk : {{drink.milk}} <br>
-            Quantity: {{ drink.quantity }} <br>
-            ID: {{ drink.id }} <br>
-            <label>Number of Drinks:</label>
-            <select id="select{{ drink.id }}">
-                <option selected>{{ drink.quantity }}</option>
-                <option value="1" >1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-            Total Drink cost = ${{ drink.total_price }}
-            <button type="button" data-index="{{drink.id}}" class="btn btn-secondary update-cart">
-                Update Drink Order
-            </button>
-            <button type="button" data-index="{{drink.id}}" class="btn btn-danger delete-drink">
-                Remove From Cart
-            </button>
+        <div class="card">
+            <h2 class="drink-name">{{drink.drink.name}}</h2>
+            <h2 class="price">${{drink.total_price|floatformat:2}}</h2>
+            <p class="quantity">{{ drink.quantity }} item(s)</p>
+            
+            <div class="subcategory">
+                <p class="size">Size:</p>
+                <span class="drink-size">{{drink.size}}</span>
+                <p class="syrup">Syrup:</p>
+                <span class="drink-syrup">{{drink.syrup}}</span>
+                <p class="milk">Milk:</p>
+                <span class="drink-milk">{{drink.milk}}</span>
+                {% if drink.extra_shots == "extra" %}
+                <p class="shots">Extra Shots:</p>
+                <span class="drink-shots">1</span>
+                {% endif %}
+            </div>
+
+            <!-- Had to add 'slugify' in case drinks have a space -->
+            <div id="customModal--{{ drink.id }}--{{ drink.size|slugify }}--{{ drink.milk|slugify }}--{{ drink.syrup|slugify }}--{{ drink.extra_shots }}" class="modal">
+                <div class="modal-container">
+                <div class="modal-content1">
+                    <h1 class="drink-modal">{{drink.drink.name}}</h1>
+                    {% if drink.size %}
+                    <label class="sub-modal" for="size{{ drink.id }}">Size:</label>
+                    <select class="sub-select-modal" name="size" id="size{{ drink.id }}">
+                        <option value="">Loading</option>
+                    </select>
+                    {% endif %}
+                    {% if drink.milk %}
+                    <label class="sub-modal" for="milk{{ drink.id }}" >Milk Options:</label>
+                    <select class="sub-select-modal" name="milk" id="milk{{drink.id}}">
+                        <option value="Oat" {% if drink.milk == "Oat" %}selected{% endif %}>Oat</option>
+                        <option value="Almond" {% if drink.milk == "Almond" %}selected{% endif %}>Almond</option>
+                    </select>
+                    {% endif %}
+
+                    {% if drink.syrup %}
+                    <label class="sub-modal" for="syrup{drink.id}">Syrup Options:</label>
+                    <select class="sub-select-modal" name="syrup" id="syrup{{drink.id}}">
+                        <option value="">Loading</option>
+                        
+                    </select>
+                    {% endif %}
+
+                    {% if drink.extra_shots%}
+                    <div class="extra">
+                        <input type="checkbox" name="extra_shots" id="extrashots{{ drink.id}}" {% if drink.extra_shots == "extra" %}checked{% endif %}>
+                        <label for="extrashots{{drink.id}}">Add Extra Shot</label>
+                    </div>
+                    {% endif %}
+
+                    <label class="extra">Number of Drinks: <span>
+                    <select id="select{{ drink.id }}-{{ drink.size }}-{{ drink.milk }}-{{ drink.syrup }}-{{ drink.extra_shots }}">
+                        <option value="{{ drink.quantity }}" selected>{{ drink.quantity }}</option>
+                        <option value="1" >1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    </span></label>
+                    <button type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
+                    data-extrashots="{{ drink.extra_shots }}" class="update-cart" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}--{{drink.extra_shots}}')">
+                        Update Drink Order
+                    </button>
+                    <!-- <span class="close" onclick="closeModal('customModal{{ drink.drink.name|slugify}}--{{drink.size}}--{{drink.id}}--{{drink.milk}}')">Finish Edits</span> -->
+                </div>
+            </div>
+            </div>
+
+
+            <div class="icon">
+                <i onclick="openModal('customModal--{{ drink.id }}--{{ drink.size|slugify }}--{{ drink.milk|slugify }}--{{ drink.syrup|slugify }}--{{ drink.extra_shots }}')" class="fa-solid fa-pen-to-square"></i>
+                <i type="button" data-index="{{drink.id}}" data-size="{{drink.size}}" data-milk="{{drink.milk}}" data-syrup="{{drink.syrup}}"
+                data-extrashots="{{ drink.extra_shots }}" class="fa-solid fa-trash delete-drink">
+                </i>
+            </div>
+        </div>
         {% endfor %}
-        <br>
-        <button class="order-btn">
+    </div>
+    <div class="element"></div>
+    <div class="bottom-container">
+        <button class="styled-button">
             <a href="{% url 'order:menu' %}">Continue Shopping</a>
         </button>
-        <button class="order-btn">
-            <a href="{% url 'order:menu' %}">Continue To Checkout</a>
+        <button class="styled-button">
+            <a href="{% url 'checkout:checkout' %}">Checkout</a>
         </button>
     {% else %}
         <h2>There is nothing in your cart!</h2>
-        <button class="order-btn">
+        <button class="styled-button">
             <a href="{% url 'order:menu' %}">Start Your Order Now!</a>
         </button>
     {% endif %}
-
+    </div>
 </div>
 
 
@@ -53,25 +126,59 @@
     $(document).on('click', '.update-cart', function (e) {
         e.preventDefault();
 
+        let modalId = $(this).closest('.modal').attr('id')
+        let drinkid = $(this).data('index');
+
+        //Grab the new sizes 
+        let newSize = $('#size' + drinkid).val();
+        let newMilk = $('#milk' + drinkid).val();
+        let newSyrup = $('#syrup' + drinkid).val();
+        let newExtraShots = $('#extrashots' + drinkid).is(':checked') ? 'extra': 'no-extra';
+    
+
         //grab the drink id, size, milk etc...
-        var drinkid = $(this).data('index');
-        var size = $('#size' + drinkid).val(); 
-        var milk = $('#milk' + drinkid).val(); 
-        var syrup = $('#syrup' + drinkid).val(); 
+        let size = $(this).data('size');
+        let milk = $(this).data('milk');
+        let syrup =  $(this).data('syrup');
+        let extraShots = $(this).data('extrashots');
+
+    
+        //get the updated quant for the righ ele
+        let quantity = $('#' + modalId).find('select[id^="select"]').val();
+
+
+        console.log("Updating cart with:", {
+        drinkid,
+        size,
+        milk,
+        syrup,
+        extraShots,
+        newSize,
+        newMilk,
+        newSyrup,
+        newExtraShots,
+        quantity
+    });
 
         $.ajax({
             type: 'POST',
-            url: "{% url 'cart_update' %}", //** double quote error 
+            url: "{% url 'cart_update' %}",
             data: {
-                drink_id: $(this).data('index'),
-                drink_qty: $('#select' + drinkid + ' option:selected').text(),
-                size: size,
+                drink_id: drinkid,
+                drink_qty: quantity, 
+                size: size, //Original sizes
                 milk: milk,
                 syrup: syrup,
+                extra_shots: extraShots,
+                new_size : newSize, //New sizes
+                new_milk :newMilk,
+                new_syrup : newSyrup,
+                new_extra_shots: newExtraShots,
                 csrfmiddlewaretoken: '{{ csrf_token }}',
                 action: 'post'
             },
             success: function (json) {
+                document.getElementById(modalId).style.display = "none";
                 location.reload()
             },
             error: function (xhr, errmsg, err) {
@@ -84,11 +191,22 @@
     $(document).on('click', '.delete-drink', function (e) {
             e.preventDefault();
 
+            //grab the drink id, size, milk etc...
+            let drinkid = $(this).data('index');
+            let size = $(this).data('size');
+            let milk = $(this).data('milk');
+            let syrup =  $(this).data('syrup');
+            let extraShots = $(this).data('extrashots') === "extra" ? 'extra': 'no-extra';
+
             $.ajax({
                 type: 'POST',
                 url: "{% url 'cart_delete' %}", 
                 data: {
                     drink_id: $(this).data('index'),
+                    size: size,
+                    milk: milk,
+                    syrup: syrup,
+                    extra_shots: extraShots,
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                     action: 'post'
                 },
@@ -99,7 +217,67 @@
                     console.log("AJAX Error:", errmsg);
                 }
             })
-        })
+    })
+
+    //Edit the drink modal
+    function openModal(modalId) {
+        console.log(modalId)
+        document.getElementById(modalId).style.display = "block";
+
+        // Extract the drink ID and other options from modalId
+        const parts = modalId.split('--');
+        const drinkId = parts[1];
+        const currentSize = parts[2];
+        const currentMilk = parts[3];
+        const currentExtraShots = parts[5];
+        const currentSyrup = parts[4]; // if needed
+
+        // Fetch drink options from the server
+        $.get(`/cart/drink-options/${drinkId}/`, function(data) {
+            console.log(data);
+            // Update size options
+            const sizeSelect = $(`#size${drinkId}`);
+            sizeSelect.empty();
+            data.sizes.forEach(size => {
+                sizeSelect.append(new Option(size, size, false, size === currentSize));
+            });
+
+            // Update milk options
+            const milkSelect = $(`#milk${drinkId}`);
+            milkSelect.empty();
+            data.milks.forEach(milk => {
+                milkSelect.append(new Option(milk, milk, false, milk === currentMilk));
+            });
+
+            // Update syrup options
+            const syrupSelect = $(`#syrup${drinkId}`);
+            syrupSelect.empty();
+            data.syrups.forEach(syrup => {
+                syrupSelect.append(new Option(syrup, syrup, false, syrup === parts[5])); // optional: match syrup from modal ID if passed
+            });
+
+            // Update extra shots
+            const extraShotsCheckbox = $(`#extrashots${drinkId}`);
+            extraShotsCheckbox.prop('checked', currentExtraShots === "extra");
+        });
+    }
+
+
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+    }
+    window.onclick = function(event) {
+        //get all the modals
+        var modals = document.getElementsByClassName("modal");
+        //loop over all the modals and see if any in the background display
+        for (var i = 0; i < modals.length; i++) {
+            if (event.target == modals[i]) {
+                modals[i].style.display = "none";
+            }
+        }
+    }
+
 </script>
 
 {% endblock %}

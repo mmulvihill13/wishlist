@@ -1,25 +1,68 @@
 {% extends 'base.html' %}
-{%load static%}
+{% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/home_style.css' %}">
+
 <div class="announcement">
-    <span class="accouncement-text">-Announcements New Drink Launched-</span>
-</div>  
-<div class="main-content"> 
+    <span class="announcement-text">- Announcements New Drink Launched -</span>
+</div>
+
+<div class="main-content">
+
     <div class="container1 display-flex">
-        <div class="temp-img">This would be an image</div>
-
-            <button class="order-btn" >
-                <a href="{% url 'order:menu' %}">ORDER NOW</a>
-            </button>
-
+        <img src="{% static '/images/coffee.png' %}" alt="Logo">
+        <div class="see-all-btn" style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'order:menu' %}" class="btn">ORDER NOW</a>
+        </div>
     </div>
+
     <div class="container2">
         <div class="border-top-bottom">
-            <h2 >What is going on with</h2>
-            <h1>Morning grind</h1>
+            <h2>What is going on with</h2>
+            <h1>Morning Grind</h1>
         </div>
-        <div class="temp-img2">Temp Img 2</div>
+        <img src="{% static '/images/person.png' %}" alt="Logo">
     </div>
+
+    <div class="container2">
+        <div class="border-top-bottom">
+            <h2>Latest Reviews</h2>
+        </div>
+
+        <div class="review-list" style="text-align: center; margin: auto; font-size: 25px; color: black">
+            {% for review in recent_reviews %}
+                <div class="review-item" style="margin-bottom: 20px;">
+                    <p><strong>{{ review.user.username }}</strong> rated it {{ review.rating }}/5</p>
+                    <p>{{ review.content }}</p>
+                    <p class="review-date">{{ review.created_at|date:"F j, Y" }}</p>
+                </div>
+            {% empty %}
+                <p>No reviews yet. Be the first to leave one!</p>
+            {% endfor %}
+        </div>
+
+        <div style="margin: 20px 0; text-align: center; margin: auto;">
+            <form method="post">
+                {% csrf_token %}
+                <textarea name="content" placeholder="Write your review..." rows="4" cols="50" required></textarea><br><br>
+                <label for="rating">Rating:</label>
+                <select name="rating" required>
+                    <option value="">--</option>
+                    {% for i in "12345" %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select><br><br>
+                <div class="see-all-btn" style="text-align: center; margin-top: 20px;">
+                    <button type="submit" class="btn">Submit Review</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="see-all-btn" style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'home:all_reviews' %}" class="btn">See all reviews</a>
+        </div>
+    </div>
+
 </div>
+
 {% endblock %}

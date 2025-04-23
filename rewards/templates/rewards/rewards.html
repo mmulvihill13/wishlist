@@ -1,7 +1,37 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
-<div class="main-content">
-    <h1>Coming Soon....</h1>
+
+<link rel="stylesheet" href="{% static '/css/rewards.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+
+
+<div class="rewards-container" style="text-align: center; margin-top: 40px;">
+    <h2>Rewards Tracker</h2>
+
+    <p>You’ve placed <strong>{{ order_count }}</strong> order{{ order_count|pluralize }}.</p>
+
+
+    {% if free_drinks == 0 %}
+        <p>You're <strong>{{ drinks_until_free }}</strong> drink{{ drinks_until_free|pluralize }} away from a free drink!</p>
+    {% endif %}
+
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill" style="justify-content:center; width: {{ progress_percent }}%;">
+                {% if order_count > 0 %}
+                  <p style=" color: white">{{ progress_percent }}%</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
+{% if free_drinks > 0 %}
+      <div class="free-drink-card">
+          <h3> Free Drink Available!</h3>
+          <p>You have <strong>{{ free_drinks }}</strong> free drink{{ free_drinks|pluralize }} waiting for you!</p>
+      </div>
+{% endif %}
+
 {% endblock %}

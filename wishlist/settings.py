@@ -47,12 +47,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonenumber_field',  # HAYNES
     'login',
     'home',
     'order',
     'rewards',
     'settings',
-    'cart'
+    'cart', 
+    'checkout',
 ]
 
 MIDDLEWARE = [
@@ -169,3 +171,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = "/login/"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "login:login"
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
