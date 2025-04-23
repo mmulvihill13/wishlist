@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-%4k1zs8cbv(^u^k#kp=qdenr=6+7l-klkg=_21id95drl!&scp
 DEBUG = False
 
 
-ALLOWED_HOSTS = ['morning-grind.fly.dev', '127.0.0.1']
+ALLOWED_HOSTS = ['morning-grind.fly.dev', 'localhost']
 CSRF_TRUSTED_ORIGINS = [
     'https://morning-grind.fly.dev',
 ]
