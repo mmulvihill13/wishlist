@@ -33,12 +33,20 @@ body {
     border-radius: 8px;
     gap: 10px;
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 70% 30%;
     width: 80%;
     padding: 30px;
     max-width: 900px;
     margin-bottom: 5%;
 }
+
+.container1 img{
+    border-radius: 8px;
+    border: solid #3b2825 4px;
+    width: 100%;
+    height: 100%;
+}
+
 
 .container2 {
     background-color: #BA9D83;
@@ -49,6 +57,16 @@ body {
     max-width: 900px;
     margin-bottom: 10%;
 }
+
+.container2 img{
+    border: solid #3b2825 4px;
+    border-radius: 8px;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: 70% 30%;
+}
+
 
 .border-top-bottom {
     text-align: center;
