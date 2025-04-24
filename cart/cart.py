@@ -88,7 +88,7 @@ class Cart():
                 new_price =  drink_price
                 #if their is a new size, change the price 
                 if new_size != size:
-                    if new_size == 'Small':
+                    if new_size == "Small":
                         new_price = drink_price
                     elif new_size == "Medium":
                         new_price = float(drink_price) + 0.75
