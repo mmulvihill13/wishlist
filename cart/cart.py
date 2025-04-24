@@ -95,6 +95,12 @@ class Cart():
                     elif new_size == "Large":
                         new_price = float(drink_price) + 1.50
                 
+                if new_milk != milk:
+                    if new_milk == 'Whole':
+                        new_price = float(new_price) - 0.75
+                    else:
+                        new_price = float(new_price) + 0.75
+                        
                 if new_extra_shots != extra_shots:
                     if new_extra_shots == 'extra':
                         new_price = float(new_price) + 0.50
