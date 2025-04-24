@@ -29,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-%4k1zs8cbv(^u^k#kp=qdenr=6+7l-klkg=_21id95drl!&scp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['morning-grind.fly.dev', 'localhost']
@@ -154,13 +154,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'  # Where collected static files go
+STATIC_ROOT = BASE_DIR / 'static'  # This is where collectstatic dumps files for deployment
 
-# Remove STATICFILES_DIRS in production
+# Only include STATICFILES_DIRS during development
 if DEBUG:
     STATICFILES_DIRS = [
-        BASE_DIR / "static",
+        BASE_DIR / "staticfiles",  # ✅ Use a different folder for dev static files
     ]
+
 
 
 # Default primary key field type
